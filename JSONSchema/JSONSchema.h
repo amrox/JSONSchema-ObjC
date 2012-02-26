@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSString* const JSONSchemaAttributeId;
+extern NSString* const JSONSchemaAttributeExtends;
 extern NSString* const JSONSchemaAttributeType;
 extern NSString* const JSONSchemaAttributeDisallow;
 extern NSString* const JSONSchemaAttributeDescription;
@@ -68,6 +69,7 @@ extern NSString* const JSONSchemaFormatHostname;
 
 // general attributes
 @property (nonatomic, retain) NSString* id;
+@property (nonatomic, retain) NSString* extends;
 @property (nonatomic, retain) NSArray* types; // maps to 'type'
 @property (nonatomic, retain) NSArray* disallowedTypes; // maps to 'disallow'
 @property (nonatomic, retain) NSString* description;

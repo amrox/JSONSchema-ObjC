@@ -10,6 +10,7 @@
 #import "JSONSchemaErrors.h"
 
 NSString* const JSONSchemaAttributeId                = @"id";
+NSString* const JSONSchemaAttributeExtends           = @"extends";
 NSString* const JSONSchemaAttributeType              = @"type";
 NSString* const JSONSchemaAttributeDisallow          = @"disallow";
 NSString* const JSONSchemaAttributeDescription       = @"description";
@@ -60,6 +61,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 
 @synthesize id = _id;
+@synthesize extends = _extends;
 @synthesize types = _types;
 @synthesize disallowedTypes = _disallowedTypes;
 @synthesize description = _description;
@@ -157,13 +159,8 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
     
-//    id type = [obj valueForKey:JSONSchemaAttributeType];
-//    if (![schema validateValue:&type forKey:JSONSchemaAttributeType error:error]) {
-//        return nil;
-//    }
-//    schema.type = type;
-
     if (![schema validateAndSetKey:JSONSchemaAttributeId fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetKey:JSONSchemaAttributeExtends fromObject:obj error:error]) return nil;
     if (![schema validateAndSetKey:@"types" fromObject:obj objectKey:JSONSchemaAttributeType error:error]) return nil;
     if (![schema validateAndSetKey:@"disallowedTypes" fromObject:obj objectKey:JSONSchemaAttributeDisallow error:error]) return nil;
     if (![schema validateAndSetKey:JSONSchemaAttributeDescription fromObject:obj error:error]) return nil;
@@ -302,6 +299,16 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
         JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'id'");
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL) validateExtends:(id*)value error:(NSError**)error
+{
+    if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
+        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+                       @"expected type (string) for attribute 'extends'");
         return NO;
     }
     return YES;
