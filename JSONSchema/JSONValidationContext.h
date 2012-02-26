@@ -14,4 +14,6 @@
 
 - (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url;
 
+- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)errors;
+
 @end
