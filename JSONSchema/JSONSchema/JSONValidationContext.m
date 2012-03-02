@@ -87,20 +87,18 @@
             }
         } else {
             // TODO: error
+            return NO;
         }
         
     } else if ([object isKindOfClass:[NSNumber class]]) {
 
         if ([schema.types containsObject:JSONSchemaTypeNumber]) {
-            NSArray* errors = nil;
-            if (![self validateString:object againstSchema:schema error:&errors]) {
-                [allErrors addObjectsFromArray:errors];
-                return NO;
-            }
+            return NO;
+
         } else {
             // TODO: error
+            return NO;
         }
-        
     }
     
     return YES;
