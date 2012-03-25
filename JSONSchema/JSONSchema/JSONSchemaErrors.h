@@ -33,8 +33,11 @@ enum
 #define JSERR_INFO(E,I) _JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, I)
 #define JSERR_INFO_P(P,E,I) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, I))
 
-#define JSERR_REASON(E,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R)
-#define JSERR_REASON_P(P,E,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R))
+#define JSERR_REASON(E,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil)
+#define JSERR_REASON_P(P,E,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil))
+
+#define JSERR_INFO_REASON(E,I,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, I)
+#define JSERR_INFO_REASON_P(P,E,I,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, I))
 
 
 static inline void _JSONSchemaAssignErrorSafe( NSError** outError, NSError* error )
@@ -62,9 +65,14 @@ static inline NSError* _JSONSchemaMakeError( int errorCode, char const *errorNam
     return [NSError errorWithDomain:domain code:errorCode userInfo:dict];
 }
 
-static inline NSError* _JSONSchemaMakeErrorWithReason( int errorCode, char const *errorName, NSString* domain, NSString* reason )
+static inline NSError* _JSONSchemaMakeErrorWithReason( int errorCode, char const *errorName, NSString* domain, NSString* reason, NSDictionary* userInfo )
 {
-    NSDictionary* userInfo = [NSDictionary dictionaryWithObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+    if (userInfo == nil) {
+        userInfo = [NSDictionary dictionaryWithObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+    } else {
+        userInfo = [[userInfo mutableCopy] autorelease];
+        [(NSMutableDictionary*)userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+    }
     return _JSONSchemaMakeError(errorCode, errorName, domain, userInfo);
 }
 
