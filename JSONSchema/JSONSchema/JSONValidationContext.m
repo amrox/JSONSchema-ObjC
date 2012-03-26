@@ -160,7 +160,6 @@
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
-    //    NSMutableArray* allErrors = [NSMutableArray array];
     BOOL foundValidType = NO;
     NSArray* errors = nil;
     
@@ -218,7 +217,6 @@
                                          [schema.types componentsJoinedByString:@","]]))];
         }
         return NO;
-
     }
 
     return YES;
