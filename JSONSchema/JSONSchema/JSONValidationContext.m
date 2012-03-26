@@ -38,7 +38,7 @@
     [self.schemasByURL setObject:schema forKey:url];
 }
 
-- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
++ (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -74,7 +74,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
++ (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -118,7 +118,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateInteger:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
++ (BOOL) validateInteger:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -137,7 +137,7 @@
     return [self validateNumber:number againstSchema:schema context:context error:errors];
 }
 
-- (BOOL) validateBoolean:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
++ (BOOL) validateBoolean:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -169,7 +169,7 @@
         if ([type isEqualToString:JSONSchemaTypeString]
             && [object isKindOfClass:[NSString class]]) {
             
-            if ([self validateString:(NSString*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateString:(NSString*)object againstSchema:schema context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
@@ -178,7 +178,7 @@
         else if ([type isEqualToString:JSONSchemaTypeNumber]
                  && [object isKindOfClass:[NSNumber class]]) {
             
-            if ([self validateNumber:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateNumber:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
@@ -187,7 +187,7 @@
         else if ([type isEqualToString:JSONSchemaTypeInteger]
                  && [object isKindOfClass:[NSNumber class]]) {
             
-            if ([self validateInteger:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateInteger:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
@@ -196,7 +196,7 @@
         else if ([type isEqualToString:JSONSchemaTypeBoolean]
                  && [object isKindOfClass:[NSNumber class]]) {
             
-            if ([self validateBoolean:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateBoolean:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
