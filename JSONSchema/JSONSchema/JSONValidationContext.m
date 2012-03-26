@@ -137,6 +137,26 @@
     return [self validateNumber:number againstSchema:schema context:context error:errors];
 }
 
+- (BOOL) validateBoolean:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+{
+    NSMutableArray* myErrors = [NSMutableArray array];
+    
+    // Test if number is boolean
+    if (!([number isEqualToNumber:[NSNumber numberWithBool:YES]]
+          || [number isEqualToNumber:[NSNumber numberWithBool:NO]])) {
+        
+        [myErrors addObject:
+         JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                      ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
+    }
+    
+    if ([myErrors count] > 0 && errors != nil) {
+        *errors = myErrors;
+    }
+    
+    return [myErrors count] == 0;
+}
+
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
@@ -173,6 +193,14 @@
             break;
         }
 
+        else if ([type isEqualToString:JSONSchemaTypeBoolean]
+                 && [object isKindOfClass:[NSNumber class]]) {
+            
+            if ([self validateBoolean:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+                foundValidType = YES;
+            }
+            break;
+        }
     }
     
     if (([errors count] > 0) && (outErrors != NULL)) {

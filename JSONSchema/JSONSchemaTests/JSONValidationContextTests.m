@@ -290,5 +290,56 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateBooleanGoodTrue
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithBool:YES] againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateBooleanGoodFalse
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithBool:NO] againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateBooleanBadNumber
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
+- (void) testValidateBooleanBadType
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@"purple" againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
 
 @end
