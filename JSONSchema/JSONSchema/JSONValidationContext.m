@@ -86,13 +86,28 @@
 
         }
     }
+    
+    if (schema.exclusiveMinimum != nil) {
+        if ([schema.exclusiveMinimum compare:number] != NSOrderedAscending) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMinimum (%@)", context, number, schema.exclusiveMinimum]))];
+        }
+    }
 
     if (schema.maximum != nil) {
         if ([schema.maximum compare:number] == NSOrderedAscending) {
             [myErrors addObject:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
                           ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.minimum]))];
-            
+        }
+    }
+    
+    if (schema.exclusiveMaximum != nil) {
+        if ([schema.exclusiveMaximum compare:number] != NSOrderedDescending) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMaximum (%@)", context, number, schema.minimum]))];
         }
     }
 
