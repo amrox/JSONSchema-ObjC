@@ -10,7 +10,7 @@
 
 @class JSONSchema;
 
-@interface JSONValidationContext : NSObject
+@interface JSONSchemaValidationContext : NSObject
 
 - (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url;
 

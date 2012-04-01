@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONValidationContext.h"
+#import "JSONSchemaValidationContext.h"
 #import "JSONSchemaErrors.h"
 #import "JSONSchema.h"
 #import "NSNumber+JSONSchema.h"
 
-@interface JSONValidationContext ()
+@interface JSONSchemaValidationContext ()
 @property (nonatomic, retain) NSMutableDictionary* schemasByURL;
 @end
 
-@implementation JSONValidationContext
+@implementation JSONSchemaValidationContext
 
 @synthesize schemasByURL = _schemasByURL;
 

@@ -8,7 +8,7 @@
 
 #import "JSONValidationContextTests.h"
 #import "TestUtility.h"
-#import "JSONValidationContext.h"
+#import "JSONSchemaValidationContext.h"
 #import "JSONSchema.h"
 
 @implementation JSONValidationContextTests
@@ -22,7 +22,7 @@
     JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
@@ -35,7 +35,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
@@ -48,7 +48,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
@@ -62,7 +62,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.minLength = [NSNumber numberWithInt:10];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
@@ -76,7 +76,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.maxLength = [NSNumber numberWithInt:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
@@ -89,7 +89,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
 
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
 
     NSArray* errors = nil;
@@ -102,7 +102,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -115,7 +115,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -128,7 +128,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeInteger];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -141,7 +141,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeInteger];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -156,7 +156,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -170,7 +170,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:4];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -184,7 +184,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMinimum = [NSNumber numberWithInteger:4];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -198,7 +198,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMinimum = [NSNumber numberWithInteger:4];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -212,7 +212,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:5];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -226,7 +226,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:5];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -240,7 +240,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:5];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -254,7 +254,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -268,7 +268,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMaximum = [NSNumber numberWithInteger:5];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -282,7 +282,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMaximum = [NSNumber numberWithInteger:4];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -295,7 +295,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -308,7 +308,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -321,7 +321,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -334,7 +334,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -348,7 +348,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -362,7 +362,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -376,7 +376,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
     
     NSArray* errors = nil;
@@ -389,7 +389,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* errors = nil;
@@ -402,7 +402,7 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* errors = nil;
@@ -416,7 +416,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.minItems = [NSNumber numberWithInt:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
@@ -432,7 +432,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.minItems = [NSNumber numberWithInt:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* array = [NSArray arrayWithObjects:@"one", nil];
@@ -448,7 +448,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.maxItems = [NSNumber numberWithInt:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
@@ -464,7 +464,7 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.maxItems = [NSNumber numberWithInt:2];
     
-    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
     [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
     
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
