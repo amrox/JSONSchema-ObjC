@@ -342,4 +342,94 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateArrayGoodType
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSArray array] againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateArrayBadType
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSArray array] againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateArrayGoodMinItems
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.minItems = [NSNumber numberWithInt:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateArrayBadMinItems
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.minItems = [NSNumber numberWithInt:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* array = [NSArray arrayWithObjects:@"one", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
+- (void) testValidateArrayGoodMaxItems
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.maxItems = [NSNumber numberWithInt:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateArrayBadMaxItems
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.maxItems = [NSNumber numberWithInt:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* array = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 @end

@@ -157,6 +157,30 @@
     return [myErrors count] == 0;
 }
 
++ (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+{
+    NSMutableArray* myErrors = [NSMutableArray array];
+    
+    if (schema.minItems != nil) {
+        if ([array count] < [schema.minItems unsignedIntegerValue]) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                          ([NSString stringWithFormat:@"[%@:%d] expected minItems (%@)", context, [array count], schema.minItems]))];
+        }
+    }
+
+    if (schema.maxItems != nil) {
+        if ([array count] > [schema.maxItems unsignedIntegerValue]) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                          ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], schema.minItems]))];
+        }
+    }
+
+    return [myErrors count] == 0;
+}
+
+
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
@@ -200,6 +224,16 @@
             }
             break;
         }
+        
+        else if ([type isEqualToString:JSONSchemaTypeArray]
+                 && [object isKindOfClass:[NSArray class]]) {
+            
+            if ([[self class] validateArray:(NSArray*)object againstSchema:schema context:context error:&errors]) {
+                foundValidType = YES;
+            }
+            break;
+        }
+
     }
     
     if (([errors count] > 0) && (outErrors != NULL)) {
