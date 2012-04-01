@@ -173,14 +173,12 @@
         if ([array count] > [schema.maxItems unsignedIntegerValue]) {
             [myErrors addObject:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
-                          ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], schema.minItems]))];
+                          ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], schema.maxItems]))];
         }
     }
 
     return [myErrors count] == 0;
 }
-
-
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
