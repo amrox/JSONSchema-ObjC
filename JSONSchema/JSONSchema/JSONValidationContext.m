@@ -9,6 +9,7 @@
 #import "JSONValidationContext.h"
 #import "JSONSchemaErrors.h"
 #import "JSONSchema.h"
+#import "NSNumber+JSONSchema.h"
 
 @interface JSONValidationContext ()
 @property (nonatomic, retain) NSMutableDictionary* schemasByURL;
@@ -83,7 +84,6 @@
             [myErrors addObject:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
                           ([NSString stringWithFormat:@"[%@:%@] expected minimum (%@)", context, number, schema.minimum]))];
-
         }
     }
     
@@ -110,6 +110,22 @@
                           ([NSString stringWithFormat:@"[%@:%@] expected excluseMaximum (%@)", context, number, schema.minimum]))];
         }
     }
+    
+    if (schema.divisibleBy != nil) {
+        // first make sure the number is integral
+        if (![number jsonSchema_isIntegral]) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                          ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
+        } else {
+            NSInteger remainder = [number integerValue] % [schema.divisibleBy integerValue];
+            if (remainder != 0) {
+                [myErrors addObject:
+                 JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                              ([NSString stringWithFormat:@"[%@:%@] expected divisibleBy (%@)", context, number, schema.divisibleBy]))];
+            }
+        }
+    }
 
     if ([myErrors count] > 0 && errors != nil) {
         *errors = myErrors;
@@ -123,8 +139,7 @@
     NSMutableArray* myErrors = [NSMutableArray array];
     
     // Test if number is integral
-    if (![number isEqualToNumber:[NSNumber numberWithInteger:[number integerValue]]]) {
-        
+    if (![number jsonSchema_isIntegral]) {
         [myErrors addObject:
          JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
                       ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];

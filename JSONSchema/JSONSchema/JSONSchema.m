@@ -391,6 +391,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
                        @"expected type (number) for attribute 'divisibleBy'");
         return NO;
     }
+    // TODO: validate integral
     return YES;
 }
 

@@ -342,6 +342,48 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateNumberDivisbleByGood
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
+    schema.divisibleBy = [NSNumber numberWithInteger:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateNumberDivisbleByBadDivide
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
+    schema.divisibleBy = [NSNumber numberWithInteger:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:3] againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
+- (void) testValidateNumberDivisbleByBadType
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
+    schema.divisibleBy = [NSNumber numberWithInteger:2];
+    
+    JSONValidationContext* context = [[[JSONValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithFloat:4.5f] againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 - (void) testValidateArrayGoodType
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
