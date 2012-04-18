@@ -191,7 +191,30 @@
                           ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], schema.maxItems]))];
         }
     }
-
+    
+    if (schema.uniqueItems) {
+        NSUInteger c = [array count];
+        for (NSUInteger i = 0; i < c - 1; i++) {
+            for (NSUInteger j = i + 1; j < c; j++) {
+                id obj1 = [array objectAtIndex:i];
+                id obj2 = [array objectAtIndex:j];
+                if (![obj1 respondsToSelector:@selector(isEqual:)]) {
+                    [myErrors addObject:
+                     JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                                  ([NSString stringWithFormat:@"[%@:%@] does not respond to isEqual:", context, obj1]))];
+                } else if (![obj2 respondsToSelector:@selector(isEqual:)]) {
+                    [myErrors addObject:
+                     JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                                  ([NSString stringWithFormat:@"[%@:%@] does not respond to isEqual:", context, obj2]))];
+                } else if ([obj1 isEqual:obj2]) {
+                    [myErrors addObject:
+                     JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+                                  ([NSString stringWithFormat:@"[%@] %@ is equal to %@", context, obj1, obj2]))];
+                }
+            }
+        }
+    }
+    
     return [myErrors count] == 0;
 }
 
