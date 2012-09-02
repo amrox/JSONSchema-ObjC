@@ -43,15 +43,6 @@
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
-    //    if (![obj isKindOfClass:[NSString class]]) {
-    //        [myErrors addObject:
-    //         JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE, 
-    //                      ([NSString stringWithFormat:@"[%@] expected type (string)", obj]))];
-    //        return NO;
-    //    }
-    //    
-    //    NSString* string = (NSString*)obj;
-    
     if (schema.minLength != nil) {
         if ([string length] < [schema.minLength integerValue]) {
             [myErrors addObject:
@@ -253,6 +244,16 @@
                      JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
                                   ([NSString stringWithFormat:@"[%@] %@ is equal to %@", context, obj1, obj2]))];
                 }
+            }
+        }
+    }
+    
+    if (schema.possibleValues != nil) {
+        for (id obj in array) {
+            if (![schema.possibleValues containsObject:obj]) {
+                [myErrors addObject:
+                 JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
+                              ([NSString stringWithFormat:@"[%@:%@] is not in enum: %@", context, obj, schema.possibleValues]))];
             }
         }
     }

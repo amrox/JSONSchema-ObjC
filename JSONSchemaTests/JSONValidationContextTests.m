@@ -506,6 +506,38 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateArrayGoodEnum
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.possibleValues = @[@"dog", @"cat", @"bear"];
+
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+
+    NSArray* array = [NSArray arrayWithObjects:@"dog", @"cat", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateArrayBadEnum
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
+    schema.possibleValues = @[@"dog", @"bear"];
+    
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
+    
+    NSArray* array = [NSArray arrayWithObjects:@"dog", @"cat", nil];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 - (void) testValidateDisallowPass
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
