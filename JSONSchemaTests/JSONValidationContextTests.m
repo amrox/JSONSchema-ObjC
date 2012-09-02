@@ -506,4 +506,29 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateDisallowPass
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.disallowedTypes = [NSArray arrayWithObject:JSONSchemaTypeInteger];
+
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateDisallowFail
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.disallowedTypes = [NSArray arrayWithObject:JSONSchemaTypeInteger];
+    
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
 @end

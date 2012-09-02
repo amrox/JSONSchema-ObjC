@@ -134,35 +134,57 @@
     return [myErrors count] == 0;
 }
 
-+ (BOOL) validateInteger:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
++ (BOOL) validateTypeInteger:(id)object context:(id)context error:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
-    // Test if number is integral
-    if (![number jsonSchema_isIntegral]) {
-        [myErrors addObject:
-         JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
-                      ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
-        if (errors != NULL) {
-            *errors = myErrors;
-        }
-        return NO;
-    }
-
-    return [self validateNumber:number againstSchema:schema context:context error:errors];
-}
-
-+ (BOOL) validateBoolean:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
-{
-    NSMutableArray* myErrors = [NSMutableArray array];
-    
-    // Test if number is boolean
-    if (!([number isEqualToNumber:[NSNumber numberWithBool:YES]]
-          || [number isEqualToNumber:[NSNumber numberWithBool:NO]])) {
+    if (![object isKindOfClass:[NSNumber class]]) {
         
         [myErrors addObject:
-         JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
-                      ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
+         JSERR_REASON(JSONSCHEMA_ERROR_INVALID_TYPE,
+                      ([NSString stringWithFormat:@"[%@:%@] not a number", context, object]))];
+        
+    } else {
+        
+        NSNumber* number = (NSNumber*)object;
+
+        // Test if number is integral
+        if (![number jsonSchema_isIntegral]) {
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
+                          ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
+            if (errors != NULL) {
+                *errors = myErrors;
+            }
+            return NO;
+        }
+    }
+
+    return [myErrors count] == 0;
+}
+
++ (BOOL) validateTypeBoolean:(id)object context:(id)context error:(NSArray**)errors
+{
+    NSMutableArray* myErrors = [NSMutableArray array];
+    
+    if (![object isKindOfClass:[NSNumber class]]) {
+
+        [myErrors addObject:
+         JSERR_REASON(JSONSCHEMA_ERROR_INVALID_TYPE,
+                      ([NSString stringWithFormat:@"[%@:%@] not a number", context, object]))];
+        
+    } else {
+        
+        NSNumber* number = (NSNumber*)object;
+        
+        // Test if number is boolean
+        if (!([number isEqualToNumber:[NSNumber numberWithBool:YES]]
+              || [number isEqualToNumber:[NSNumber numberWithBool:NO]])) {
+            
+            [myErrors addObject:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
+                          ([NSString stringWithFormat:@"[%@:%@] not boolean", context, number]))];
+        }
     }
     
     if ([myErrors count] > 0 && errors != nil) {
@@ -171,6 +193,26 @@
     
     return [myErrors count] == 0;
 }
+
++ (BOOL) validateTypeArray:(id)object context:(id)context error:(NSArray**)errors
+{
+    NSMutableArray* myErrors = [NSMutableArray array];
+    
+    if (![object isKindOfClass:[NSArray class]]) {
+        
+        [myErrors addObject:
+         JSERR_REASON(JSONSCHEMA_ERROR_INVALID_TYPE,
+                      ([NSString stringWithFormat:@"[%@:%@] not an array", context, object]))];
+        
+    }
+    
+    if ([myErrors count] > 0 && errors != nil) {
+        *errors = myErrors;
+    }
+    
+    return [myErrors count] == 0;
+}
+
 
 + (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {
@@ -214,62 +256,54 @@
             }
         }
     }
-    
+        
     return [myErrors count] == 0;
 }
 
-- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
+- (BOOL) validateObject:(id)object matchesTypes:(NSArray*)types context:(id)context errors:(NSArray**)outErrors
 {
     BOOL foundValidType = NO;
-    NSArray* errors = nil;
+    NSMutableArray* errors = [NSMutableArray array];
     
-    for (NSString* type in schema.types) {
+    for (NSString* type in types) {
         
         if ([type isEqualToString:JSONSchemaTypeString]
             && [object isKindOfClass:[NSString class]]) {
             
-            if ([[self class] validateString:(NSString*)object againstSchema:schema context:context error:&errors]) {
-                foundValidType = YES;
-            }
+            foundValidType = YES;
             break;
         }
         
         else if ([type isEqualToString:JSONSchemaTypeNumber]
                  && [object isKindOfClass:[NSNumber class]]) {
             
-            if ([[self class] validateNumber:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+            foundValidType = YES;
+            break;
+        }
+        
+        else if ([type isEqualToString:JSONSchemaTypeInteger]) {
+            
+            if ([[self class] validateTypeInteger:object context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
         }
         
-        else if ([type isEqualToString:JSONSchemaTypeInteger]
-                 && [object isKindOfClass:[NSNumber class]]) {
+        else if ([type isEqualToString:JSONSchemaTypeBoolean]) {
             
-            if ([[self class] validateInteger:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
-                foundValidType = YES;
-            }
-            break;
-        }
-
-        else if ([type isEqualToString:JSONSchemaTypeBoolean]
-                 && [object isKindOfClass:[NSNumber class]]) {
-            
-            if ([[self class] validateBoolean:(NSNumber*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateTypeBoolean:object context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
         }
         
-        else if ([type isEqualToString:JSONSchemaTypeArray]
-                 && [object isKindOfClass:[NSArray class]]) {
+        else if ([type isEqualToString:JSONSchemaTypeArray]) {
             
-            if ([[self class] validateArray:(NSArray*)object againstSchema:schema context:context error:&errors]) {
+            if ([[self class] validateTypeArray:object context:context error:&errors]) {
                 foundValidType = YES;
             }
             break;
         }
-
     }
     
     if (([errors count] > 0) && (outErrors != NULL)) {
@@ -281,6 +315,50 @@
         
         if (outErrors != NULL) {
             *outErrors = [NSArray arrayWithObject:
+                          JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE,
+                                       ([NSString stringWithFormat:@"[%@:%@] expected types (%@)",
+                                         object, context,
+                                         [types componentsJoinedByString:@","]]))];
+        }
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL) validateObjectByType:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
+{
+    BOOL valid = YES;
+    NSMutableArray* errors = [NSMutableArray array];
+    
+    if ([object isKindOfClass:[NSString class]]) {
+        valid &= [[self class] validateString:(NSString*)object againstSchema:schema context:context error:&errors];
+    }
+    
+    else if ([object isKindOfClass:[NSNumber class]]) {
+        
+        valid &= [[self class] validateNumber:(NSNumber*)object againstSchema:schema context:context error:&errors];
+        
+        if ([schema.types containsObject:JSONSchemaTypeBoolean]) {
+            valid &= [[self class] validateTypeBoolean:(NSNumber*)object context:context error:&errors];
+        }
+        
+        if ([schema.types containsObject:JSONSchemaTypeInteger]) {
+            valid &= [[self class] validateTypeInteger:(NSNumber*)object context:context error:&errors];
+        }
+        
+    } else if ([object isKindOfClass:[NSArray class]]) {
+        valid &= [[self class] validateArray:(NSArray*)object againstSchema:schema context:context error:&errors];
+    }
+    
+    if (([errors count] > 0) && (outErrors != NULL)) {
+        *outErrors = errors;
+        return NO;
+    }
+    
+    if (!valid) {
+        
+        if (outErrors != NULL) {
+            *outErrors = [NSArray arrayWithObject:
                           JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE, 
                                        ([NSString stringWithFormat:@"[%@:%@] expected types (%@)", 
                                          object, context,
@@ -288,8 +366,24 @@
         }
         return NO;
     }
-
     return YES;
+}
+
+- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
+{
+    BOOL valid = YES;
+    
+    if (schema.types != nil) {
+        valid &= [self validateObject:object matchesTypes:schema.types context:context errors:outErrors];
+    }
+    
+    if (schema.disallowedTypes != nil) {
+        valid &= ![self validateObject:object matchesTypes:schema.disallowedTypes context:context errors:outErrors];
+    }
+    
+    valid &= [self validateObjectByType:object againstSchema:schema context:context errors:outErrors];
+
+    return valid;
 }
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)errors;

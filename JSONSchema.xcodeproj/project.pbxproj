@@ -212,7 +212,7 @@
 		B3E38CF814F9ACEB00ECEE91 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = B3E38CFB14F9ACEB00ECEE91 /* Build configuration list for PBXProject "JSONSchema" */;
 			compatibilityVersion = "Xcode 3.2";
