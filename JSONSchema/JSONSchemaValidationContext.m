@@ -54,8 +54,28 @@
     if (schema.maxLength != nil) {
         if ([string length] > [schema.maxLength integerValue]) {
             [myErrors addObject:
-             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE, 
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
                           ([NSString stringWithFormat:@"[%@:%@] expected maxLength (%d)", context, string, [schema.maxLength integerValue]]))];
+        }
+    }
+    
+    if (schema.pattern != nil) {
+        NSError* regexError = nil;
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:schema.pattern
+                                                                               options:0
+                                                                                 error:&regexError];
+        if (regex == nil) {
+            [myErrors addObject:regexError];
+        } else {
+            NSUInteger numberOfMatches = [regex numberOfMatchesInString:string
+                                                                options:0
+                                                                  range:NSMakeRange(0, string.length)];
+            if (numberOfMatches == 0) {
+                [myErrors addObject:
+                 
+                 JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
+                              ([NSString stringWithFormat:@"[%@:%@] does not match regular expression '%@'", context, string, schema.pattern]))];
+            }
         }
     }
     
@@ -203,7 +223,6 @@
     
     return [myErrors count] == 0;
 }
-
 
 + (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
 {

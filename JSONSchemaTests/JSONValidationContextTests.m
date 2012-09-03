@@ -84,6 +84,34 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateStringGoodPattern
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
+    schema.pattern = @"bo.";
+
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@"boo" againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateStringBadPattern
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
+    schema.pattern = @"bo.";
+    
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@"foo" againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 - (void) testValidateNumberGoodTypeInteger
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
