@@ -64,7 +64,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 @synthesize extends = _extends;
 @synthesize types = _types;
 @synthesize disallowedTypes = _disallowedTypes;
-@synthesize description = _description;
+@synthesize schemaDescription = _description;
 @synthesize title = _title;
 @synthesize format = _format;
 @synthesize required = _required;
@@ -155,6 +155,13 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     return YES;
 }
 
++ (id) build:(void (^)(JSONSchema* schema))block
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    block(schema);
+    return schema;
+}
+
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
@@ -237,6 +244,75 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     [super dealloc];
 }
 
++ (NSArray*) allAttributes
+{
+    return @[
+    JSONSchemaAttributeId,
+    JSONSchemaAttributeExtends,
+    JSONSchemaAttributeType,
+    JSONSchemaAttributeDisallow,
+    JSONSchemaAttributeTitle,
+    JSONSchemaAttributeFormat,
+    JSONSchemaAttributeProperties,
+    JSONSchemaAttributePatternProperties,
+    JSONSchemaAttributeRequired,
+    JSONSchemaAttributeDefault,
+    JSONSchemaAttributeEnum,
+    JSONSchemaAttributeMinimum,
+    JSONSchemaAttributeMaximum,
+    JSONSchemaAttributeExclusiveMinimum,
+    JSONSchemaAttributeExclusiveMaximum,
+    JSONSchemaAttributeDivisibleBy,
+    JSONSchemaAttributeMinItems,
+    JSONSchemaAttributeMaxItems,
+    JSONSchemaAttributeUniqueItems,
+    JSONSchemaAttributeMinLength,
+    JSONSchemaAttributeMaxLength,
+    JSONSchemaAttributePattern,
+    ];
+}
+
++ (NSString*) propertyNameForAttributeName:(NSString*)attributeName
+{
+    if ([attributeName isEqualToString:JSONSchemaAttributeType]) {
+        return NSStringFromSelector(@selector(types));
+    }
+    
+    else if ([attributeName isEqualToString:JSONSchemaAttributeDisallow]) {
+        return NSStringFromSelector(@selector(disallowedTypes));
+    }
+    
+    else if ([attributeName isEqualToString:JSONSchemaAttributeDefault]) {
+        return NSStringFromSelector(@selector(defaultValue));
+    }
+    
+    else if ([attributeName isEqualToString:JSONSchemaAttributeEnum]) {
+        return NSStringFromSelector(@selector(possibleValues));
+    }
+    
+    return attributeName;
+}
+
+- (id) valueForAttribute:(NSString*)attribute
+{
+    NSString* key = [[self class] propertyNameForAttributeName:attribute];
+    return [self valueForKey:key];
+}
+
+- (NSDictionary*) dictionaryRepresentation
+{
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:20];
+    
+    for (NSString* attribute in [[self class] allAttributes]) {
+        
+        id val = [self valueForAttribute:attribute];
+        if (val != nil) {
+            [dict setObject:val forKey:attribute];
+        }
+    }
+    return dict;
+}
+
 - (void)setNilValueForKey:(NSString *)key
 {
     if ([[NSSet setWithObjects:
@@ -314,7 +390,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     return YES;
 }
 
-- (BOOL) validateDescription:(id*)value error:(NSError**)error
+- (BOOL) validateSchemaDescription:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
         JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
@@ -454,6 +530,12 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     }
     return YES;
 }
+
+- (NSString*) description
+{
+    return [[self dictionaryRepresentation] description];
+}
+
 @end
 
 

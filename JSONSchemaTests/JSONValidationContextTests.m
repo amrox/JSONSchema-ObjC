@@ -591,4 +591,54 @@
     BOOL validationSuccess = [context validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
+
+- (void) testValidateRequiredPropertyFail
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+        schema.required = YES;
+    }]};
+    
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
+
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@{@"green": @1}
+                                 againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
+- (void) testValidateRequiredPropertyPass
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+        schema.required = YES;
+    }]};
+    
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@{@"purple": @1}
+                                 againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidatePropertyTypeFail
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+        schema.types = @[JSONSchemaTypeInteger];
+    }]};
+
+    JSONSchemaValidationContext* context = [[[JSONSchemaValidationContext alloc] init] autorelease];
+//    [context retain];
+    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
+
+    NSArray* errors = nil;
+    BOOL validationSuccess = [context validate:@{@"purple": @"hi"}
+                                 againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 @end

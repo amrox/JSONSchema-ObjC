@@ -71,7 +71,7 @@
     NSError* error = nil;
     BOOL valid = NO;
     
-    valid = [schema validateValue:&n forKey:@"description" error:&error];
+    valid = [schema validateValue:&n forKey:@"schemaDescription" error:&error];
     STAssertFalse(valid, @"should fail");
     
 }

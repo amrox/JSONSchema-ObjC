@@ -65,6 +65,10 @@ extern NSString* const JSONSchemaFormatHostname;
 
 + (id) JSONSchemaWithData:(NSData *)data error:(NSError**)error;
 
++ (id) JSONSchemaWithObject:(id)obj error:(NSError**)error;
+
++ (id) build:(void (^)(JSONSchema* schema))block;
+
 + (id) JSONSchema;
 
 // general attributes
@@ -72,7 +76,7 @@ extern NSString* const JSONSchemaFormatHostname;
 @property (nonatomic, retain) NSString* extends;
 @property (nonatomic, retain) NSArray* types; // maps to 'type'
 @property (nonatomic, retain) NSArray* disallowedTypes; // maps to 'disallow'
-@property (nonatomic, retain) NSString* description;
+@property (nonatomic, retain) NSString* schemaDescription;
 @property (nonatomic, retain) NSString* title;
 @property (nonatomic, retain) NSString* format;
 @property (nonatomic, assign) BOOL required;
@@ -80,8 +84,8 @@ extern NSString* const JSONSchemaFormatHostname;
 @property (nonatomic, retain) NSArray* possibleValues; // maps to 'enum'
 
 // object attributes
-@property (nonatomic, retain) NSMutableDictionary* properties;
-@property (nonatomic, retain) NSMutableDictionary* patternProperties;
+@property (nonatomic, retain) NSDictionary* properties;
+@property (nonatomic, retain) NSDictionary* patternProperties;
 
 // number attributes
 @property (nonatomic, retain) NSNumber* minimum;
@@ -95,10 +99,17 @@ extern NSString* const JSONSchemaFormatHostname;
 @property (nonatomic, retain) NSNumber* maxItems; // ???: make integer?
 @property (nonatomic, assign) BOOL uniqueItems;
 
-// string properties
+// string attributes
 @property (nonatomic, assign) NSNumber* minLength;
 @property (nonatomic, assign) NSNumber* maxLength;
 @property (nonatomic, retain) NSString* pattern;
+
+#pragma mark -
+
+/*
+ @discussion returns the value for a "JSONSchemaAttribute"
+ */
+- (id) valueForAttribute:(NSString*)attribute;
 
 @end
 
