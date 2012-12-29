@@ -15,6 +15,6 @@
 
 - (id)initWithContext:(JSONSchemaValidationContext *)context object:(id)object;
 
-@property (nonatomic, retain, readonly) JSONSchemaValidationResult *result;
+@property (nonatomic, strong, readonly) JSONSchemaValidationResult *result;
 
 @end

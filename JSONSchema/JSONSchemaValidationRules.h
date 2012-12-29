@@ -14,11 +14,11 @@
 
 + (JSONSchemaValidationRules*) defaultRules;
 
-- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors;
+- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
 
-- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors;
+- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
 
-- (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors;
+- (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
 
 #pragma mark Type validation
 
@@ -26,9 +26,9 @@
 
 - (BOOL) validateObjectByType:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors;
 
-- (BOOL) validateTypeBoolean:(id)object context:(id)context error:(NSArray**)errors;
+- (BOOL) validateTypeBoolean:(id)object context:(id)context errors:(NSArray**)errors;
 
-- (BOOL) validateTypeArray:(id)object context:(id)context error:(NSArray**)errors;
+- (BOOL) validateTypeArray:(id)object context:(id)context errors:(NSArray**)errors;
 
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors;

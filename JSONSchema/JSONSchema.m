@@ -216,33 +216,9 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 
 + (id) JSONSchema
 {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
-- (void)dealloc
-{
-    [_id release];
-    [_types release];
-    [_disallowedTypes release];
-    [_description release];
-    [_title release];
-    [_format release];
-    [_defaultValue release];
-    [_possibleValues release];
-    [_properties release];
-    [_patternProperties release];
-    [_minimum release];
-    [_maximum release];
-    [_exclusiveMinimum release];
-    [_exclusiveMaximum release];
-    [_minItems release];
-    [_maxItems release];
-    [_minLength release];
-    [_maxLength release];
-    [_pattern release];
-
-    [super dealloc];
-}
 
 + (NSArray*) allAttributes
 {

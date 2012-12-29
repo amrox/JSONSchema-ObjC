@@ -13,8 +13,8 @@
 #import "NSNumber+JSONSchema.h"
 
 @interface JSONSchemaValidationContext ()
-@property (nonatomic, retain) NSMutableDictionary* schemasByURL;
-@property (nonatomic, retain, readwrite) JSONSchemaValidationRules* rules;
+@property (nonatomic, strong) NSMutableDictionary* schemasByURL;
+@property (nonatomic, strong, readwrite) JSONSchemaValidationRules* rules;
 @end
 
 @implementation JSONSchemaValidationContext
@@ -34,12 +34,6 @@
     return [self initWithRules:[JSONSchemaValidationRules defaultRules]];
 }
 
-- (void)dealloc
-{
-    [_rules release];
-    [_schemasByURL release];
-    [super dealloc];
-}
 
 - (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url
 {

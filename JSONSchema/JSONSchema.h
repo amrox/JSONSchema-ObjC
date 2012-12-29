@@ -72,37 +72,37 @@ extern NSString* const JSONSchemaFormatHostname;
 + (id) JSONSchema;
 
 // general attributes
-@property (nonatomic, retain) NSString* id;
-@property (nonatomic, retain) NSString* extends;
-@property (nonatomic, retain) NSArray* types; // maps to 'type'
-@property (nonatomic, retain) NSArray* disallowedTypes; // maps to 'disallow'
-@property (nonatomic, retain) NSString* schemaDescription;
-@property (nonatomic, retain) NSString* title;
-@property (nonatomic, retain) NSString* format;
+@property (nonatomic, strong) NSString* id;
+@property (nonatomic, strong) NSString* extends;
+@property (nonatomic, strong) NSArray* types; // maps to 'type'
+@property (nonatomic, strong) NSArray* disallowedTypes; // maps to 'disallow'
+@property (nonatomic, strong) NSString* schemaDescription;
+@property (nonatomic, strong) NSString* title;
+@property (nonatomic, strong) NSString* format;
 @property (nonatomic, assign) BOOL required;
-@property (nonatomic, retain) id defaultValue; // maps to 'default'
-@property (nonatomic, retain) NSArray* possibleValues; // maps to 'enum'
+@property (nonatomic, strong) id defaultValue; // maps to 'default'
+@property (nonatomic, strong) NSArray* possibleValues; // maps to 'enum'
 
 // object attributes
-@property (nonatomic, retain) NSDictionary* properties;
-@property (nonatomic, retain) NSDictionary* patternProperties;
+@property (nonatomic, strong) NSDictionary* properties;
+@property (nonatomic, strong) NSDictionary* patternProperties;
 
 // number attributes
-@property (nonatomic, retain) NSNumber* minimum;
-@property (nonatomic, retain) NSNumber* maximum;
-@property (nonatomic, retain) NSNumber* exclusiveMinimum;
-@property (nonatomic, retain) NSNumber* exclusiveMaximum;
-@property (nonatomic, retain) NSNumber* divisibleBy;
+@property (nonatomic, strong) NSNumber* minimum;
+@property (nonatomic, strong) NSNumber* maximum;
+@property (nonatomic, strong) NSNumber* exclusiveMinimum;
+@property (nonatomic, strong) NSNumber* exclusiveMaximum;
+@property (nonatomic, strong) NSNumber* divisibleBy;
 
 // array attributes
-@property (nonatomic, retain) NSNumber* minItems; // ???: make integer?
-@property (nonatomic, retain) NSNumber* maxItems; // ???: make integer?
+@property (nonatomic, strong) NSNumber* minItems; // ???: make integer?
+@property (nonatomic, strong) NSNumber* maxItems; // ???: make integer?
 @property (nonatomic, assign) BOOL uniqueItems;
 
 // string attributes
-@property (nonatomic, assign) NSNumber* minLength;
-@property (nonatomic, assign) NSNumber* maxLength;
-@property (nonatomic, retain) NSString* pattern;
+@property (nonatomic, strong) NSNumber* minLength;
+@property (nonatomic, strong) NSNumber* maxLength;
+@property (nonatomic, strong) NSString* pattern;
 
 #pragma mark -
 

@@ -72,7 +72,7 @@ static inline NSError* _JSONSchemaMakeErrorWithReason( int errorCode, char const
     if (userInfo == nil) {
         userInfo = [NSDictionary dictionaryWithObject:reason forKey:NSLocalizedFailureReasonErrorKey];
     } else {
-        userInfo = [[userInfo mutableCopy] autorelease];
+        userInfo = [userInfo mutableCopy];
         [(NSMutableDictionary*)userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
     }
     return _JSONSchemaMakeError(errorCode, errorName, domain, userInfo);

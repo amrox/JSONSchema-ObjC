@@ -24,7 +24,7 @@
  */
 - (id)initWithRules:(JSONSchemaValidationRules*)rules;
 
-@property (nonatomic, retain, readonly) JSONSchemaValidationRules* rules;
+@property (nonatomic, strong, readonly) JSONSchemaValidationRules* rules;
 
 #pragma mark -
 

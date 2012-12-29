@@ -23,7 +23,7 @@
     return defaultRules;
 }
 
-- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -69,7 +69,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -127,7 +127,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateTypeInteger:(id)object context:(id)context error:(NSArray**)errors
+- (BOOL) validateTypeInteger:(id)object context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -159,7 +159,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateTypeBoolean:(id)object context:(id)context error:(NSArray**)errors
+- (BOOL) validateTypeBoolean:(id)object context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -190,7 +190,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateTypeArray:(id)object context:(id)context error:(NSArray**)errors
+- (BOOL) validateTypeArray:(id)object context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -208,7 +208,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+- (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -267,7 +267,7 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+- (BOOL) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors
 {
     NSMutableArray* myErrors = [NSMutableArray array];
     
@@ -292,20 +292,20 @@
     return [myErrors count] == 0;
 }
 
-- (BOOL) validateDictObject:(NSDictionary*)dict againstSchema:(JSONSchema*)schema context:(id)context error:(NSArray**)errors
+- (BOOL) validateDictObject:(NSDictionary*)dict againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
-    NSMutableArray* myErrors = [NSMutableArray array];
+    __block NSMutableArray* myErrors = [NSMutableArray array];
     
     if (schema.properties != nil) {
         [schema.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString* propertyName = key;
             JSONSchema* propertySchema = obj;
-            [self validateProperty:propertyName ofDictObject:dict againstSchema:propertySchema context:context error:errors];
+            [self validateProperty:propertyName ofDictObject:dict againstSchema:propertySchema context:context errors:&myErrors];
         }];
     }
     
-    if ([myErrors count] > 0 && errors != nil) {
-        *errors = myErrors;
+    if ([myErrors count] > 0 && outErrors != NULL) {
+        *outErrors = myErrors;
     }
     return [myErrors count] == 0;
 }
@@ -313,7 +313,7 @@
 - (BOOL) validateObject:(id)object matchesTypes:(NSArray*)types context:(id)context errors:(NSArray**)outErrors
 {
     BOOL foundValidType = NO;
-    NSMutableArray* errors = [NSMutableArray array];
+    NSMutableArray* myErrors = [NSMutableArray array];
     
     for (NSString* type in types) {
         
@@ -333,7 +333,7 @@
         
         else if ([type isEqualToString:JSONSchemaTypeInteger]) {
             
-            if ([self validateTypeInteger:object context:context error:&errors]) {
+            if ([self validateTypeInteger:object context:context errors:&myErrors]) {
                 foundValidType = YES;
             }
             break;
@@ -341,7 +341,7 @@
         
         else if ([type isEqualToString:JSONSchemaTypeBoolean]) {
             
-            if ([self validateTypeBoolean:object context:context error:&errors]) {
+            if ([self validateTypeBoolean:object context:context errors:&myErrors]) {
                 foundValidType = YES;
             }
             break;
@@ -349,15 +349,15 @@
         
         else if ([type isEqualToString:JSONSchemaTypeArray]) {
             
-            if ([self validateTypeArray:object context:context error:&errors]) {
+            if ([self validateTypeArray:object context:context errors:&myErrors]) {
                 foundValidType = YES;
             }
             break;
         }
     }
     
-    if (([errors count] > 0) && (outErrors != NULL)) {
-        *outErrors = errors;
+    if (([myErrors count] > 0) && (outErrors != NULL)) {
+        *outErrors = myErrors;
         return NO;
     }
     
@@ -378,32 +378,32 @@
 - (BOOL) validateObjectByType:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
     BOOL valid = YES;
-    NSMutableArray* errors = [NSMutableArray array];
+    NSMutableArray* myErrors = [NSMutableArray array];
     
     if ([object isKindOfClass:[NSString class]]) {
-        valid &= [self validateString:(NSString*)object againstSchema:schema context:context error:&errors];
+        valid &= [self validateString:(NSString*)object againstSchema:schema context:context errors:&myErrors];
     }
     
     else if ([object isKindOfClass:[NSNumber class]]) {
         
-        valid &= [self validateNumber:(NSNumber*)object againstSchema:schema context:context error:&errors];
+        valid &= [self validateNumber:(NSNumber*)object againstSchema:schema context:context errors:&myErrors];
         
         if ([schema.types containsObject:JSONSchemaTypeBoolean]) {
-            valid &= [self validateTypeBoolean:(NSNumber*)object context:context error:&errors];
+            valid &= [self validateTypeBoolean:(NSNumber*)object context:context errors:&myErrors];
         }
         
         if ([schema.types containsObject:JSONSchemaTypeInteger]) {
-            valid &= [self validateTypeInteger:(NSNumber*)object context:context error:&errors];
+            valid &= [self validateTypeInteger:(NSNumber*)object context:context errors:&myErrors];
         }
         
     }
     
     else if ([object isKindOfClass:[NSArray class]]) {
-        valid &= [self validateArray:(NSArray*)object againstSchema:schema context:context error:&errors];
+        valid &= [self validateArray:(NSArray*)object againstSchema:schema context:context errors:&myErrors];
     }
     
     else if ([object isKindOfClass:[NSDictionary class]]) {
-        valid &= [self validateDictObject:(NSDictionary*)object againstSchema:schema context:context error:&errors];
+        valid &= [self validateDictObject:(NSDictionary*)object againstSchema:schema context:context errors:&myErrors];
     }
     
     //        NSError* subschemaError = nil;
@@ -413,8 +413,8 @@
     //        }
     
     
-    if (([errors count] > 0) && (outErrors != NULL)) {
-        *outErrors = errors;
+    if (([myErrors count] > 0) && (outErrors != NULL)) {
+        *outErrors = myErrors;
         return NO;
     }
     
@@ -435,8 +435,6 @@
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
-    NSLog(@"beep");
-    
     BOOL valid = YES;
     
     if (schema.types != nil) {
@@ -446,8 +444,6 @@
     if (schema.disallowedTypes != nil) {
         valid &= ![self validateObject:object matchesTypes:schema.disallowedTypes context:context errors:outErrors];
     }
-    
-#warning its crashing here, it might be all the error output params
     
     valid &= [self validateObjectByType:object againstSchema:schema context:context errors:outErrors];
     
