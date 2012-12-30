@@ -129,6 +129,8 @@
 				B3A4E39914F9C36F0079CF41 /* JSONSchemaErrors.h */,
 				B3E38D0914F9ACEB00ECEE91 /* JSONSchema.h */,
 				B3E38D0A14F9ACEB00ECEE91 /* JSONSchema.m */,
+				B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */,
+				B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */,
 				B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */,
 				B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */,
 				B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */,
@@ -139,8 +141,6 @@
 				B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */,
 				B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */,
 				B34B3DB816585242007F1C18 /* JSONSchemaValidationOperation.m */,
-				B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */,
-				B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */,
 				B3E38D0714F9ACEB00ECEE91 /* Supporting Files */,
 			);
 			path = JSONSchema;
@@ -157,13 +157,13 @@
 		B3E38D1A14F9ACEB00ECEE91 /* JSONSchemaTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3A4E3C514FA1D260079CF41 /* TestData */,
+				B3A4E3C014F9D6140079CF41 /* TestUtility.h */,
 				B3E38D2014F9ACEB00ECEE91 /* JSONSchemaTests.h */,
 				B3E38D2114F9ACEB00ECEE91 /* JSONSchemaTests.m */,
-				B3E38D1B14F9ACEB00ECEE91 /* Supporting Files */,
-				B3A4E3C014F9D6140079CF41 /* TestUtility.h */,
 				B3A4E3C714FA265C0079CF41 /* JSONValidationLogicTests.h */,
 				B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */,
+				B3A4E3C514FA1D260079CF41 /* TestData */,
+				B3E38D1B14F9ACEB00ECEE91 /* Supporting Files */,
 			);
 			path = JSONSchemaTests;
 			sourceTree = "<group>";
