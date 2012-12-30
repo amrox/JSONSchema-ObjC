@@ -10,9 +10,9 @@
 
 @class JSONSchema;
 
-@interface JSONSchemaValidationRules : NSObject
+@interface JSONSchemaValidationLogic : NSObject
 
-+ (JSONSchemaValidationRules*) defaultRules;
++ (JSONSchemaValidationLogic*) defaultValidationLogic;
 
 - (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
 
@@ -30,7 +30,8 @@
 
 - (BOOL) validateTypeArray:(id)object context:(id)context errors:(NSArray**)errors;
 
-
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors;
+
+- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)outErrors;
 
 @end

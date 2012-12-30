@@ -6,21 +6,21 @@
 //
 //
 
-#import "JSONSchemaValidationRules.h"
+#import "JSONSchemaValidationLogic.h"
 #import "JSONSchemaErrors.h"
 #import "JSONSchema.h"
 #import "NSNumber+JSONSchema.h"
 
-@implementation JSONSchemaValidationRules
+@implementation JSONSchemaValidationLogic
 
-+ (JSONSchemaValidationRules*) defaultRules
++ (JSONSchemaValidationLogic*) defaultValidationLogic
 {
     static dispatch_once_t onceToken;
-    static JSONSchemaValidationRules* defaultRules = nil;
+    static JSONSchemaValidationLogic* defaultInstance = nil;
     dispatch_once(&onceToken, ^{
-        defaultRules = [[JSONSchemaValidationRules alloc] init];
+        defaultInstance = [[JSONSchemaValidationLogic alloc] init];
     });
-    return defaultRules;
+    return defaultInstance;
 }
 
 - (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors
@@ -432,7 +432,6 @@
     return YES;
 }
 
-
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors
 {
     BOOL valid = YES;
@@ -449,5 +448,11 @@
     
     return valid;
 }
+
+- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)outErrors
+{
+    return [self validate:object againstSchema:schema context:nil errors:outErrors];
+}
+
 
 @end

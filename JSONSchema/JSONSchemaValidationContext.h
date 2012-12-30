@@ -9,22 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class JSONSchema;
-@class JSONSchemaValidationRules;
+@class JSONSchemaValidationLogic;
 
 @interface JSONSchemaValidationContext : NSObject
 
-
 /**
- @discussion Initializes with default rules
+ @discussion Initializes with default validation logic
  */
 - (id)init;
-
-/**
- @discussion Initialize with custom rules
- */
-- (id)initWithRules:(JSONSchemaValidationRules*)rules;
-
-@property (nonatomic, strong, readonly) JSONSchemaValidationRules* rules;
 
 #pragma mark -
 

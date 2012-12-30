@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface JSONValidationContextTests : SenTestCase
+@interface JSONValidationLogicTests : SenTestCase
 
 @end

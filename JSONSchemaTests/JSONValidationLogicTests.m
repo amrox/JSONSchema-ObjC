@@ -6,12 +6,28 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONValidationContextTests.h"
+#import "JSONValidationLogicTests.h"
 #import "TestUtility.h"
-#import "JSONSchemaValidationContext.h"
 #import "JSONSchema.h"
+#import "JSONSchemaValidationLogic.h"
 
-@implementation JSONValidationContextTests
+@interface JSONValidationLogicTests ()
+
+@property (nonatomic, strong) JSONSchemaValidationLogic *logic;
+
+@end
+
+@implementation JSONValidationLogicTests
+
+- (void) setUp
+{
+    self.logic = [JSONSchemaValidationLogic defaultValidationLogic];
+}
+
+- (void) tearDown
+{
+    self.logic = nil;
+}
 
 - (void) testValidateStringOK
 {
@@ -22,11 +38,8 @@
     JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"errors: %@", errors);
 }
 
@@ -34,12 +47,9 @@
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
-    
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
+        
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -47,12 +57,9 @@
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
-    
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
+        
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -62,11 +69,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.minLength = [NSNumber numberWithInt:10];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -76,11 +80,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.maxLength = [NSNumber numberWithInt:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -89,12 +90,9 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.pattern = @"bo.";
-
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"boo" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"boo" againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -104,11 +102,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeString];
     schema.pattern = @"bo.";
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"foo" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"foo" againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -117,11 +112,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
 
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -130,11 +122,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithFloat:5.5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithFloat:5.5] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -143,11 +132,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"pineapple" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"pineapple" againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -156,11 +142,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeInteger];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -169,11 +152,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeInteger];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithFloat:5.5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithFloat:5.5] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -184,11 +164,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -198,11 +175,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:4];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -212,11 +186,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMinimum = [NSNumber numberWithInteger:4];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -226,11 +197,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMinimum = [NSNumber numberWithInteger:4];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -240,11 +208,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.minimum = [NSNumber numberWithInteger:5];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -254,11 +219,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:5];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -268,11 +230,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:5];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -282,11 +241,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.maximum = [NSNumber numberWithInteger:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -296,11 +252,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMaximum = [NSNumber numberWithInteger:5];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -310,11 +263,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.exclusiveMaximum = [NSNumber numberWithInteger:4];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -323,11 +273,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithBool:YES] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithBool:YES] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -336,11 +283,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithBool:NO] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithBool:NO] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -349,11 +293,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:5] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -362,11 +303,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeBoolean];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"purple" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"purple" againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -376,11 +314,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:4] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -390,11 +325,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInteger:3] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInteger:3] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -404,11 +336,8 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeNumber];
     schema.divisibleBy = [NSNumber numberWithInteger:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/number"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithFloat:4.5f] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithFloat:4.5f] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -417,11 +346,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSArray array] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSArray array] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -429,12 +355,9 @@
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
-    
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
+        
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSArray array] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSArray array] againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -444,13 +367,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.minItems = [NSNumber numberWithInt:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -460,13 +380,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.minItems = [NSNumber numberWithInt:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"one", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -476,13 +393,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.maxItems = [NSNumber numberWithInt:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -492,13 +406,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.maxItems = [NSNumber numberWithInt:2];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -508,13 +419,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.uniqueItems = YES;
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", @"three", nil];
 
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -524,13 +432,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.uniqueItems = YES;
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"one", @"two", @"two", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -540,13 +445,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"cat", @"bear"];
 
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-
     NSArray* array = [NSArray arrayWithObjects:@"dog", @"cat", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -556,13 +458,10 @@
     schema.types = [NSArray arrayWithObject:JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"bear"];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/array"]];
-    
     NSArray* array = [NSArray arrayWithObjects:@"dog", @"cat", nil];
     
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -571,11 +470,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.disallowedTypes = [NSArray arrayWithObject:JSONSchemaTypeInteger];
 
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
@@ -584,11 +480,8 @@
     JSONSchema* schema = [JSONSchema JSONSchema];
     schema.disallowedTypes = [NSArray arrayWithObject:JSONSchemaTypeInteger];
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/string"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [self.logic validate:[NSNumber numberWithInt:1] againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -599,11 +492,8 @@
         schema.required = YES;
     }]};
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
-
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@{@"green": @1}
+    BOOL validationSuccess = [self.logic validate:@{@"green": @1}
                                  againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
@@ -615,11 +505,8 @@
         schema.required = YES;
     }]};
     
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
-    
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@{@"purple": @1}
+    BOOL validationSuccess = [self.logic validate:@{@"purple": @1}
                                  againstSchema:schema errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
@@ -631,12 +518,8 @@
         schema.types = @[JSONSchemaTypeInteger];
     }]};
 
-    JSONSchemaValidationContext* context = [[JSONSchemaValidationContext alloc] init];
-//    [context retain];
-    [context addSchema:schema forURL:[NSURL URLWithString:@"http://test/schema"]];
-
     NSArray* errors = nil;
-    BOOL validationSuccess = [context validate:@{@"purple": @"hi"}
+    BOOL validationSuccess = [self.logic validate:@{@"purple": @"hi"}
                                  againstSchema:schema errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }

@@ -7,31 +7,31 @@
 //
 
 #import "JSONSchemaValidationContext.h"
-#import "JSONSchemaValidationRules.h"
+#import "JSONSchemaValidationContext+Private.h"
+#import "JSONSchemaValidationLogic.h"
 #import "JSONSchemaErrors.h"
 #import "JSONSchema.h"
 #import "NSNumber+JSONSchema.h"
 
 @interface JSONSchemaValidationContext ()
 @property (nonatomic, strong) NSMutableDictionary* schemasByURL;
-@property (nonatomic, strong, readwrite) JSONSchemaValidationRules* rules;
 @end
 
 @implementation JSONSchemaValidationContext
 
-- (id)initWithRules:(JSONSchemaValidationRules *)rules
+- (id)initWithValidationLogic:(JSONSchemaValidationLogic *)logic
 {
     self = [super init];
     if (self) {
         self.schemasByURL =  [NSMutableDictionary dictionary];
-        self.rules = rules;
+        self.logic = logic;
     }
     return self;
 }
 
 - (id)init
 {
-    return [self initWithRules:[JSONSchemaValidationRules defaultRules]];
+    return [self initWithValidationLogic:[JSONSchemaValidationLogic defaultValidationLogic]];
 }
 
 
@@ -42,7 +42,7 @@
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)errors;
 {
-    return [self.rules validate:object againstSchema:schema context:nil errors:errors];
+    return [self.logic validate:object againstSchema:schema context:nil errors:errors];
 }
 
 

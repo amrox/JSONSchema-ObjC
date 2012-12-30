@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */; };
 		B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */; };
-		B3159322168F882B0044E48E /* JSONSchemaValidationRules.h in Headers */ = {isa = PBXBuildFile; fileRef = B3159320168F882A0044E48E /* JSONSchemaValidationRules.h */; };
-		B3159323168F882B0044E48E /* JSONSchemaValidationRules.m in Sources */ = {isa = PBXBuildFile; fileRef = B3159321168F882A0044E48E /* JSONSchemaValidationRules.m */; };
+		B3159322168F882B0044E48E /* JSONSchemaValidationLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */; };
+		B3159323168F882B0044E48E /* JSONSchemaValidationLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */; };
 		B34ADE921528207700C9C585 /* NSNumber+JSONSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */; };
 		B34ADE931528207700C9C585 /* NSNumber+JSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */; };
 		B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */; };
@@ -18,7 +18,7 @@
 		B3A4E3C314FA1A6A0079CF41 /* JSONSchemaValidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */; };
 		B3A4E3C414FA1A6A0079CF41 /* JSONSchemaValidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */; };
 		B3A4E3C614FA1D260079CF41 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = B3A4E3C514FA1D260079CF41 /* TestData */; };
-		B3A4E3C914FA265C0079CF41 /* JSONValidationContextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C814FA265C0079CF41 /* JSONValidationContextTests.m */; };
+		B3A4E3C914FA265C0079CF41 /* JSONValidationLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */; };
 		B3E38D0514F9ACEB00ECEE91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */; };
 		B3E38D0B14F9ACEB00ECEE91 /* JSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E38D0A14F9ACEB00ECEE91 /* JSONSchema.m */; };
 		B3E38D1314F9ACEB00ECEE91 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */; };
@@ -43,8 +43,9 @@
 		B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationResult.h; sourceTree = "<group>"; };
 		B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationResult.m; sourceTree = "<group>"; };
 		B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationResult+Private.h"; sourceTree = "<group>"; };
-		B3159320168F882A0044E48E /* JSONSchemaValidationRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationRules.h; sourceTree = "<group>"; };
-		B3159321168F882A0044E48E /* JSONSchemaValidationRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationRules.m; sourceTree = "<group>"; };
+		B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationLogic.h; sourceTree = "<group>"; };
+		B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationLogic.m; sourceTree = "<group>"; };
+		B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationContext+Private.h"; sourceTree = "<group>"; };
 		B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+JSONSchema.h"; sourceTree = "<group>"; };
 		B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+JSONSchema.m"; sourceTree = "<group>"; };
 		B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationOperation.h; sourceTree = "<group>"; };
@@ -54,8 +55,8 @@
 		B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationContext.h; sourceTree = "<group>"; };
 		B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationContext.m; sourceTree = "<group>"; };
 		B3A4E3C514FA1D260079CF41 /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
-		B3A4E3C714FA265C0079CF41 /* JSONValidationContextTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValidationContextTests.h; sourceTree = "<group>"; };
-		B3A4E3C814FA265C0079CF41 /* JSONValidationContextTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValidationContextTests.m; sourceTree = "<group>"; };
+		B3A4E3C714FA265C0079CF41 /* JSONValidationLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValidationLogicTests.h; sourceTree = "<group>"; };
+		B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValidationLogicTests.m; sourceTree = "<group>"; };
 		B3E38D0114F9ACEB00ECEE91 /* libJSONSchema.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJSONSchema.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3E38D0814F9ACEB00ECEE91 /* JSONSchema-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchema-Prefix.pch"; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 				B3E38D0914F9ACEB00ECEE91 /* JSONSchema.h */,
 				B3E38D0A14F9ACEB00ECEE91 /* JSONSchema.m */,
 				B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */,
+				B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */,
 				B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */,
 				B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */,
 				B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */,
@@ -137,8 +139,8 @@
 				B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */,
 				B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */,
 				B34B3DB816585242007F1C18 /* JSONSchemaValidationOperation.m */,
-				B3159320168F882A0044E48E /* JSONSchemaValidationRules.h */,
-				B3159321168F882A0044E48E /* JSONSchemaValidationRules.m */,
+				B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */,
+				B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */,
 				B3E38D0714F9ACEB00ECEE91 /* Supporting Files */,
 			);
 			path = JSONSchema;
@@ -160,8 +162,8 @@
 				B3E38D2114F9ACEB00ECEE91 /* JSONSchemaTests.m */,
 				B3E38D1B14F9ACEB00ECEE91 /* Supporting Files */,
 				B3A4E3C014F9D6140079CF41 /* TestUtility.h */,
-				B3A4E3C714FA265C0079CF41 /* JSONValidationContextTests.h */,
-				B3A4E3C814FA265C0079CF41 /* JSONValidationContextTests.m */,
+				B3A4E3C714FA265C0079CF41 /* JSONValidationLogicTests.h */,
+				B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */,
 			);
 			path = JSONSchemaTests;
 			sourceTree = "<group>";
@@ -186,7 +188,7 @@
 				B34ADE921528207700C9C585 /* NSNumber+JSONSchema.h in Headers */,
 				B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */,
 				B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */,
-				B3159322168F882B0044E48E /* JSONSchemaValidationRules.h in Headers */,
+				B3159322168F882B0044E48E /* JSONSchemaValidationLogic.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +295,7 @@
 				B34ADE931528207700C9C585 /* NSNumber+JSONSchema.m in Sources */,
 				B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */,
 				B34B3DBA16585242007F1C18 /* JSONSchemaValidationOperation.m in Sources */,
-				B3159323168F882B0044E48E /* JSONSchemaValidationRules.m in Sources */,
+				B3159323168F882B0044E48E /* JSONSchemaValidationLogic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E38D2214F9ACEB00ECEE91 /* JSONSchemaTests.m in Sources */,
-				B3A4E3C914FA265C0079CF41 /* JSONValidationContextTests.m in Sources */,
+				B3A4E3C914FA265C0079CF41 /* JSONValidationLogicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
