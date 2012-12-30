@@ -406,13 +406,6 @@
         valid &= [self validateDictObject:(NSDictionary*)object againstSchema:schema context:context errors:&myErrors];
     }
     
-    //        NSError* subschemaError = nil;
-    //        JSONSchema* subschema = [JSONSchema JSONSchemaWithObject:object error:&subschemaError];
-    //        if (subschema == nil) {
-    //            // TODO: add error
-    //        }
-    
-    
     if (([myErrors count] > 0) && (outErrors != NULL)) {
         *outErrors = myErrors;
         return NO;
