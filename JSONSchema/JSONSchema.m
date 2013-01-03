@@ -157,14 +157,14 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 
 + (id) build:(void (^)(JSONSchema* schema))block
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     block(schema);
     return schema;
 }
 
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     
     if (![schema validateAndSetKey:JSONSchemaAttributeId fromObject:obj error:error]) return nil;
     if (![schema validateAndSetKey:JSONSchemaAttributeExtends fromObject:obj error:error]) return nil;
@@ -214,7 +214,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     return [self JSONSchemaWithObject:obj error:error];
 }
 
-+ (id) JSONSchema
++ (id) schema
 {
     return [[self alloc] init];
 }

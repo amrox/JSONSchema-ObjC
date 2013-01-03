@@ -42,7 +42,7 @@
 
 - (void) testValidateStringOK
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result = [self.logic validate:@"fart" againstSchema:schema];
@@ -51,7 +51,7 @@
 
 - (void) testValidateStringGoodType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     
     JSONSchemaValidationResult* result =  [self.logic validate:@"fart" againstSchema:schema];
@@ -60,7 +60,7 @@
 
 - (void) testValidateStringBadType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     
     JSONSchemaValidationResult* result = [self.logic validate:@1 againstSchema:schema];
@@ -69,7 +69,7 @@
 
 - (void) testValidateStringBadMinLength
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     schema.minLength = @10;
     
@@ -79,7 +79,7 @@
 
 - (void) testValidateStringBadMaxLength
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     schema.maxLength = @2;
     
@@ -89,7 +89,7 @@
 
 - (void) testValidateStringGoodPattern
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
     
@@ -99,7 +99,7 @@
 
 - (void) testValidateStringBadPattern
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
     
@@ -109,7 +109,7 @@
 
 - (void) testValidateNumberGoodTypeInteger
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     
     JSONSchemaValidationResult* result = [self.logic validate:@5 againstSchema:schema];
@@ -118,7 +118,7 @@
 
 - (void) testValidateNumberGoodTypeFloat
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     
     JSONSchemaValidationResult* result = [self.logic validate:@5.5f againstSchema:schema];
@@ -127,7 +127,7 @@
 
 - (void) testValidateNumberBadType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     
     JSONSchemaValidationResult* result = [self.logic validate:@"pineapple" againstSchema:schema];
@@ -136,7 +136,7 @@
 
 - (void) testValidateIntegerGood
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeInteger];
     
     NSArray* errors = nil;
@@ -146,7 +146,7 @@
 
 - (void) testValidateIntegerBadFloat
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeInteger];
     
     NSArray* errors = nil;
@@ -157,7 +157,7 @@
 
 - (void) testValidateNumberGoodMinimum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @2;
     
@@ -168,7 +168,7 @@
 
 - (void) testValidateNumberExactMinimum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @4;
     
@@ -179,7 +179,7 @@
 
 - (void) testValidateNumberGoodExclusiveMinimum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
     
@@ -190,7 +190,7 @@
 
 - (void) testValidateNumberBadExclusiveMinimum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
     
@@ -201,7 +201,7 @@
 
 - (void) testValidateNumberBadMinimum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @5;
     
@@ -212,7 +212,7 @@
 
 - (void) testValidateNumberGoodMaximum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
     
@@ -223,7 +223,7 @@
 
 - (void) testValidateNumberExactMaximum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
     
@@ -234,7 +234,7 @@
 
 - (void) testValidateNumberBadMaximum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @2;
     
@@ -245,7 +245,7 @@
 
 - (void) testValidateNumberGoodExclusiveMaximum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @5;
     
@@ -256,7 +256,7 @@
 
 - (void) testValidateNumberBadExclusiveMaximum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @4;
     
@@ -267,7 +267,7 @@
 
 - (void) testValidateBooleanGoodTrue
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeBoolean];
     
     NSArray* errors = nil;
@@ -277,7 +277,7 @@
 
 - (void) testValidateBooleanGoodFalse
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeBoolean];
     
     NSArray* errors = nil;
@@ -287,7 +287,7 @@
 
 - (void) testValidateBooleanBadNumber
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeBoolean];
     
     NSArray* errors = nil;
@@ -297,7 +297,7 @@
 
 - (void) testValidateBooleanBadType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeBoolean];
     
     NSArray* errors = nil;
@@ -307,7 +307,7 @@
 
 - (void) testValidateNumberDivisbleByGood
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
     
@@ -318,7 +318,7 @@
 
 - (void) testValidateNumberDivisbleByBadDivide
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
     
@@ -329,7 +329,7 @@
 
 - (void) testValidateNumberDivisbleByBadType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
     
@@ -340,7 +340,7 @@
 
 - (void) testValidateArrayGoodType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     
     NSArray* errors = nil;
@@ -350,7 +350,7 @@
 
 - (void) testValidateArrayBadType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeInteger];
     
     NSArray* errors = nil;
@@ -360,7 +360,7 @@
 
 - (void) testValidateArrayGoodMinItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
     
@@ -373,7 +373,7 @@
 
 - (void) testValidateArrayBadMinItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
     
@@ -386,7 +386,7 @@
 
 - (void) testValidateArrayGoodMaxItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
     
@@ -399,7 +399,7 @@
 
 - (void) testValidateArrayBadMaxItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
     
@@ -412,7 +412,7 @@
 
 - (void) testValidateArrayGoodUniqueItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
     
@@ -425,7 +425,7 @@
 
 - (void) testValidateArrayBadUniqueItems
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
     
@@ -438,7 +438,7 @@
 
 - (void) testValidateArrayGoodEnum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"cat", @"bear"];
     
@@ -451,7 +451,7 @@
 
 - (void) testValidateArrayBadEnum
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"bear"];
     
@@ -464,7 +464,7 @@
 
 - (void) testValidateDisallowPass
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
     
     NSArray* errors = nil;
@@ -474,7 +474,7 @@
 
 - (void) testValidateDisallowFail
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
     
     NSArray* errors = nil;
@@ -484,7 +484,7 @@
 
 - (void) testValidateRequiredPropertyFail
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
         schema.required = YES;
     }]};
@@ -497,7 +497,7 @@
 
 - (void) testValidateRequiredPropertyPass
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
         schema.required = YES;
     }]};
@@ -510,7 +510,7 @@
 
 - (void) testValidatePropertyTypeFail
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
         schema.types = @[JSONSchemaTypeInteger];
     }]};
@@ -525,7 +525,7 @@
 
 - (void) testMultipleErrorsReturnedForArrayMetaProperties
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     schema.maxItems = @2;
     schema.uniqueItems = YES;
     

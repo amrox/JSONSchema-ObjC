@@ -69,7 +69,7 @@ extern NSString* const JSONSchemaFormatHostname;
 
 + (id) build:(void (^)(JSONSchema* schema))block;
 
-+ (id) JSONSchema;
++ (id) schema;
 
 // general attributes
 @property (nonatomic, strong) NSString* id;

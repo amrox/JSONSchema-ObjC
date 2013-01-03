@@ -40,7 +40,7 @@
 
 - (void) testValidateType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
 
     id type = nil;
     NSError* error = nil;
@@ -65,7 +65,7 @@
 
 - (void) testInvalidDescriptionType
 {
-    JSONSchema* schema = [JSONSchema JSONSchema];
+    JSONSchema* schema = [JSONSchema schema];
     
     NSNumber* n = @1;
     NSError* error = nil;
