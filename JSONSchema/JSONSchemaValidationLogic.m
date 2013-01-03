@@ -361,15 +361,6 @@
         foundValidType = [result isValid];
     }
 
-//
-//    if (!foundValidType) {
-//        
-//        [result addError:
-//         JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE,
-//                      ([NSString stringWithFormat:@"[%@:%@] expected types (%@)",
-//                        object, context,
-//                        [types componentsJoinedByString:@","]]))];
-//    }
     return foundValidType;
 }
 
@@ -408,24 +399,6 @@
         [result addErrorsFromResult:
          [self validateDictObject:(NSDictionary*)object againstSchema:schema context:context]];
     }
-    
-    // not sure why this is here, but it was here before
-    //    if (![result isValid]) {
-    //
-    //        return NO;
-    //
-    //    } else {
-    //    `
-    //        if (outErrors != NULL) {
-    //            *outErrors = [NSArray arrayWithObject:
-    //                          JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE,
-    //                                       ([NSString stringWithFormat:@"[%@:%@] expected types (%@)",
-    //                                         object, context,
-    //                                         [schema.types componentsJoinedByString:@","]]))];
-    //        }
-    //        return NO;
-    //    }
-    //    return YES;
     
     return result;
 }
