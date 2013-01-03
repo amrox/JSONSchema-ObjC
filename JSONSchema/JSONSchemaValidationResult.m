@@ -24,6 +24,11 @@
     return self;
 }
 
++ (id) result
+{
+    return [[self alloc] init];
+}
+
 - (NSArray*) errors
 {
     return self.myErrors;

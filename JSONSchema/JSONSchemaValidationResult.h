@@ -10,6 +10,8 @@
 
 @interface JSONSchemaValidationResult : NSObject
 
++ (id) result;
+
 - (NSArray*) errors;
 
 - (BOOL) isValid;
