@@ -145,12 +145,12 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     [self setValue:properties forKey:key];
     
     for (NSString* propertyName in allPropertyNames) {
-        id value = [dict objectForKey:propertyName];
+        id value = dict[propertyName];
         JSONSchema* propertySchema = [[self class] JSONSchemaWithObject:value error:error];
         if (propertySchema == nil) {
             return NO;
         }
-        [properties setObject:propertySchema forKey:propertyName];
+        properties[propertyName] = propertySchema;
     }
     return YES;
 }
@@ -283,7 +283,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
         
         id val = [self valueForAttribute:attribute];
         if (val != nil) {
-            [dict setObject:val forKey:attribute];
+            dict[attribute] = val;
         }
     }
     return dict;
@@ -294,7 +294,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     if ([[NSSet setWithObjects:
           @"required", @"uniqueItems", nil]
          containsObject:key]) {
-        [self setValue:[NSNumber numberWithBool:NO] forKey:key];
+        [self setValue:@NO forKey:key];
     } else
         [super setNilValueForKey:key];
 }
@@ -315,7 +315,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
             return NO;
         }
         
-        *value = [NSArray arrayWithObject:*value];;
+        *value = @[*value];;
         return YES;
 
     } else if ([*value isKindOfClass:[NSArray class]]) {

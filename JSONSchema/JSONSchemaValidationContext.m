@@ -37,7 +37,7 @@
 
 - (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url
 {
-    [self.schemasByURL setObject:schema forKey:url];
+    (self.schemasByURL)[url] = schema;
 }
 
 - (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema

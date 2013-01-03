@@ -163,8 +163,8 @@
         NSNumber* number = (NSNumber*)object;
         
         // Test if number is boolean
-        if (!([number isEqualToNumber:[NSNumber numberWithBool:YES]]
-              || [number isEqualToNumber:[NSNumber numberWithBool:NO]])) {
+        if (!([number isEqualToNumber:@YES]
+              || [number isEqualToNumber:@NO])) {
             
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
@@ -214,8 +214,8 @@
         NSUInteger c = [array count];
         for (NSUInteger i = 0; i < c - 1; i++) {
             for (NSUInteger j = i + 1; j < c; j++) {
-                id obj1 = [array objectAtIndex:i];
-                id obj2 = [array objectAtIndex:j];
+                id obj1 = array[i];
+                id obj2 = array[j];
                 if (![obj1 respondsToSelector:@selector(isEqual:)]) {
                     [result addError:
                      JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
@@ -282,7 +282,7 @@
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
     
-    id val = [dict objectForKey:property];
+    id val = dict[property];
     
     if (schema.required) {
         if (val == nil) {

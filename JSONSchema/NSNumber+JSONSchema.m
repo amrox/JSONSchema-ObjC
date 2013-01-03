@@ -13,7 +13,7 @@
 - (BOOL) jsonSchema_isIntegral
 {
     // TODO: might be a better way to do this
-    return [self isEqualToNumber:[NSNumber numberWithInteger:[self integerValue]]];
+    return [self isEqualToNumber:@([self integerValue])];
 }
 
 @end
