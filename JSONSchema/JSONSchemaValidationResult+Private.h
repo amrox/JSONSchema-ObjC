@@ -10,6 +10,10 @@
 
 @interface JSONSchemaValidationResult ()
 
-- (void)addError:(NSError *error);
+- (void)addError:(NSError *)error;
+
+- (void)addErrors:(NSArray *)errors;
+
+- (void)addErrorsFromResult:(JSONSchemaValidationResult *)result;
 
 @end

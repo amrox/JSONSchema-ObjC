@@ -54,11 +54,11 @@
     valid = [schema validateValue:&type forKey:@"types" error:&error];
     STAssertFalse(valid, @"error: %@", error);
     
-    type = [NSArray arrayWithObjects:@"string", @"object", nil];
+    type = @[@"string", @"object"];
     valid = [schema validateValue:&type forKey:@"types" error:&error];
     STAssertTrue(valid, @"error: %@", error);
             
-    type = [NSArray arrayWithObjects:@"string", @"pickle", nil];
+    type = @[@"string", @"pickle"];
     valid = [schema validateValue:&type forKey:@"types" error:&error];
     STAssertFalse(valid, @"error: %@", error);
 }
@@ -67,7 +67,7 @@
 {
     JSONSchema* schema = [JSONSchema JSONSchema];
     
-    NSNumber* n = [NSNumber numberWithInt:1];
+    NSNumber* n = @1;
     NSError* error = nil;
     BOOL valid = NO;
     

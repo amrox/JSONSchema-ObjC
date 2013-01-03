@@ -10,6 +10,7 @@
 
 @class JSONSchema;
 @class JSONSchemaValidationLogic;
+@class JSONSchemaValidationResult;
 
 @interface JSONSchemaValidationContext : NSObject
 
@@ -22,6 +23,6 @@
 
 - (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url;
 
-- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)errors;
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema;
 
 @end

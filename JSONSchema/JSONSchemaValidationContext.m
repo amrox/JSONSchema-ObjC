@@ -40,9 +40,9 @@
     [self.schemasByURL setObject:schema forKey:url];
 }
 
-- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)errors;
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema
 {
-    return [self.logic validate:object againstSchema:schema context:nil errors:errors];
+    return [self.logic validate:object againstSchema:schema context:nil];
 }
 
 

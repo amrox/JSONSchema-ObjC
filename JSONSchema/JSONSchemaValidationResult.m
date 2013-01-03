@@ -7,6 +7,7 @@
 //
 
 #import "JSONSchemaValidationResult.h"
+#import "JSONSchemaValidationResult+Private.h"
 
 @interface JSONSchemaValidationResult ()
 @property (nonatomic, strong) NSMutableArray* myErrors;
@@ -31,6 +32,21 @@
 - (BOOL) isValid
 {
     return [self.myErrors count] == 0;
+}
+
+- (void)addError:(NSArray *)error
+{
+    [self.myErrors addObject:error];
+}
+
+- (void)addErrors:(NSArray *)errors
+{
+    [self.myErrors addObjectsFromArray:errors];
+}
+
+- (void)addErrorsFromResult:(JSONSchemaValidationResult *)result
+{
+    [self addErrors:result.errors];
 }
 
 @end

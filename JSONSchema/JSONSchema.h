@@ -98,6 +98,8 @@ extern NSString* const JSONSchemaFormatHostname;
 @property (nonatomic, strong) NSNumber* minItems; // ???: make integer?
 @property (nonatomic, strong) NSNumber* maxItems; // ???: make integer?
 @property (nonatomic, assign) BOOL uniqueItems;
+@property (nonatomic, strong) id items;
+@property (nonatomic, strong) id additionalItems;
 
 // string attributes
 @property (nonatomic, strong) NSNumber* minLength;

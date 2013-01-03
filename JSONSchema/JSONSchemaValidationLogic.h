@@ -9,29 +9,39 @@
 #import <Foundation/Foundation.h>
 
 @class JSONSchema;
+@class JSONSchemaValidationResult;
 
 @interface JSONSchemaValidationLogic : NSObject
 
 + (JSONSchemaValidationLogic*) defaultValidationLogic;
 
-- (BOOL) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context;
 
-- (BOOL) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema;
 
-- (BOOL) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)errors;
+/**
+ @discussion compataibility method
+ */
+- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)outErrors;
+
+
+#pragma mark -
+
+
+- (JSONSchemaValidationResult*) validateString:(NSString*)string againstSchema:(JSONSchema*)schema context:(id)context;
+
+- (JSONSchemaValidationResult*) validateNumber:(NSNumber*)number againstSchema:(JSONSchema*)schema context:(id)context;
+
+- (JSONSchemaValidationResult*) validateArray:(NSArray*)array againstSchema:(JSONSchema*)schema context:(id)context;
 
 #pragma mark Type validation
 
-- (BOOL) validateObject:(id)object matchesTypes:(NSArray*)types context:(id)context errors:(NSArray**)outErrors;
+//- (JSONSchemaValidationResult*) validateObject:(id)object matchesTypes:(NSArray*)types context:(id)context;
 
-- (BOOL) validateObjectByType:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors;
+- (JSONSchemaValidationResult*) validateObjectByType:(id)object againstSchema:(JSONSchema*)schema context:(id)context;
 
-- (BOOL) validateTypeBoolean:(id)object context:(id)context errors:(NSArray**)errors;
+- (JSONSchemaValidationResult*) validateTypeBoolean:(id)object context:(id)context;
 
-- (BOOL) validateTypeArray:(id)object context:(id)context errors:(NSArray**)errors;
-
-- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context errors:(NSArray**)outErrors;
-
-- (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)outErrors;
+- (JSONSchemaValidationResult*) validateTypeArray:(id)object context:(id)context;
 
 @end
