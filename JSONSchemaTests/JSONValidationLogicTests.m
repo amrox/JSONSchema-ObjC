@@ -30,7 +30,7 @@
     self.logic = nil;
 }
 
-- (void) testValidateStringOK
+- (void) testLoadSchemaFromString
 {
     NSString* schemaString = @"{\"type\":\"string\"}";
     NSData* schemaData = [schemaString dataUsingEncoding:NSUTF8StringEncoding];
@@ -38,7 +38,13 @@
     NSError* error = nil;
     JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
-    
+}
+
+- (void) testValidateStringOK
+{
+    JSONSchema* schema = [JSONSchema JSONSchema];
+    schema.types = @[JSONSchemaTypeString];
+
     JSONSchemaValidationResult* result = [self.logic validate:@"fart" againstSchema:schema];
     STAssertTrue([result isValid], @"errors: %@", result.errors);
 }
