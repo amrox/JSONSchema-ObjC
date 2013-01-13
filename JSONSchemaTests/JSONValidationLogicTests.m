@@ -107,6 +107,26 @@
     STAssertFalse([result isValid], @"should fail validation");
 }
 
+- (void) testValidateStringGoodEnum
+{
+    JSONSchema* schema = [JSONSchema schema];
+    schema.types = @[JSONSchemaTypeString];
+    schema.possibleValues = @[@"dog", @"cat"];
+    
+    JSONSchemaValidationResult* result = [self.logic validate:@"dog" againstSchema:schema];
+    STAssertTrue([result isValid], @"should pass validation");
+}
+
+- (void) testValidateStringBadEnum
+{
+    JSONSchema* schema = [JSONSchema schema];
+    schema.types = @[JSONSchemaTypeString];
+    schema.possibleValues = @[@"dog", @"cat"];
+    
+    JSONSchemaValidationResult* result = [self.logic validate:@"walrus" againstSchema:schema];
+    STAssertFalse([result isValid], @"should fail validation");
+}
+
 - (void) testValidateNumberGoodTypeInteger
 {
     JSONSchema* schema = [JSONSchema schema];

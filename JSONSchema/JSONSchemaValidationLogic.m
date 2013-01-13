@@ -64,6 +64,16 @@
         }
     }
     
+    if (schema.possibleValues != nil) {
+
+        if (![schema.possibleValues containsObject:string]) {
+            [result addError:
+             JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
+                          ([NSString stringWithFormat:@"[%@:%@] possible values (%@)", context, string, schema.possibleValues]))];
+
+        }
+    }
+    
     return result;
 }
 
