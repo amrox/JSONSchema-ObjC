@@ -11,6 +11,8 @@
 #import "JSONSchemaErrors.h"
 #import "TestUtility.h"
 
+#import "JSONSchema+ObjectCreation.h"
+
 @implementation JSONSchemaTests
 
 - (void)setUp
@@ -86,6 +88,37 @@
     NSError* error = nil;
     JSONSchema* schema = [JSONSchema JSONSchemaWithData:data error:&error];
     STAssertNotNil(schema, @"error: %@", error);
+}
+
+- (void) testCreateObject
+{
+    // Set up a basic JSON-Schema for a "Hat" object. It has a single property "color",
+    // which is a string and can have the values ("red", "green", "blue").
+    
+    NSDictionary* schemaDict = @{
+        @"title" : @"Hat",
+        @"properties" : @{@"color" : @{
+            @"type": @"string",
+            @"enum": @[@"red", @"green", @"blue"]
+        }}
+    };
+    
+    NSError* error = nil;
+    JSONSchema* schema = [JSONSchema JSONSchemaWithObject:schemaDict error:&error];
+    STAssertNil(error, @"error: %@", error);
+    
+    // Create an instance of the object defined by the schema
+    
+    id obj = [schema createObject];
+
+    // Test set and get valid value
+    
+    [obj setValue:@"red" forKey:@"color"];
+    STAssertEqualObjects([obj valueForKey:@"color"], @"red", @"should be red");
+
+    // Test set invalid value
+
+    STAssertThrows([obj setValue:@"purple" forKey:@"color"], @"should throw for invalid value");
 }
 
 @end
