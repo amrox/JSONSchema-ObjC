@@ -10,6 +10,15 @@
 
 @interface JSONSchema (ObjectCreation)
 
-- (id) createObject;
+- (Class) registerClass;
+
+- (Class) registerClassWithName:(NSString*)className;
+
+
+@end
+
+@interface NSObject (JSONSchema)
+
+- (JSONSchema *) JSONSchema;
 
 @end
