@@ -59,8 +59,11 @@
 
 - (void) testCreateClassWithPreviousDefinition
 {
-    // Set up a basic JSON-Schema for a "Hat" object. It has a single property "color",
-    // which is a string and can have the values ("red", "green", "blue").
+    // Set up a basic JSON-Schema for a "Cat" object. It has a single property "color",
+    // which is a string and can have the values ("black", "white", "orange").
+    
+    // The Cat class is already defined above. This is dynamically associate the JSON-Schema
+    // create valdiating setters for properties.
     
     NSDictionary* schemaDict = @{
         @"title" : @"Cat",
