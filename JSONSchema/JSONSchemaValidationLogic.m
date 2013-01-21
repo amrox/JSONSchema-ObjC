@@ -365,6 +365,13 @@
             result = [self validateTypeArray:object context:context];
             break;
         }
+        
+        else if ([type isEqualToString:JSONSchemaTypeNull]
+                 && [object isKindOfClass:[NSNull class]]) {
+            
+            foundValidType = YES;
+            break;
+        }
     }
     
     if (result != nil) {
