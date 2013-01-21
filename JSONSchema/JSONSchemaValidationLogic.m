@@ -93,7 +93,7 @@
         if ([schema.exclusiveMinimum compare:number] != NSOrderedAscending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMinimum (%@)", context, number, schema.exclusiveMinimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMinimum (%@)", context, number, schema.exclusiveMinimum]))];
         }
     }
     
@@ -101,7 +101,7 @@
         if ([schema.maximum compare:number] == NSOrderedAscending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.minimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.maximum]))];
         }
     }
     
@@ -109,7 +109,7 @@
         if ([schema.exclusiveMaximum compare:number] != NSOrderedDescending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMaximum (%@)", context, number, schema.minimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMaximum (%@)", context, number, schema.exclusiveMaximum]))];
         }
     }
     
