@@ -185,6 +185,21 @@
     return result;
 }
 
+- (JSONSchemaValidationResult*) validateTypeObject:(id)object context:(id)context
+{
+    JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
+    
+    if (![object isKindOfClass:[NSDictionary class]]) {
+        
+        [result addError:
+         JSERR_REASON(JSONSCHEMA_ERROR_INVALID_TYPE,
+                      ([NSString stringWithFormat:@"[%@:%@] not an object", context, object]))];
+        
+    }
+    
+    return result;
+}
+
 - (JSONSchemaValidationResult*) validateTypeArray:(id)object context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
@@ -363,6 +378,12 @@
         else if ([type isEqualToString:JSONSchemaTypeArray]) {
             
             result = [self validateTypeArray:object context:context];
+            break;
+        }
+        
+        else if ([type isEqualToString:JSONSchemaTypeObject]) {
+            
+            result = [self validateTypeObject:object context:context];
             break;
         }
         

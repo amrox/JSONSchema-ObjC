@@ -482,6 +482,28 @@
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
+- (void) testValidateObjectGoodType
+{
+    JSONSchema* schema = [JSONSchema schema];
+    schema.types = @[JSONSchemaTypeObject];
+
+    NSDictionary* object = @{@"color": @"mauve"};
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [self.logic validate:object againstSchema:schema errors:&errors];
+    STAssertTrue(validationSuccess, @"should pass validation");
+}
+
+- (void) testValidateObjectBadType
+{
+    JSONSchema* schema = [JSONSchema schema];
+    schema.types = @[JSONSchemaTypeObject];
+    
+    NSArray* errors = nil;
+    BOOL validationSuccess = [self.logic validate:@"mouse" againstSchema:schema errors:&errors];
+    STAssertFalse(validationSuccess, @"should fail validation");
+}
+
 - (void) testValidateNullGoodType
 {
     JSONSchema* schema = [JSONSchema schema];
