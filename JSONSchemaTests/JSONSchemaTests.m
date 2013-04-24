@@ -89,6 +89,16 @@
     STAssertNotNil(schema, @"error: %@", error);
 }
 
+- (void) testParseItemsSchema
+{
+    NSString* schemaString = @"{\"type\": \"array\", \"items\": {\"type\": \"integer\"}}";
+    NSData* schemaData = [schemaString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError* error = nil;
+    JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
+    STAssertNotNil(schema, @"error: %@", error);
+    STAssertTrue([schema.items isKindOfClass:[JSONSchema class]], @"schema.items should be a schema.");
+}
 
 
 @end

@@ -18,6 +18,7 @@ NSString* const JSONSchemaAttributeTitle             = @"title";
 NSString* const JSONSchemaAttributeFormat            = @"format";
 NSString* const JSONSchemaAttributeProperties        = @"properties";
 NSString* const JSONSchemaAttributePatternProperties = @"patternProperties";
+NSString* const JSONSchemaAttributeItems             = @"items";
 NSString* const JSONSchemaAttributeRequired          = @"required";
 NSString* const JSONSchemaAttributeDefault           = @"default";
 NSString* const JSONSchemaAttributeEnum              = @"enum";
@@ -72,6 +73,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
 @synthesize possibleValues = _possibleValues;
 @synthesize properties = _properties;
 @synthesize patternProperties = _patternProperties;
+@synthesize items = _items;
 @synthesize minimum = _minimum;
 @synthesize maximum = _maximum;
 @synthesize exclusiveMinimum  = _exclusiveMinimum;
@@ -155,6 +157,26 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     return YES;
 }
 
+- (BOOL) setSchemasFromDictOrArray:(id)dictOrArray toKey:(NSString*)key error:(NSError**)error
+{
+    if ([dictOrArray isKindOfClass:[NSDictionary class]]) {
+        NSDictionary* dict = dictOrArray;
+        JSONSchema* schema = [[self class] JSONSchemaWithObject:dict error:error];
+        if (schema == nil) {
+            return NO;
+        }
+        [self setValue:schema forKey:key];
+    } else if ([dictOrArray isKindOfClass:[NSArray class]]) {
+        // TODO: add support for tuple typing
+        
+    } else {
+        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+                       ([NSString stringWithFormat:@"expected type (schema,array) for attribute '%@'", key]));
+        return NO;
+    }
+    return YES;
+}
+
 + (id) build:(void (^)(JSONSchema* schema))block
 {
     JSONSchema* schema = [JSONSchema schema];
@@ -201,6 +223,13 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
         }
     }
     
+    id items = [obj valueForKey:JSONSchemaAttributeItems];
+    if (items != nil) {
+        if(![schema setSchemasFromDictOrArray:items toKey:JSONSchemaAttributeItems error:error]) {
+            return nil;
+        }
+    }
+
     return schema;
 }
 
@@ -231,6 +260,7 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
     JSONSchemaAttributeFormat,
     JSONSchemaAttributeProperties,
     JSONSchemaAttributePatternProperties,
+    JSONSchemaAttributeItems,
     JSONSchemaAttributeRequired,
     JSONSchemaAttributeDefault,
     JSONSchemaAttributeEnum,
@@ -504,6 +534,11 @@ static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
                        @"expected type (string) for attribute 'pattern'");
         return NO;
     }
+    return YES;
+}
+
+- (BOOL) validateItems:(id*)value error:(NSError**)error
+{
     return YES;
 }
 
