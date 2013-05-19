@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30A37C51749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */; };
+		B30A37C61749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */; };
+		B30A37C9174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37C7174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.h */; };
+		B30A37CA174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37C8174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.m */; };
+		B30A37CD174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */; };
+		B30A37CE174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */; };
 		B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */; };
 		B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */; };
 		B3159322168F882B0044E48E /* JSONSchemaValidationLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */; };
@@ -18,7 +24,7 @@
 		B3A4E3C314FA1A6A0079CF41 /* JSONSchemaValidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */; };
 		B3A4E3C414FA1A6A0079CF41 /* JSONSchemaValidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */; };
 		B3A4E3C614FA1D260079CF41 /* TestData in Resources */ = {isa = PBXBuildFile; fileRef = B3A4E3C514FA1D260079CF41 /* TestData */; };
-		B3A4E3C914FA265C0079CF41 /* JSONValidationLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */; };
+		B3A4E3C914FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A4E3C814FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.m */; };
 		B3B57B7616A242EF00EC1262 /* JSONSchema+ObjectCreation.h in Headers */ = {isa = PBXBuildFile; fileRef = B3B57B7416A242EF00EC1262 /* JSONSchema+ObjectCreation.h */; };
 		B3B57B7716A242EF00EC1262 /* JSONSchema+ObjectCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B57B7516A242EF00EC1262 /* JSONSchema+ObjectCreation.m */; };
 		B3DA781B16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DA781A16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m */; };
@@ -43,6 +49,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDraft3ValidationLogic.h; sourceTree = "<group>"; };
+		B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDraft3ValidationLogic.m; sourceTree = "<group>"; };
+		B30A37C7174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDraft4ValidationLogic.h; sourceTree = "<group>"; };
+		B30A37C8174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDraft4ValidationLogic.m; sourceTree = "<group>"; };
+		B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationLogic+DefaultLogic.h"; sourceTree = "<group>"; };
+		B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONSchemaValidationLogic+DefaultLogic.m"; sourceTree = "<group>"; };
 		B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationResult.h; sourceTree = "<group>"; };
 		B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationResult.m; sourceTree = "<group>"; };
 		B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationResult+Private.h"; sourceTree = "<group>"; };
@@ -58,8 +70,8 @@
 		B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationContext.h; sourceTree = "<group>"; };
 		B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationContext.m; sourceTree = "<group>"; };
 		B3A4E3C514FA1D260079CF41 /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
-		B3A4E3C714FA265C0079CF41 /* JSONValidationLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValidationLogicTests.h; sourceTree = "<group>"; };
-		B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValidationLogicTests.m; sourceTree = "<group>"; };
+		B3A4E3C714FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDraft3ValidationLogicTests.h; sourceTree = "<group>"; };
+		B3A4E3C814FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDraft3ValidationLogicTests.m; sourceTree = "<group>"; };
 		B3B57B7416A242EF00EC1262 /* JSONSchema+ObjectCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONSchema+ObjectCreation.h"; sourceTree = "<group>"; };
 		B3B57B7516A242EF00EC1262 /* JSONSchema+ObjectCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONSchema+ObjectCreation.m"; sourceTree = "<group>"; };
 		B3DA781916A3AA9C00807823 /* JSONSchemaObjectCreationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaObjectCreationTests.h; sourceTree = "<group>"; };
@@ -140,6 +152,12 @@
 				B3B57B7516A242EF00EC1262 /* JSONSchema+ObjectCreation.m */,
 				B3159320168F882A0044E48E /* JSONSchemaValidationLogic.h */,
 				B3159321168F882A0044E48E /* JSONSchemaValidationLogic.m */,
+				B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */,
+				B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */,
+				B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */,
+				B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */,
+				B30A37C7174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.h */,
+				B30A37C8174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.m */,
 				B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */,
 				B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */,
 				B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */,
@@ -169,8 +187,8 @@
 				B3A4E3C014F9D6140079CF41 /* TestUtility.h */,
 				B3E38D2014F9ACEB00ECEE91 /* JSONSchemaTests.h */,
 				B3E38D2114F9ACEB00ECEE91 /* JSONSchemaTests.m */,
-				B3A4E3C714FA265C0079CF41 /* JSONValidationLogicTests.h */,
-				B3A4E3C814FA265C0079CF41 /* JSONValidationLogicTests.m */,
+				B3A4E3C714FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.h */,
+				B3A4E3C814FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.m */,
 				B3DA781916A3AA9C00807823 /* JSONSchemaObjectCreationTests.h */,
 				B3DA781A16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m */,
 				B3A4E3C514FA1D260079CF41 /* TestData */,
@@ -201,6 +219,9 @@
 				B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */,
 				B3159322168F882B0044E48E /* JSONSchemaValidationLogic.h in Headers */,
 				B3B57B7616A242EF00EC1262 /* JSONSchema+ObjectCreation.h in Headers */,
+				B30A37C51749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h in Headers */,
+				B30A37C9174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.h in Headers */,
+				B30A37CD174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +330,9 @@
 				B34B3DBA16585242007F1C18 /* JSONSchemaValidationOperation.m in Sources */,
 				B3159323168F882B0044E48E /* JSONSchemaValidationLogic.m in Sources */,
 				B3B57B7716A242EF00EC1262 /* JSONSchema+ObjectCreation.m in Sources */,
+				B30A37C61749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m in Sources */,
+				B30A37CA174993B6009344E6 /* JSONSchemaDraft4ValidationLogic.m in Sources */,
+				B30A37CE174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E38D2214F9ACEB00ECEE91 /* JSONSchemaTests.m in Sources */,
-				B3A4E3C914FA265C0079CF41 /* JSONValidationLogicTests.m in Sources */,
+				B3A4E3C914FA265C0079CF41 /* JSONSchemaDraft3ValidationLogicTests.m in Sources */,
 				B3DA781B16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

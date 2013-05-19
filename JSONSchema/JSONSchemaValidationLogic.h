@@ -13,7 +13,6 @@
 
 @interface JSONSchemaValidationLogic : NSObject
 
-+ (JSONSchemaValidationLogic*) defaultValidationLogic;
 
 - (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context;
 

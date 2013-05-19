@@ -11,6 +11,7 @@
 #import "JSONSchema.h"
 #import "JSONSchemaValidationLogic.h"
 #import "JSONSchemaValidationResult.h"
+#import "JSONSchemaValidationLogic+DefaultLogic.h"
 
 
 @implementation NSObject (JSONSchema)

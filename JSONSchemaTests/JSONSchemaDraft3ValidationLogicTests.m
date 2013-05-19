@@ -6,23 +6,23 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONValidationLogicTests.h"
+#import "JSONSchemaDraft3ValidationLogicTests.h"
 #import "TestUtility.h"
 #import "JSONSchema.h"
-#import "JSONSchemaValidationLogic.h"
+#import "JSONSchemaDraft3ValidationLogic.h"
 #import "JSONSchemaValidationResult.h"
 
-@interface JSONValidationLogicTests ()
+@interface JSONSchemaDraft3ValidationLogicTests ()
 
 @property (nonatomic, strong) JSONSchemaValidationLogic *logic;
 
 @end
 
-@implementation JSONValidationLogicTests
+@implementation JSONSchemaDraft3ValidationLogicTests
 
 - (void) setUp
 {
-    self.logic = [JSONSchemaValidationLogic defaultValidationLogic];
+    self.logic = [[JSONSchemaDraft3ValidationLogic alloc] init];
 }
 
 - (void) tearDown

@@ -12,6 +12,8 @@
 #import "JSONSchemaErrors.h"
 #import "JSONSchema.h"
 #import "NSNumber+JSONSchema.h"
+#import "JSONSchemaValidationLogic+DefaultLogic.h"
+
 
 @interface JSONSchemaValidationContext ()
 @property (nonatomic, strong) NSMutableDictionary* schemasByURL;
