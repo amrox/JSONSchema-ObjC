@@ -85,7 +85,7 @@
         if ([schema.exclusiveMinimum compare:number] != NSOrderedAscending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMinimum (%@)", context, number, schema.exclusiveMinimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMinimum (%@)", context, number, schema.exclusiveMinimum]))];
         }
     }
 
@@ -93,7 +93,7 @@
         if ([schema.maximum compare:number] == NSOrderedAscending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.minimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.maximum]))];
         }
     }
 
@@ -101,7 +101,7 @@
         if ([schema.exclusiveMaximum compare:number] != NSOrderedDescending) {
             [result addError:
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected excluseMaximum (%@)", context, number, schema.minimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMaximum (%@)", context, number, schema.exclusiveMaximum]))];
         }
     }
 
@@ -172,6 +172,21 @@
              JSERR_REASON(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
                           ([NSString stringWithFormat:@"[%@:%@] not boolean", context, number]))];
         }
+    }
+
+    return result;
+}
+
+- (JSONSchemaValidationResult*) validateTypeObject:(id)object context:(id)context
+{
+    JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
+
+    if (![object isKindOfClass:[NSDictionary class]]) {
+
+        [result addError:
+         JSERR_REASON(JSONSCHEMA_ERROR_INVALID_TYPE,
+                      ([NSString stringWithFormat:@"[%@:%@] not an object", context, object]))];
+
     }
 
     return result;
@@ -357,6 +372,19 @@
             result = [self validateTypeArray:object context:context];
             break;
         }
+
+        else if ([type isEqualToString:JSONSchemaTypeObject]) {
+
+            result = [self validateTypeObject:object context:context];
+            break;
+        }
+
+        else if ([type isEqualToString:JSONSchemaTypeNull]
+                 && [object isKindOfClass:[NSNull class]]) {
+
+            foundValidType = YES;
+            break;
+        }
     }
 
     if (result != nil) {
@@ -442,12 +470,5 @@
 
     return result;
 }
-
-- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema
-{
-    return [self validate:object againstSchema:schema context:nil];
-}
-
-
 
 @end

@@ -11,7 +11,6 @@
 
 @implementation JSONSchemaValidationLogic
 
-
 - (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema context:(id)context
 {
     NSAssert(NO, @"Subclasses must override this method");
@@ -20,8 +19,7 @@
 
 - (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema
 {
-    NSAssert(NO, @"Subclasses must override this method");
-    return nil;
+    return [self validate:object againstSchema:schema context:nil];
 }
 
 - (BOOL) validate:(id)object againstSchema:(JSONSchema*)schema errors:(NSArray**)outErrors
