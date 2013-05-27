@@ -6,8 +6,8 @@
 //
 //
 
-#import "JSONSchemaDraft4.h"
+#import "JSONSchemaDocument_v4.h"
 
-@implementation JSONSchemaDraft4
+@implementation JSONSchemaDocument_v4
 
 @end

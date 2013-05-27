@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "JSONSchemaErrors.h"
 #import "JSONSchemaSerializationHelper.h"
+#import "JSONSchemaDocument.h"
+#import "JSONSchemaValidationContext.h"
+#import "JSONSchemaValidationResult.h"
 
 @interface JSONSchema : NSObject
 

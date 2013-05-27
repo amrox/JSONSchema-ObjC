@@ -8,6 +8,6 @@
 
 #import "JSONSchemaDocument.h"
 
-@interface JSONSchemaDraft4 : JSONSchemaDocument
+@interface JSONSchemaDocument_v4 : JSONSchemaDocument
 
 @end
