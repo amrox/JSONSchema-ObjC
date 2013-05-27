@@ -433,11 +433,6 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validate:(id)object context:(id)context
-{
-    return [self validate:object againstSchema:self context:context];
-}
-
 - (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
@@ -474,6 +469,11 @@
      [self validateObjectByType:object againstSchema:schema context:context]];
 
     return result;
+}
+
+- (JSONSchemaValidationResult*) validate:(id)object context:(id)context
+{
+    return [self validate:object againstSchema:self context:context];
 }
 
 @end

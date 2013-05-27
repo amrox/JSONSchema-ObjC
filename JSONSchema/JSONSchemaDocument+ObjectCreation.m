@@ -6,7 +6,7 @@
 //
 //
 
-#import "JSONSchema+ObjectCreation.h"
+#import "JSONSchemaDocument+ObjectCreation.h"
 #import <objc/runtime.h>
 #import "JSONSchemaDocument.h"
 #import "JSONSchemaValidationResult.h"

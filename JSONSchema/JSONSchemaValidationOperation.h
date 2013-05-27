@@ -13,8 +13,8 @@
 
 @interface JSONSchemaValidationOperation : NSOperation
 
-- (id)initWithContext:(JSONSchemaValidationContext *)context object:(id)object;
-
-@property (nonatomic, strong, readonly) JSONSchemaValidationResult *result;
+//- (id)initWithContext:(JSONSchemaValidationContext *)context object:(id)object;
+//
+//@property (nonatomic, strong, readonly) JSONSchemaValidationResult *result;
 
 @end

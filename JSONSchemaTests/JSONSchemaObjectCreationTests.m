@@ -7,7 +7,7 @@
 //
 
 #import "JSONSchemaObjectCreationTests.h"
-#import "JSONSchema+ObjectCreation.h"
+#import "JSONSchemaDocument+ObjectCreation.h"
 
 @interface Cat : NSObject
 
