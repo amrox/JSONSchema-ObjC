@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B30A37C51749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */; };
-		B30A37C61749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */; };
-		B30A37CD174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */; };
-		B30A37CE174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */; };
+		B30A37C51749939E009344E6 /* JSONSchemaDocument_v3+Validation.h in Headers */ = {isa = PBXBuildFile; fileRef = B30A37C31749939E009344E6 /* JSONSchemaDocument_v3+Validation.h */; };
+		B30A37C61749939E009344E6 /* JSONSchemaDocument_v3+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */; };
 		B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */; };
 		B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */; };
 		B33FDBB517541316001BAC97 /* JSONSchemaDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = B33FDBB317541316001BAC97 /* JSONSchemaDocument.h */; };
@@ -31,7 +29,7 @@
 		B3B57B7716A242EF00EC1262 /* JSONSchema+ObjectCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B57B7516A242EF00EC1262 /* JSONSchema+ObjectCreation.m */; };
 		B3DA781B16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DA781A16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m */; };
 		B3E38D0514F9ACEB00ECEE91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */; };
-		B3E38D0B14F9ACEB00ECEE91 /* JSONSchemaDraft3.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDraft3.m */; };
+		B3E38D0B14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */; };
 		B3E38D1314F9ACEB00ECEE91 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */; };
 		B3E38D1514F9ACEB00ECEE91 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D1414F9ACEB00ECEE91 /* UIKit.framework */; };
 		B3E38D1614F9ACEB00ECEE91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */; };
@@ -51,10 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDraft3ValidationLogic.h; sourceTree = "<group>"; };
-		B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDraft3ValidationLogic.m; sourceTree = "<group>"; };
-		B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationLogic+DefaultLogic.h"; sourceTree = "<group>"; };
-		B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONSchemaValidationLogic+DefaultLogic.m"; sourceTree = "<group>"; };
+		B30A37C31749939E009344E6 /* JSONSchemaDocument_v3+Validation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaDocument_v3+Validation.h"; sourceTree = "<group>"; };
+		B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONSchemaDocument_v3+Validation.m"; sourceTree = "<group>"; };
 		B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationResult.h; sourceTree = "<group>"; };
 		B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationResult.m; sourceTree = "<group>"; };
 		B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationResult+Private.h"; sourceTree = "<group>"; };
@@ -87,8 +83,8 @@
 		B3E38D0114F9ACEB00ECEE91 /* libJSONSchema.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJSONSchema.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3E38D0814F9ACEB00ECEE91 /* JSONSchema-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchema-Prefix.pch"; sourceTree = "<group>"; };
-		B3E38D0914F9ACEB00ECEE91 /* JSONSchemaDraft3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDraft3.h; sourceTree = "<group>"; };
-		B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDraft3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDraft3.m; sourceTree = "<group>"; };
+		B3E38D0914F9ACEB00ECEE91 /* JSONSchemaDocument_v3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDocument_v3.h; sourceTree = "<group>"; };
+		B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDocument_v3.m; sourceTree = "<group>"; };
 		B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONSchemaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		B3E38D1414F9ACEB00ECEE91 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -124,6 +120,8 @@
 		B33FDBB01754127D001BAC97 /* Draft 4 */ = {
 			isa = PBXGroup;
 			children = (
+				B33FDBB817541557001BAC97 /* JSONSchemaDraft4.h */,
+				B33FDBB917541557001BAC97 /* JSONSchemaDraft4.m */,
 			);
 			name = "Draft 4";
 			sourceTree = "<group>";
@@ -155,17 +153,13 @@
 				B33FDBC117541967001BAC97 /* JSONSchemaDocument+Private.h */,
 				B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */,
 				B33FDBB117541284001BAC97 /* Draft 3 */,
-				B3E38D0914F9ACEB00ECEE91 /* JSONSchemaDraft3.h */,
-				B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDraft3.m */,
-				B30A37C31749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h */,
-				B30A37C41749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m */,
+				B3E38D0914F9ACEB00ECEE91 /* JSONSchemaDocument_v3.h */,
+				B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */,
+				B30A37C31749939E009344E6 /* JSONSchemaDocument_v3+Validation.h */,
+				B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */,
 				B33FDBB01754127D001BAC97 /* Draft 4 */,
-				B33FDBB817541557001BAC97 /* JSONSchemaDraft4.h */,
-				B33FDBB917541557001BAC97 /* JSONSchemaDraft4.m */,
 				B3B57B7416A242EF00EC1262 /* JSONSchema+ObjectCreation.h */,
 				B3B57B7516A242EF00EC1262 /* JSONSchema+ObjectCreation.m */,
-				B30A37CB174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h */,
-				B30A37CC174994B9009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m */,
 				B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */,
 				B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */,
 				B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */,
@@ -264,8 +258,7 @@
 				B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */,
 				B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */,
 				B3B57B7616A242EF00EC1262 /* JSONSchema+ObjectCreation.h in Headers */,
-				B30A37C51749939E009344E6 /* JSONSchemaDraft3ValidationLogic.h in Headers */,
-				B30A37CD174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.h in Headers */,
+				B30A37C51749939E009344E6 /* JSONSchemaDocument_v3+Validation.h in Headers */,
 				B33FDBB517541316001BAC97 /* JSONSchemaDocument.h in Headers */,
 				B33FDBBA17541557001BAC97 /* JSONSchemaDraft4.h in Headers */,
 			);
@@ -369,14 +362,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E38D0B14F9ACEB00ECEE91 /* JSONSchemaDraft3.m in Sources */,
+				B3E38D0B14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m in Sources */,
 				B3A4E3C414FA1A6A0079CF41 /* JSONSchemaValidationContext.m in Sources */,
 				B34ADE931528207700C9C585 /* NSNumber+JSONSchema.m in Sources */,
 				B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */,
 				B34B3DBA16585242007F1C18 /* JSONSchemaValidationOperation.m in Sources */,
 				B3B57B7716A242EF00EC1262 /* JSONSchema+ObjectCreation.m in Sources */,
-				B30A37C61749939E009344E6 /* JSONSchemaDraft3ValidationLogic.m in Sources */,
-				B30A37CE174994BA009344E6 /* JSONSchemaValidationLogic+DefaultLogic.m in Sources */,
+				B30A37C61749939E009344E6 /* JSONSchemaDocument_v3+Validation.m in Sources */,
 				B33FDBB617541316001BAC97 /* JSONSchemaDocument.m in Sources */,
 				B33FDBBB17541557001BAC97 /* JSONSchemaDraft4.m in Sources */,
 				B33FDBBF1754167D001BAC97 /* JSONSchema.m in Sources */,

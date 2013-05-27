@@ -42,6 +42,16 @@ NSString* const JSONSchemaTypeAny                    = @"any";
     return -1;
 }
 
+- (instancetype) tap:(void (^)(id))block
+{
+    block(self);
+    return self;
+}
+
++ (id) build:(void (^)(id schema))block
+{
+    return [[[JSONSchema defaultSchemaDocumentClass] schema] tap:block];
+}
 
 #pragma mark Internal Validation
 

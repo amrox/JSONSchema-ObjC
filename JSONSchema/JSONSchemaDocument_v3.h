@@ -45,13 +45,11 @@ extern NSString* const JSONSchemaFormatIPAddress;
 extern NSString* const JSONSchemaFormatIPV6Address;
 extern NSString* const JSONSchemaFormatHostname;
 
-@interface JSONSchemaDraft3 : JSONSchemaDocument
+@interface JSONSchemaDocument_v3 : JSONSchemaDocument
 
 + (id) JSONSchemaWithData:(NSData *)data error:(NSError**)error;
 
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error;
-
-+ (id) build:(void (^)(JSONSchemaDraft3* schema))block;
 
 // general attributes
 @property (nonatomic, strong) NSString* id;

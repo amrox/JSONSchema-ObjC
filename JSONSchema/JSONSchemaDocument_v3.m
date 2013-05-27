@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONSchemaDraft3.h"
+#import "JSONSchemaDocument_v3.h"
 #import "JSONSchemaInternal.h"
 #import "JSONSchemaDocument+Private.h"
 
@@ -49,7 +49,7 @@ NSString* const JSONSchemaFormatIPAddress            = @"ip-address";
 NSString* const JSONSchemaFormatIPV6Address          = @"ipv6";
 NSString* const JSONSchemaFormatHostname             = @"host-name";
 
-@implementation JSONSchemaDraft3
+@implementation JSONSchemaDocument_v3
 
 @synthesize id = _id;
 @synthesize extends = _extends;
@@ -103,7 +103,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     
     for (NSString* propertyName in allPropertyNames) {
         id value = dict[propertyName];
-        JSONSchemaDraft3* propertySchema = [[self class] JSONSchemaWithObject:value error:error];
+        JSONSchemaDocument_v3* propertySchema = [[self class] JSONSchemaWithObject:value error:error];
         if (propertySchema == nil) {
             return NO;
         }
@@ -116,7 +116,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 {
     if ([dictOrArray isKindOfClass:[NSDictionary class]]) {
         NSDictionary* dict = dictOrArray;
-        JSONSchemaDraft3* schema = [[self class] JSONSchemaWithObject:dict error:error];
+        JSONSchemaDocument_v3* schema = [[self class] JSONSchemaWithObject:dict error:error];
         if (schema == nil) {
             return NO;
         }
@@ -132,16 +132,9 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     return YES;
 }
 
-+ (id) build:(void (^)(JSONSchemaDraft3* schema))block
-{
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
-    block(schema);
-    return schema;
-}
-
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     
     if (![schema validateAndSetKey:JSONSchemaAttributeId fromObject:obj error:error]) return nil;
     if (![schema validateAndSetKey:JSONSchemaAttributeExtends fromObject:obj error:error]) return nil;

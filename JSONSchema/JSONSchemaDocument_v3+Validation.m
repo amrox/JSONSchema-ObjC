@@ -6,17 +6,17 @@
 //
 //
 
-#import "JSONSchemaDraft3ValidationLogic.h"
+#import "JSONSchemaDocument_v3+Validation.h"
 
 #import "JSONSchemaErrors.h"
-#import "JSONSchemaDraft3.h"
+#import "JSONSchemaDocument_v3.h"
 #import "NSNumber+JSONSchema.h"
 #import "JSONSchemaValidationResult+Private.h"
 
 
-@implementation JSONSchemaDraft3 (Validation)
+@implementation JSONSchemaDocument_v3 (Validation)
 
-- (JSONSchemaValidationResult*) validateString:(NSString*)string againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateString:(NSString*)string againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
@@ -69,7 +69,7 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateNumber:(NSNumber*)number againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateNumber:(NSNumber*)number againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
@@ -207,7 +207,7 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateArray:(NSArray*)array againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateArray:(NSArray*)array againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
@@ -262,9 +262,9 @@
 
     // TODO: finish
     if (schema.items != nil) {
-        if ([schema.items isKindOfClass:[JSONSchemaDraft3 class]]) {
+        if ([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
 
-            JSONSchemaDraft3* itemSchema = (JSONSchemaDraft3*)schema.items;
+            JSONSchemaDocument_v3* itemSchema = (JSONSchemaDocument_v3*)schema.items;
 
             for (id item in array) {
                 [result addErrorsFromResult:
@@ -280,7 +280,7 @@
         }
 
         if (schema.additionalItems != nil) {
-            if ([schema.items isKindOfClass:[JSONSchemaDraft3 class]]) {
+            if ([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
                 abort();
 
             } else if ([schema.additionalItems isKindOfClass:[NSNumber class]]) {
@@ -295,7 +295,7 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
@@ -318,14 +318,14 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
     if (schema.properties != nil) {
         [schema.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString* propertyName = key;
-            JSONSchemaDraft3* propertySchema = obj;
+            JSONSchemaDocument_v3* propertySchema = obj;
             [result addErrorsFromResult:
              [self validateProperty:propertyName ofDictObject:dict againstSchema:propertySchema context:context]];
         }];
@@ -394,7 +394,7 @@
     return foundValidType;
 }
 
-- (JSONSchemaValidationResult*) validateObjectByType:(id)object againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validateObjectByType:(id)object againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
@@ -438,7 +438,7 @@
     return [self validate:object againstSchema:self context:context];
 }
 
-- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchemaDraft3*)schema context:(id)context
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchemaDocument_v3*)schema context:(id)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 

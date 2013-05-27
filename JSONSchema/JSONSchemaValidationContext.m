@@ -8,11 +8,9 @@
 
 #import "JSONSchemaValidationContext.h"
 #import "JSONSchemaValidationContext+Private.h"
-//#import "JSONSchemaValidationLogic.h"
 #import "JSONSchemaErrors.h"
-#import "JSONSchemaDraft3.h"
+#import "JSONSchemaDocument_v3.h"
 #import "NSNumber+JSONSchema.h"
-//#import "JSONSchemaValidationLogic+DefaultLogic.h"
 
 
 @interface JSONSchemaValidationContext ()
@@ -21,7 +19,6 @@
 
 @implementation JSONSchemaValidationContext
 
-//- (id)initWithValidationLogic:(JSONSchemaValidationLogic *)logic
 - (id)init
 {
     self = [super init];
@@ -31,13 +28,7 @@
     return self;
 }
 
-//- (id)init
-//{
-//    return [self initWithValidationLogic:[JSONSchemaValidationLogic defaultValidationLogic]];
-//}
-
-
-- (void) addSchema:(JSONSchemaDraft3*)schema forURL:(NSURL*)url
+- (void) addSchema:(JSONSchemaDocument_v3*)schema forURL:(NSURL*)url
 {
     (self.schemasByURL)[url] = schema;
 }
@@ -46,6 +37,5 @@
 {
     return [schema validate:object context:nil];
 }
-
 
 @end

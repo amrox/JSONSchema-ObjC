@@ -6,9 +6,9 @@
 //
 //
 
-#import "JSONSchemaDraft3.h"
+#import "JSONSchemaDocument_v3.h"
 
 
-@interface JSONSchemaDraft3 (Validation)
+@interface JSONSchemaDocument_v3 (Validation)
 
 @end

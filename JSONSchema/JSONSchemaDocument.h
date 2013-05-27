@@ -29,6 +29,11 @@ extern NSString* const JSONSchemaTypeAny;
 
 + (NSInteger) version;
 
+- (instancetype) tap:(void (^)(id))block;
+
++ (instancetype) build:(void (^)(id schema))block;
+
+
 // general attributes
 @property (nonatomic, strong) NSString* id;
 @property (nonatomic, strong) NSArray* types; // maps to 'type'

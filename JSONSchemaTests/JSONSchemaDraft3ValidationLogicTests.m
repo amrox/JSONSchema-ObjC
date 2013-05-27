@@ -8,8 +8,8 @@
 
 #import "JSONSchemaDraft3ValidationLogicTests.h"
 #import "TestUtility.h"
-#import "JSONSchemaDraft3.h"
-#import "JSONSchemaDraft3ValidationLogic.h"
+#import "JSONSchemaDocument_v3.h"
+#import "JSONSchemaDocument_v3+Validation.h"
 #import "JSONSchemaValidationResult.h"
 
 @interface JSONSchemaDraft3ValidationLogicTests ()
@@ -25,13 +25,13 @@
     NSData* schemaData = [schemaString dataUsingEncoding:NSUTF8StringEncoding];
 
     NSError* error = nil;
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 JSONSchemaWithData:schemaData error:&error];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
 }
 
 - (void) testValidateStringOK
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result = [schema validate:@"fart"];
@@ -40,7 +40,7 @@
 
 - (void) testValidateStringGoodType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result =  [schema validate:@"fart"];
@@ -49,7 +49,7 @@
 
 - (void) testValidateStringBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result = [schema validate:@1];
@@ -58,7 +58,7 @@
 
 - (void) testValidateStringBadMinLength
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.minLength = @10;
 
@@ -68,7 +68,7 @@
 
 - (void) testValidateStringBadMaxLength
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.maxLength = @2;
 
@@ -78,7 +78,7 @@
 
 - (void) testValidateStringGoodPattern
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
 
@@ -88,7 +88,7 @@
 
 - (void) testValidateStringBadPattern
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
 
@@ -98,7 +98,7 @@
 
 - (void) testValidateStringGoodEnum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.possibleValues = @[@"dog", @"cat"];
 
@@ -108,7 +108,7 @@
 
 - (void) testValidateStringBadEnum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.possibleValues = @[@"dog", @"cat"];
 
@@ -118,7 +118,7 @@
 
 - (void) testValidateNumberGoodTypeInteger
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@5];
@@ -127,7 +127,7 @@
 
 - (void) testValidateNumberGoodTypeFloat
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@5.5f];
@@ -136,7 +136,7 @@
 
 - (void) testValidateNumberBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@"pineapple"];
@@ -145,7 +145,7 @@
 
 - (void) testValidateIntegerGood
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeInteger];
 
     NSArray* errors = nil;
@@ -155,7 +155,7 @@
 
 - (void) testValidateIntegerBadFloat
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeInteger];
 
     NSArray* errors = nil;
@@ -166,7 +166,7 @@
 
 - (void) testValidateNumberGoodMinimum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @2;
 
@@ -177,7 +177,7 @@
 
 - (void) testValidateNumberExactMinimum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @4;
 
@@ -188,7 +188,7 @@
 
 - (void) testValidateNumberGoodExclusiveMinimum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
 
@@ -199,7 +199,7 @@
 
 - (void) testValidateNumberBadExclusiveMinimum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
 
@@ -210,7 +210,7 @@
 
 - (void) testValidateNumberBadMinimum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @5;
 
@@ -221,7 +221,7 @@
 
 - (void) testValidateNumberGoodMaximum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
 
@@ -232,7 +232,7 @@
 
 - (void) testValidateNumberExactMaximum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
 
@@ -243,7 +243,7 @@
 
 - (void) testValidateNumberBadMaximum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @2;
 
@@ -254,7 +254,7 @@
 
 - (void) testValidateNumberGoodExclusiveMaximum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @5;
 
@@ -265,7 +265,7 @@
 
 - (void) testValidateNumberBadExclusiveMaximum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @4;
 
@@ -276,7 +276,7 @@
 
 - (void) testValidateBooleanGoodTrue
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
 
     NSArray* errors = nil;
@@ -286,7 +286,7 @@
 
 - (void) testValidateBooleanGoodFalse
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
 
     NSArray* errors = nil;
@@ -296,7 +296,7 @@
 
 - (void) testValidateBooleanBadNumber
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
 
     NSArray* errors = nil;
@@ -306,7 +306,7 @@
 
 - (void) testValidateBooleanBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
 
     NSArray* errors = nil;
@@ -316,7 +316,7 @@
 
 - (void) testValidateNumberDivisbleByGood
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
 
@@ -327,7 +327,7 @@
 
 - (void) testValidateNumberDivisbleByBadDivide
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
 
@@ -338,7 +338,7 @@
 
 - (void) testValidateNumberDivisbleByBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
 
@@ -349,7 +349,7 @@
 
 - (void) testValidateArrayGoodType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
 
     NSArray* errors = nil;
@@ -359,7 +359,7 @@
 
 - (void) testValidateArrayBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeInteger];
 
     NSArray* errors = nil;
@@ -369,7 +369,7 @@
 
 - (void) testValidateArrayGoodMinItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
 
@@ -382,7 +382,7 @@
 
 - (void) testValidateArrayBadMinItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
 
@@ -395,7 +395,7 @@
 
 - (void) testValidateArrayGoodMaxItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
 
@@ -408,7 +408,7 @@
 
 - (void) testValidateArrayBadMaxItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
 
@@ -421,7 +421,7 @@
 
 - (void) testValidateArrayGoodUniqueItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
 
@@ -434,7 +434,7 @@
 
 - (void) testValidateArrayBadUniqueItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
 
@@ -447,7 +447,7 @@
 
 - (void) testValidateArrayGoodEnum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"cat", @"bear"];
 
@@ -460,7 +460,7 @@
 
 - (void) testValidateArrayBadEnum
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"bear"];
 
@@ -473,7 +473,7 @@
 
 - (void) testValidateObjectGoodType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeObject];
 
     NSDictionary* object = @{@"color": @"mauve"};
@@ -485,7 +485,7 @@
 
 - (void) testValidateObjectBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeObject];
 
     NSArray* errors = nil;
@@ -495,7 +495,7 @@
 
 - (void) testValidateNullGoodType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNull];
 
     NSArray* errors = nil;
@@ -505,7 +505,7 @@
 
 - (void) testValidateNullBadType
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeNull];
 
     NSArray* errors = nil;
@@ -515,7 +515,7 @@
 
 - (void) testValidateDisallowPass
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
 
     NSArray* errors = nil;
@@ -525,7 +525,7 @@
 
 - (void) testValidateDisallowFail
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
 
     NSArray* errors = nil;
@@ -535,8 +535,8 @@
 
 - (void) testValidateRequiredPropertyFail
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
-    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *schema) {
         schema.required = YES;
     }]};
 
@@ -548,8 +548,8 @@
 
 - (void) testValidateRequiredPropertyPass
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
-    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *schema) {
         schema.required = YES;
     }]};
 
@@ -561,8 +561,8 @@
 
 - (void) testValidatePropertyTypeFail
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
-    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *schema) {
         schema.types = @[JSONSchemaTypeInteger];
     }]};
 
@@ -576,7 +576,7 @@
 
 - (void) testMultipleErrorsReturnedForArrayMetaProperties
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.maxItems = @2;
     schema.uniqueItems = YES;
 
@@ -591,8 +591,8 @@
 
 - (void) testMultipleErrorsReturnedForArrayItems
 {
-    JSONSchemaDraft3* schema = [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *rootSchema) {
-        rootSchema.items = [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *itemSchema) {
+    JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *rootSchema) {
+        rootSchema.items = [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *itemSchema) {
             itemSchema.types = @[JSONSchemaTypeInteger];
         }];
     }];
