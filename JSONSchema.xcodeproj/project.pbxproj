@@ -143,7 +143,6 @@
 				B33FDBB2175412E9001BAC97 /* JSONSchema.h */,
 				B3A4E39914F9C36F0079CF41 /* JSONSchemaErrors.h */,
 				B33FDBB317541316001BAC97 /* JSONSchemaDocument.h */,
-				B3B57B7416A242EF00EC1262 /* JSONSchemaDocument+ObjectCreation.h */,
 				B3A4E3C114FA1A6A0079CF41 /* JSONSchemaValidationContext.h */,
 				B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */,
 				B33FDBB717541334001BAC97 /* JSONSchemaSerializationHelper.h */,
@@ -155,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				B33FDBC01754171A001BAC97 /* JSONSchemaInternal.h */,
+				B3B57B7416A242EF00EC1262 /* JSONSchemaDocument+ObjectCreation.h */,
 				B33FDBBD1754167D001BAC97 /* JSONSchema.m */,
 				B33FDBB417541316001BAC97 /* JSONSchemaDocument.m */,
 				B33FDBC117541967001BAC97 /* JSONSchemaDocument+Private.h */,

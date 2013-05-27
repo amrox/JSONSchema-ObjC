@@ -14,8 +14,8 @@
 
 - (Class) registerClassWithName:(NSString*)className;
 
-
 @end
+
 
 @interface NSObject (JSONSchema)
 
