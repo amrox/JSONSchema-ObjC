@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONSchemaTests.h"
+#import "JSONSchemaDocument_v3_Tests.h"
 #import "JSONSchemaDocument_v3.h"
 #import "JSONSchemaErrors.h"
 #import "TestUtility.h"
 
 
-@implementation JSONSchemaTests
+@implementation JSONSchemaDocument_v3_Tests
 
 - (void)setUp
 {

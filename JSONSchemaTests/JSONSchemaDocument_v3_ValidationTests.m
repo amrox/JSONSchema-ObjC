@@ -6,18 +6,18 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "JSONSchemaDraft3ValidationLogicTests.h"
+#import "JSONSchemaDocument_v3_ValidationTests.h"
 #import "TestUtility.h"
 #import "JSONSchemaDocument_v3.h"
 #import "JSONSchemaDocument_v3+Validation.h"
 #import "JSONSchemaValidationResult.h"
 
-@interface JSONSchemaDraft3ValidationLogicTests ()
+@interface JSONSchemaDocument_v3_ValidationTests ()
 
 
 @end
 
-@implementation JSONSchemaDraft3ValidationLogicTests
+@implementation JSONSchemaDocument_v3_ValidationTests
 
 - (void) testLoadSchemaFromString
 {

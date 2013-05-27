@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface JSONSchemaDraft3ValidationLogicTests : SenTestCase
+@interface JSONSchemaDocument_v3_ValidationTests : SenTestCase
 
 @end
