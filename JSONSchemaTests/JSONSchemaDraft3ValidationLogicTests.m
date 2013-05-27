@@ -8,578 +8,567 @@
 
 #import "JSONSchemaDraft3ValidationLogicTests.h"
 #import "TestUtility.h"
-#import "JSONSchema.h"
+#import "JSONSchemaDraft3.h"
 #import "JSONSchemaDraft3ValidationLogic.h"
 #import "JSONSchemaValidationResult.h"
 
 @interface JSONSchemaDraft3ValidationLogicTests ()
 
-@property (nonatomic, strong) JSONSchemaValidationLogic *logic;
 
 @end
 
 @implementation JSONSchemaDraft3ValidationLogicTests
 
-- (void) setUp
-{
-    self.logic = [[JSONSchemaDraft3ValidationLogic alloc] init];
-}
-
-- (void) tearDown
-{
-    self.logic = nil;
-}
-
 - (void) testLoadSchemaFromString
 {
     NSString* schemaString = @"{\"type\":\"string\"}";
     NSData* schemaData = [schemaString dataUsingEncoding:NSUTF8StringEncoding];
-    
+
     NSError* error = nil;
-    JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
 }
 
 - (void) testValidateStringOK
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
 
-    JSONSchemaValidationResult* result = [self.logic validate:@"fart" againstSchema:schema];
+    JSONSchemaValidationResult* result = [schema validate:@"fart"];
     STAssertTrue([result isValid], @"errors: %@", result.errors);
 }
 
 - (void) testValidateStringGoodType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
-    
-    JSONSchemaValidationResult* result =  [self.logic validate:@"fart" againstSchema:schema];
+
+    JSONSchemaValidationResult* result =  [schema validate:@"fart"];
     STAssertTrue([result isValid], @"errors: %@", result.errors);
 }
 
 - (void) testValidateStringBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@1 againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@1];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringBadMinLength
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.minLength = @10;
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"fart" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"fart"];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringBadMaxLength
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.maxLength = @2;
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"fart" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"fart"];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringGoodPattern
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"boo" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"boo"];
     STAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateStringBadPattern
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.pattern = @"bo.";
-    
-    JSONSchemaValidationResult* result =  [self.logic validate:@"foo" againstSchema:schema];
+
+    JSONSchemaValidationResult* result =  [schema validate:@"foo"];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringGoodEnum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.possibleValues = @[@"dog", @"cat"];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"dog" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"dog"];
     STAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateStringBadEnum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeString];
     schema.possibleValues = @[@"dog", @"cat"];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"walrus" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"walrus"];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateNumberGoodTypeInteger
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@5 againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@5];
     STAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateNumberGoodTypeFloat
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@5.5f againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@5.5f];
     STAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateNumberBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
-    
-    JSONSchemaValidationResult* result = [self.logic validate:@"pineapple" againstSchema:schema];
+
+    JSONSchemaValidationResult* result = [schema validate:@"pineapple"];
     STAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateIntegerGood
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeInteger];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@5 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@5 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateIntegerBadFloat
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeInteger];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@5.5f againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@5.5f errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 
 - (void) testValidateNumberGoodMinimum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @2;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberExactMinimum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @4;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberGoodExclusiveMinimum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@5 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@5 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadExclusiveMinimum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMinimum = @4;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberBadMinimum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.minimum = @5;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberGoodMaximum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberExactMaximum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @5;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@5 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@5 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadMaximum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.maximum = @2;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberGoodExclusiveMaximum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @5;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadExclusiveMaximum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.exclusiveMaximum = @4;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4 errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateBooleanGoodTrue
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@YES againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@YES  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateBooleanGoodFalse
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@NO againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@NO  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateBooleanBadNumber
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@5 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@5  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateBooleanBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeBoolean];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@"purple" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@"purple"  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberDivisbleByGood
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberDivisbleByBadDivide
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@3 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@3  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberDivisbleByBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNumber];
     schema.divisibleBy = @2;
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@4.5f againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@4.5f  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@[] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@[]  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeInteger];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@[] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@[]  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodMinItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
-    
+
     NSArray* array = @[@"one", @"two"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadMinItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.minItems = @2;
-    
+
     NSArray* array = @[@"one"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodMaxItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
-    
+
     NSArray* array = @[@"one", @"two"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadMaxItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.maxItems = @2;
-    
+
     NSArray* array = @[@"one", @"two", @"three"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodUniqueItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
-    
+
     NSArray* array = @[@"one", @"two", @"three"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadUniqueItems
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.uniqueItems = YES;
-    
+
     NSArray* array = @[@"one", @"two", @"two"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodEnum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"cat", @"bear"];
-    
+
     NSArray* array = @[@"dog", @"cat"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadEnum
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeArray];
     schema.possibleValues = @[@"dog", @"bear"];
-    
+
     NSArray* array = @[@"dog", @"cat"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateObjectGoodType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeObject];
 
     NSDictionary* object = @{@"color": @"mauve"};
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:object againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:object  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateObjectBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeObject];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@"mouse" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@"mouse"  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNullGoodType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNull];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:[NSNull null] againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:[NSNull null]  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNullBadType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.types = @[JSONSchemaTypeNull];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@0 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@0  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateDisallowPass
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@"fart" againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@"fart"  errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateDisallowFail
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.disallowedTypes = @[JSONSchemaTypeInteger];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@1 againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@1  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateRequiredPropertyFail
 {
-    JSONSchema* schema = [JSONSchema schema];
-    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
         schema.required = YES;
     }]};
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@{@"green": @1}
-                                    againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@{@"green": @1}
+                                       errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateRequiredPropertyPass
 {
-    JSONSchema* schema = [JSONSchema schema];
-    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
         schema.required = YES;
     }]};
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@{@"purple": @1}
-                                    againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@{@"purple": @1}
+                                       errors:&errors];
     STAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidatePropertyTypeFail
 {
-    JSONSchema* schema = [JSONSchema schema];
-    schema.properties = @{@"purple" : [JSONSchema build:^(JSONSchema *schema) {
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
+    schema.properties = @{@"purple" : [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *schema) {
         schema.types = @[JSONSchemaTypeInteger];
     }]};
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:@{@"purple": @"hi"}
-                                    againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:@{@"purple": @"hi"}
+                                       errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
 }
 
@@ -587,34 +576,35 @@
 
 - (void) testMultipleErrorsReturnedForArrayMetaProperties
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     schema.maxItems = @2;
     schema.uniqueItems = YES;
-    
+
     NSArray* array = @[@"one", @"two", @"two"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
-    
+
     STAssertTrue([errors count] == 2, @"should be 2 errors");
 }
 
 - (void) testMultipleErrorsReturnedForArrayItems
 {
-    JSONSchema* schema = [JSONSchema build:^(JSONSchema *rootSchema) {
-        rootSchema.items = [JSONSchema build:^(JSONSchema *itemSchema) {
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *rootSchema) {
+        rootSchema.items = [JSONSchemaDraft3 build:^(JSONSchemaDraft3 *itemSchema) {
             itemSchema.types = @[JSONSchemaTypeInteger];
         }];
     }];
-    
+
     NSArray* array = @[@"one", @"two"];
-    
+
     NSArray* errors = nil;
-    BOOL validationSuccess = [self.logic validate:array againstSchema:schema errors:&errors];
+    BOOL validationSuccess = [schema validate:array  errors:&errors];
     STAssertFalse(validationSuccess, @"should fail validation");
-    
+
     STAssertTrue([errors count] == 2, @"should be 2 errors");
 }
 
 @end
+

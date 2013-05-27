@@ -6,10 +6,10 @@
 //
 //
 
-#import "JSONSchemaValidationLogic.h"
-
-@interface JSONSchemaValidationLogic (Default)
-
-+ (JSONSchemaValidationLogic*) defaultValidationLogic;
-
-@end
+//#import "JSONSchemaValidationLogic.h"
+//
+//@interface JSONSchemaValidationLogic (Default)
+//
+//+ (JSONSchemaValidationLogic*) defaultValidationLogic;
+//
+//@end

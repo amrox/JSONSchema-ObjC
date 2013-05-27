@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class JSONSchema;
-@class JSONSchemaValidationLogic;
+@class JSONSchemaDocument;
 @class JSONSchemaValidationResult;
 
 @interface JSONSchemaValidationContext : NSObject
@@ -21,8 +20,8 @@
 
 #pragma mark -
 
-- (void) addSchema:(JSONSchema*)schema forURL:(NSURL*)url;
+- (void) addSchema:(JSONSchemaDocument*)schema forURL:(NSURL*)url;
 
-- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchema*)schema;
+- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchemaDocument*)schema;
 
 @end

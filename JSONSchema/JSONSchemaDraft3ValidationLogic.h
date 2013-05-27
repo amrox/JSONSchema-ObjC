@@ -6,8 +6,9 @@
 //
 //
 
-#import "JSONSchemaValidationLogic.h"
+#import "JSONSchemaDraft3.h"
 
-@interface JSONSchemaDraft3ValidationLogic : JSONSchemaValidationLogic
+
+@interface JSONSchemaDraft3 (Validation)
 
 @end

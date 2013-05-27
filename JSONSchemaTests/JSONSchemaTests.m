@@ -7,7 +7,7 @@
 //
 
 #import "JSONSchemaTests.h"
-#import "JSONSchema.h"
+#import "JSONSchemaDraft3.h"
 #import "JSONSchemaErrors.h"
 #import "TestUtility.h"
 
@@ -41,7 +41,7 @@
 
 - (void) testValidateType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
 
     id type = nil;
     NSError* error = nil;
@@ -66,7 +66,7 @@
 
 - (void) testInvalidDescriptionType
 {
-    JSONSchema* schema = [JSONSchema schema];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 schema];
     
     NSNumber* n = @1;
     NSError* error = nil;
@@ -85,7 +85,7 @@
     NSData* data = [NSData dataWithContentsOfFile:path];
     
     NSError* error = nil;
-    JSONSchema* schema = [JSONSchema JSONSchemaWithData:data error:&error];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 JSONSchemaWithData:data error:&error];
     STAssertNotNil(schema, @"error: %@", error);
 }
 
@@ -95,9 +95,9 @@
     NSData* schemaData = [schemaString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError* error = nil;
-    JSONSchema* schema = [JSONSchema JSONSchemaWithData:schemaData error:&error];
+    JSONSchemaDraft3* schema = [JSONSchemaDraft3 JSONSchemaWithData:schemaData error:&error];
     STAssertNotNil(schema, @"error: %@", error);
-    STAssertTrue([schema.items isKindOfClass:[JSONSchema class]], @"schema.items should be a schema.");
+    STAssertTrue([schema.items isKindOfClass:[JSONSchemaDraft3 class]], @"schema.items should be a schema.");
 }
 
 

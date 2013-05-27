@@ -6,9 +6,9 @@
 //
 //
 
-#import "JSONSchema.h"
+#import "JSONSchemaDocument.h"
 
-@interface JSONSchema (ObjectCreation)
+@interface JSONSchemaDocument (ObjectCreation)
 
 - (Class) registerClass;
 
@@ -19,6 +19,6 @@
 
 @interface NSObject (JSONSchema)
 
-- (JSONSchema *) JSONSchema;
+- (JSONSchemaDocument *) JSONSchemaDocument;
 
 @end

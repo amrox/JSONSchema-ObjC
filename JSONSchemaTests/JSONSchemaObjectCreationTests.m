@@ -38,7 +38,7 @@
     };
     
     NSError* error = nil;
-    JSONSchema* schema = [JSONSchema JSONSchemaWithObject:schemaDict error:&error];
+    JSONSchemaDocument* schema = [JSONSchemaDocument JSONSchemaWithObject:schemaDict error:&error];
     STAssertNil(error, @"error: %@", error);
     
     // Create an instance of the object defined by the schema
@@ -76,7 +76,7 @@
     };
     
     NSError* error = nil;
-    JSONSchema* schema = [JSONSchema JSONSchemaWithObject:schemaDict error:&error];
+    JSONSchemaDocument* schema = [JSONSchemaDocument JSONSchemaWithObject:schemaDict error:&error];
     STAssertNil(error, @"error: %@", error);
     
     // Create an instance of the object defined by the schema

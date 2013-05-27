@@ -8,17 +8,16 @@
 
 #import "JSONSchema+ObjectCreation.h"
 #import <objc/runtime.h>
-#import "JSONSchema.h"
-#import "JSONSchemaValidationLogic.h"
+#import "JSONSchemaDocument.h"
 #import "JSONSchemaValidationResult.h"
 #import "JSONSchemaValidationLogic+DefaultLogic.h"
 
 
 @implementation NSObject (JSONSchema)
 
-- (JSONSchema *) JSONSchema
+- (JSONSchemaDocument *) JSONSchemaDocument
 {
-    JSONSchema *schema = objc_getAssociatedObject([self class], "JSONSchema");
+    JSONSchemaDocument *schema = objc_getAssociatedObject([self class], "JSONSchemaDocument");
     return schema;
 }
 
@@ -52,7 +51,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
     return ivarName;
 }
 
-@implementation JSONSchema (ObjectCreation)
+@implementation JSONSchemaDocument (ObjectCreation)
 
 - (IMP) getterImpForPropertyName:(NSString*)propertyName instanceVariableName:(NSString*)instanceVariableName
 {
@@ -66,12 +65,12 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
 {
     return imp_implementationWithBlock(^(id _self, id val) {
         
-        NSAssert([_self JSONSchema], @"No JSON Schema found.");
+        NSAssert([_self JSONSchemaDocument], @"No JSON Schema found.");
         
-        JSONSchema* propertySchema = [_self JSONSchema].properties[propertyName];
+        JSONSchemaDocument* propertySchema = [_self JSONSchemaDocument].properties[propertyName];
         if (propertySchema) {
-            JSONSchemaValidationResult* result = [[JSONSchemaValidationLogic defaultValidationLogic]
-                                                  validate:val againstSchema:propertySchema];
+            JSONSchemaValidationResult* result = [propertySchema
+                                                  validate:val];
             if (![result isValid]) {
                 [NSException raise:NSInvalidArgumentException format:@"%@", [result errors]];
             }
@@ -110,7 +109,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
         [self.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             
             NSString* propertyName = key;
-            JSONSchema* propertySchema = obj;
+            JSONSchemaDocument* propertySchema = obj;
             
             if ([propertySchema.types count] > 1) {
                 
@@ -160,7 +159,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
         [self.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             
             NSString* propertyName = key;
-            JSONSchema* propertySchema = obj;
+            JSONSchemaDocument* propertySchema = obj;
             
             if ([propertySchema.types count] > 1) {
                 
@@ -181,7 +180,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
         }];
     }
     
-    objc_setAssociatedObject(cls, "JSONSchema", self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(cls, "JSONSchemaDocument", self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     return cls;
 }
