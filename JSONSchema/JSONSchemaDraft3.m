@@ -497,13 +497,3 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 }
 
 @end
-
-
-@implementation NSJSONSerialization (JSONSchemaSerializationHelper)
-
-+ (id)JSONObjectWithData:(NSData *)data error:(NSError **)error
-{
-    return [self JSONObjectWithData:data options:0 error:error];
-}
-
-@end
