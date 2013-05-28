@@ -68,23 +68,25 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 + (NSArray*) allAttributes
 {
-    NSMutableArray* allAttributes = [NSMutableArray array];
+    __strong static NSMutableArray* allAttributes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 
-	unsigned int propertyCount = 0;
+        allAttributes = [NSMutableArray array];
+        unsigned int propertyCount = 0;
+        objc_property_t* properties = class_copyPropertyList(self, &propertyCount);
 
-	objc_property_t* properties = class_copyPropertyList(self, &propertyCount);
+        for( int i=0; i<propertyCount; i++ ) {
+            objc_property_t property = properties[i];
+            NSString* propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
 
-    for( int i=0; i<propertyCount; i++ )
-	{
-        objc_property_t property = properties[i];
-		NSString* propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+            NSString* attributeName = [self attributeNameForPropertyName:propertyName];
 
-        NSString* attributeName = [self attributeNameForPropertyName:propertyName];
-
-        [allAttributes addObject:attributeName];
-    }
-
-    free( properties );
+            [allAttributes addObject:attributeName];
+        }
+        
+        free( properties );
+    });
 
     return allAttributes;
 }
