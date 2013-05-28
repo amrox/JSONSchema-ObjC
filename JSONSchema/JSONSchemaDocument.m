@@ -16,6 +16,10 @@
 NSString* const JSONSchemaAttributeId                = @"id";
 NSString* const JSONSchemaAttributeTitle             = @"title";
 NSString* const JSONSchemaAttributeType              = @"type";
+NSString* const JSONSchemaAttributeMinimum           = @"minimum";
+NSString* const JSONSchemaAttributeMaximum           = @"maximum";
+NSString* const JSONSchemaAttributeExclusiveMinimum  = @"exclusiveMaximum";
+NSString* const JSONSchemaAttributeExclusiveMaximum  = @"exclusiveMaximum";
 
 NSString* const JSONSchemaTypeObject                 = @"object";
 NSString* const JSONSchemaTypeString                 = @"string";

@@ -14,6 +14,10 @@
 extern NSString* const JSONSchemaAttributeId;
 extern NSString* const JSONSchemaAttributeType;
 extern NSString* const JSONSchemaAttributeTitle;
+extern NSString* const JSONSchemaAttributeMinimum;
+extern NSString* const JSONSchemaAttributeMaximum;
+extern NSString* const JSONSchemaAttributeExclusiveMinimum;
+extern NSString* const JSONSchemaAttributeExclusiveMaximum;
 
 extern NSString* const JSONSchemaTypeObject;
 extern NSString* const JSONSchemaTypeString;

@@ -12,6 +12,55 @@
 
 @implementation JSONSchemaDocument_v4_Tests
 
+- (void) testValidMinimum
+{
+    JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];
+
+    id val = @1;
+    NSError* error = nil;
+    BOOL valid = NO;
+
+    valid = [schema validateValue:&val forKey:@"minimum" error:&error];
+    STAssertTrue(valid, @"should succeed");
+}
+
+- (void) testInvalidMinimum
+{
+    JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];
+
+    id val = @"hi";
+    NSError* error = nil;
+    BOOL valid = NO;
+
+    valid = [schema validateValue:&val forKey:@"minimum" error:&error];
+    STAssertFalse(valid, @"should fail");
+}
+
+- (void) testValidMaximum
+{
+    JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];
+
+    id val = @1;
+    NSError* error = nil;
+    BOOL valid = NO;
+
+    valid = [schema validateValue:&val forKey:@"maximum" error:&error];
+    STAssertTrue(valid, @"should succeed");
+
+}
+
+- (void) testInvalidMaximum
+{
+    JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];
+
+    id val = @"hi";
+    NSError* error = nil;
+    BOOL valid = NO;
+
+    valid = [schema validateValue:&val forKey:@"maximum" error:&error];
+    STAssertFalse(valid, @"should fail");
+}
+
 - (void) testValidMultipleOf
 {
     JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];

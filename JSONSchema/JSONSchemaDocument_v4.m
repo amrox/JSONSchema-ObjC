@@ -27,12 +27,36 @@ NSString* const JSONSchemaAttributeMultipleOf           = @"multipleOf";
     JSONSchemaDocument_v4* schema = [JSONSchemaDocument_v4 schema];
 
     if (![schema validateAndSetAttribute:JSONSchemaAttributeMultipleOf fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMinimum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMaximum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeExclusiveMinimum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeExclusiveMaximum fromObject:obj error:error]) return nil;
 
     return schema;
 }
 
 
 #pragma mark Validation Methods
+
+- (BOOL) validateMinimum:(id*)value error:(NSError**)error
+{
+    if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
+        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+                       @"expected type (number) for attribute 'minimum'");
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL) validateMaximum:(id*)value error:(NSError**)error
+{
+    if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
+        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+                       @"expected type 'number' for attribute 'maximum'");
+        return NO;
+    }
+    return YES;
+}
 
 - (BOOL) validateMultipleOf:(id*)value error:(NSError**)error
 {
