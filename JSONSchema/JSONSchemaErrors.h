@@ -20,7 +20,8 @@ enum
     JSONSCHEMA_ERROR_NIL_TYPE                                 = 1011,
     JSONSCHEMA_ERROR_INVALID_TYPE                             = 1012,
     JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE                   = 1013,
-    
+    JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_VALUE                  = 1014,
+
     JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE                    = 2011,
     JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE                     = 2012,
     JSONSCHEMA_ERROR_VALIDATION_MISSING_VALUE                     = 2013,

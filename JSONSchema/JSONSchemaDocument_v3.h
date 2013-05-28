@@ -44,8 +44,6 @@ extern NSString* const JSONSchemaFormatHostname;
 
 @interface JSONSchemaDocument_v3 : JSONSchemaDocument
 
-+ (id) JSONSchemaWithObject:(id)obj error:(NSError**)error;
-
 // general attributes
 @property (nonatomic, strong) NSString* id;
 @property (nonatomic, strong) NSString* extends;

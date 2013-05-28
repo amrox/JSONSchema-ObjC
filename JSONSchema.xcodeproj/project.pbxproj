@@ -19,6 +19,7 @@
 		B33FDBC61754244B001BAC97 /* JSONSchemaSerializationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */; };
 		B33FDBCA175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */; };
 		B33FDBCB175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */; };
+		B33FDBD317546124001BAC97 /* JSONSchemaDocument_v4_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBD217546124001BAC97 /* JSONSchemaDocument_v4_Tests.m */; };
 		B34ADE921528207700C9C585 /* NSNumber+JSONSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */; };
 		B34ADE931528207700C9C585 /* NSNumber+JSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */; };
 		B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */; };
@@ -69,6 +70,8 @@
 		B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaSerializationHelper.m; sourceTree = "<group>"; };
 		B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDictionaryRepresentation.h; sourceTree = "<group>"; };
 		B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDictionaryRepresentation.m; sourceTree = "<group>"; };
+		B33FDBD117546124001BAC97 /* JSONSchemaDocument_v4_Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDocument_v4_Tests.h; sourceTree = "<group>"; };
+		B33FDBD217546124001BAC97 /* JSONSchemaDocument_v4_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDocument_v4_Tests.m; sourceTree = "<group>"; };
 		B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+JSONSchema.h"; sourceTree = "<group>"; };
 		B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+JSONSchema.m"; sourceTree = "<group>"; };
 		B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationOperation.h; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 				B3E38D2114F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.m */,
 				B3A4E3C714FA265C0079CF41 /* JSONSchemaDocument_v3_ValidationTests.h */,
 				B3A4E3C814FA265C0079CF41 /* JSONSchemaDocument_v3_ValidationTests.m */,
+				B33FDBD117546124001BAC97 /* JSONSchemaDocument_v4_Tests.h */,
+				B33FDBD217546124001BAC97 /* JSONSchemaDocument_v4_Tests.m */,
 				B3DA781916A3AA9C00807823 /* JSONSchemaObjectCreationTests.h */,
 				B3DA781A16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m */,
 				B3A4E3C514FA1D260079CF41 /* TestData */,
@@ -375,6 +380,7 @@
 				B3E38D2214F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.m in Sources */,
 				B3A4E3C914FA265C0079CF41 /* JSONSchemaDocument_v3_ValidationTests.m in Sources */,
 				B3DA781B16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m in Sources */,
+				B33FDBD317546124001BAC97 /* JSONSchemaDocument_v4_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
