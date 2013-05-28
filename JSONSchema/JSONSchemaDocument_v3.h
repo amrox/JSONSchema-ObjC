@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JSONSchemaDocument.h"
 
-extern NSString* const JSONSchemaAttributeId;
 extern NSString* const JSONSchemaAttributeExtends;
-extern NSString* const JSONSchemaAttributeType;
 extern NSString* const JSONSchemaAttributeDisallow;
 extern NSString* const JSONSchemaAttributeDescription;
 extern NSString* const JSONSchemaAttributeFormat;

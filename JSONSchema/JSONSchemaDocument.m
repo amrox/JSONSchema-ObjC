@@ -12,8 +12,9 @@
 #import "JSONSchemaValidationResult.h"
 #import <objc/runtime.h>
 
-
+NSString* const JSONSchemaAttributeId                = @"id";
 NSString* const JSONSchemaAttributeTitle             = @"title";
+NSString* const JSONSchemaAttributeType              = @"type";
 
 NSString* const JSONSchemaTypeObject                 = @"object";
 NSString* const JSONSchemaTypeString                 = @"string";

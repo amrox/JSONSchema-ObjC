@@ -10,9 +10,7 @@
 #import "JSONSchemaInternal.h"
 #import "JSONSchemaDocument+Private.h"
 
-NSString* const JSONSchemaAttributeId                = @"id";
 NSString* const JSONSchemaAttributeExtends           = @"extends";
-NSString* const JSONSchemaAttributeType              = @"type";
 NSString* const JSONSchemaAttributeDisallow          = @"disallow";
 NSString* const JSONSchemaAttributeDescription       = @"description";
 NSString* const JSONSchemaAttributeFormat            = @"format";

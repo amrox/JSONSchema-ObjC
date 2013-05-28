@@ -10,6 +10,8 @@
 
 @class JSONSchemaValidationResult;
 
+extern NSString* const JSONSchemaAttributeId;
+extern NSString* const JSONSchemaAttributeType;
 extern NSString* const JSONSchemaAttributeTitle;
 
 extern NSString* const JSONSchemaTypeObject;
