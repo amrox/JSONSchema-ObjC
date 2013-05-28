@@ -8,9 +8,10 @@
 
 #import "JSONSchema.h"
 #import "JSONSchemaDocument_v3.h"
+#import "JSONSchemaDocument_v4.h"
 
-static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
-static NSMutableDictionary* _DocumentClassByVersion = nil;
+__strong static Class<JSONSchemaSerializationHelper> _JSONSerialization = nil;
+__strong static NSMutableDictionary* _DocumentClassByVersion = nil;
 static NSInteger _DefaultSchemaVersion = 3;
 
 @implementation JSONSchema
@@ -29,6 +30,7 @@ static NSInteger _DefaultSchemaVersion = 3;
         // Register document classes
         _DocumentClassByVersion = [NSMutableDictionary dictionaryWithCapacity:2];
         [self registerDocumentClass:[JSONSchemaDocument_v3 class]];
+        [self registerDocumentClass:[JSONSchemaDocument_v4 class]];
     });
 }
 

@@ -10,4 +10,9 @@
 
 @implementation JSONSchemaDocument_v4
 
++ (NSInteger) version
+{
+    return 4;
+}
+
 @end
