@@ -86,12 +86,16 @@
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:data error:&error];
     STAssertNotNil(schema, @"error: %@", error);
+    NSLog(@"%@", [schema dictionaryRepresentation]);
 }
 
-- (void) testParseProductFile
+- (void) testParseFiles
 {
-    NSString* path = TEST_RESOURCE_PATH(@"v3/Product.json");
-    [self _testParsePath:path];
+    [self _testParsePath:TEST_RESOURCE_PATH(@"v3/Product.json")];
+    [self _testParsePath:TEST_RESOURCE_PATH(@"v3/card")];
+    [self _testParsePath:TEST_RESOURCE_PATH(@"v3/address")];
+    [self _testParsePath:TEST_RESOURCE_PATH(@"v3/geo")];
+    [self _testParsePath:TEST_RESOURCE_PATH(@"v3/calendar")];
 }
 
 - (void) testParseCardFile

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONSchemaDictionaryRepresentation.h"
 
 @class JSONSchemaValidationResult;
 
@@ -24,7 +25,7 @@ extern NSString* const JSONSchemaTypeNull;
 extern NSString* const JSONSchemaTypeAny;
 
 
-@interface JSONSchemaDocument : NSObject
+@interface JSONSchemaDocument : NSObject <JSONSchemaDictionaryTransformable>
 
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error;
 

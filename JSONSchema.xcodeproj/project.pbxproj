@@ -17,6 +17,8 @@
 		B33FDBBB17541557001BAC97 /* JSONSchemaDocument_v4.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBB917541557001BAC97 /* JSONSchemaDocument_v4.m */; };
 		B33FDBBF1754167D001BAC97 /* JSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBBD1754167D001BAC97 /* JSONSchema.m */; };
 		B33FDBC61754244B001BAC97 /* JSONSchemaSerializationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */; };
+		B33FDBCA175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */; };
+		B33FDBCB175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */; };
 		B34ADE921528207700C9C585 /* NSNumber+JSONSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */; };
 		B34ADE931528207700C9C585 /* NSNumber+JSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */; };
 		B34B3DB916585242007F1C18 /* JSONSchemaValidationOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */; };
@@ -65,6 +67,8 @@
 		B33FDBC01754171A001BAC97 /* JSONSchemaInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchemaInternal.h; sourceTree = "<group>"; };
 		B33FDBC117541967001BAC97 /* JSONSchemaDocument+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaDocument+Private.h"; sourceTree = "<group>"; };
 		B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaSerializationHelper.m; sourceTree = "<group>"; };
+		B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDictionaryRepresentation.h; sourceTree = "<group>"; };
+		B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDictionaryRepresentation.m; sourceTree = "<group>"; };
 		B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+JSONSchema.h"; sourceTree = "<group>"; };
 		B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+JSONSchema.m"; sourceTree = "<group>"; };
 		B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaValidationOperation.h; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				B30A37C31749939E009344E6 /* JSONSchemaDocument_v3+Validation.h */,
 				B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */,
 				B33FDBB917541557001BAC97 /* JSONSchemaDocument_v4.m */,
+				B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */,
+				B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -245,6 +251,7 @@
 				B30A37C51749939E009344E6 /* JSONSchemaDocument_v3+Validation.h in Headers */,
 				B33FDBB517541316001BAC97 /* JSONSchemaDocument.h in Headers */,
 				B33FDBBA17541557001BAC97 /* JSONSchemaDocument_v4.h in Headers */,
+				B33FDBCA175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +364,7 @@
 				B33FDBBB17541557001BAC97 /* JSONSchemaDocument_v4.m in Sources */,
 				B33FDBBF1754167D001BAC97 /* JSONSchema.m in Sources */,
 				B33FDBC61754244B001BAC97 /* JSONSchemaSerializationHelper.m in Sources */,
+				B33FDBCB175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

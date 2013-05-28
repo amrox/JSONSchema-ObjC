@@ -115,8 +115,14 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
             }
             properties[propertyName] = propertySchema;
 
+        } else if ([value isKindOfClass:[NSString class]]) {
+
+            // TODO: validate the string? should be a url or some other reference
+            properties[propertyName] = value;
+
         } else {
-            // TODO: WARNING, didn't find an object. Probably found a URL.
+
+            NSAssert(NO, @"unknown property type");
         }
     }
     return YES;

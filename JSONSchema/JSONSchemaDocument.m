@@ -11,6 +11,7 @@
 #import "JSONSchemaInternal.h"
 #import "JSONSchemaValidationResult.h"
 #import <objc/runtime.h>
+#import "JSONSchemaDictionaryRepresentation.h"
 
 NSString* const JSONSchemaAttributeId                = @"id";
 NSString* const JSONSchemaAttributeTitle             = @"title";
@@ -92,19 +93,36 @@ NSString* const JSONSchemaTypeAny                    = @"any";
     return allAttributes;
 }
 
+- (NSString*) jsonSchema_dictionaryKeyForPropertyName:(NSString*)propertyName
+{
+    return [[self class] attributeNameForPropertyName:propertyName];
+}
+
 - (NSDictionary*) dictionaryRepresentation
 {
-    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:20];
-
-    for (NSString* attribute in [[self class] allAttributes]) {
-
-        id val = [self valueForAttribute:attribute];
-        if (val != nil) {
-            dict[attribute] = val;
-        }
-    }
-    return dict;
+    return [self jsonSchema_dictionaryRepresentation];
 }
+
+//- (NSDictionary*) dictionaryRepresentation
+//{
+//    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:20];
+//
+//    for (NSString* attribute in [[self class] allAttributes]) {
+//
+//        id val = [self valueForAttribute:attribute];
+//        if (val != nil) {
+//            
+//
+//
+//            if ([val respondsToSelector:@selector(dictionaryRepresentation)]) {
+//                dict[attribute] = [val dictionaryRepresentation];
+//            } else {
+//                dict[attribute] = val;
+//            }
+//        }
+//    }
+//    return dict;
+//}
 
 
 #pragma mark Internal Validation
