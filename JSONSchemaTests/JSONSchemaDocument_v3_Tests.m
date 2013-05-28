@@ -72,21 +72,33 @@
     NSError* error = nil;
     BOOL valid = NO;
     
-    valid = [schema validateValue:&n forKey:@"schemaDescription" error:&error];
+    valid = [schema validateValue:&n forKey:@"descr" error:&error];
     STAssertFalse(valid, @"should fail");
     
 }
 
-- (void) testParseProduct
+- (void) _testParsePath:(NSString*)path
 {
-    NSString* path = TEST_RESOURCE_PATH(@"Product.json");
     STAssertNotNil(path, @"path is nil");
-    
+
     NSData* data = [NSData dataWithContentsOfFile:path];
-    
+
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:data error:&error];
     STAssertNotNil(schema, @"error: %@", error);
+
+}
+
+- (void) testParseProductFile
+{
+    NSString* path = TEST_RESOURCE_PATH(@"v3/Product.json");
+    [self _testParsePath:path];
+}
+
+- (void) testParseCardFile
+{
+    NSString* path = TEST_RESOURCE_PATH(@"v3/card");
+    [self _testParsePath:path];
 }
 
 - (void) testParseItemsSchema

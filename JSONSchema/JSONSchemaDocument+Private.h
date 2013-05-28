@@ -10,10 +10,25 @@
 
 @interface JSONSchemaDocument ()
 
-// if the source object key and my key differ
-- (BOOL) validateAndSetKey:(NSString*)key fromObject:(id)object objectKey:(NSString*)objectKey error:(NSError**)outError;
+#pragma mark Subclasses Must Override
 
-// if the source object key and my key are the same (common case)
-- (BOOL) validateAndSetKey:(NSString*)key fromObject:(id)object error:(NSError**)outError;
++ (NSArray*) allAttributes;
+
+// if the property name on the classes differs from the property name in JSON-Schema
++ (NSDictionary*) attributeToPropertyMap;
+
+
+#pragma mark Internal Helpers
+
+/*
+ @discussion returns the value for a "JSONSchemaAttribute"
+ */
+- (id) valueForAttribute:(NSString*)attribute;
+
+- (BOOL) validateAndSetAttribute:(NSString*)attr fromObject:(id)object error:(NSError**)outError;
+
++ (NSString*) attributeNameForPropertyName:(NSString*)propertyName;
+
++ (NSString*) propertyNameForAttributeName:(NSString*)attributeName;
 
 @end

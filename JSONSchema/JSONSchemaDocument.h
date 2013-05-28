@@ -10,6 +10,7 @@
 
 @class JSONSchemaValidationResult;
 
+extern NSString* const JSONSchemaAttributeTitle;
 
 extern NSString* const JSONSchemaTypeObject;
 extern NSString* const JSONSchemaTypeString;
@@ -25,6 +26,8 @@ extern NSString* const JSONSchemaTypeAny;
 
 + (id) JSONSchemaWithObject:(id)obj error:(NSError**)error;
 
++ (id) JSONSchemaWithData:(NSData *)data error:(NSError**)error;
+
 + (id) schema;
 
 + (NSInteger) version;
@@ -32,6 +35,8 @@ extern NSString* const JSONSchemaTypeAny;
 - (instancetype) tap:(void (^)(id))block;
 
 + (instancetype) build:(void (^)(id schema))block;
+
+- (NSDictionary*) dictionaryRepresentation;
 
 
 // general attributes
@@ -42,6 +47,9 @@ extern NSString* const JSONSchemaTypeAny;
 // object attributes
 @property (nonatomic, strong) NSDictionary* properties;
 @property (nonatomic, strong) NSDictionary* patternProperties;
+
+
+#pragma mark -
 
 
 #pragma mark Validation

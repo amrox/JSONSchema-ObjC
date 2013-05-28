@@ -423,7 +423,7 @@
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
-    schema.uniqueItems = YES;
+    schema.uniqueItems = @YES;
 
     NSArray* array = @[@"one", @"two", @"three"];
 
@@ -436,7 +436,7 @@
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.types = @[JSONSchemaTypeArray];
-    schema.uniqueItems = YES;
+    schema.uniqueItems = @YES;
 
     NSArray* array = @[@"one", @"two", @"two"];
 
@@ -537,7 +537,7 @@
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.properties = @{@"purple" : [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *schema) {
-        schema.required = YES;
+        schema.required = @YES;
     }]};
 
     NSArray* errors = nil;
@@ -550,7 +550,7 @@
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.properties = @{@"purple" : [JSONSchemaDocument_v3 build:^(JSONSchemaDocument_v3 *schema) {
-        schema.required = YES;
+        schema.required = @YES;
     }]};
 
     NSArray* errors = nil;
@@ -578,7 +578,7 @@
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     schema.maxItems = @2;
-    schema.uniqueItems = YES;
+    schema.uniqueItems = @YES;
 
     NSArray* array = @[@"one", @"two", @"two"];
 

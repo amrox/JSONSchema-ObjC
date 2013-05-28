@@ -15,7 +15,6 @@ NSString* const JSONSchemaAttributeExtends           = @"extends";
 NSString* const JSONSchemaAttributeType              = @"type";
 NSString* const JSONSchemaAttributeDisallow          = @"disallow";
 NSString* const JSONSchemaAttributeDescription       = @"description";
-NSString* const JSONSchemaAttributeTitle             = @"title";
 NSString* const JSONSchemaAttributeFormat            = @"format";
 NSString* const JSONSchemaAttributeProperties        = @"properties";
 NSString* const JSONSchemaAttributePatternProperties = @"patternProperties";
@@ -51,31 +50,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 
 @implementation JSONSchemaDocument_v3
 
-@synthesize id = _id;
-@synthesize extends = _extends;
-@synthesize types = _types;
-@synthesize disallowedTypes = _disallowedTypes;
-@synthesize schemaDescription = _description;
-@synthesize title = _title;
-@synthesize format = _format;
-@synthesize required = _required;
-@synthesize defaultValue = _defaultValue;
-@synthesize possibleValues = _possibleValues;
-@synthesize properties = _properties;
-@synthesize patternProperties = _patternProperties;
-@synthesize items = _items;
-@synthesize minimum = _minimum;
-@synthesize maximum = _maximum;
-@synthesize exclusiveMinimum  = _exclusiveMinimum;
-@synthesize exclusiveMaximum = _exclusiveMaximum;
-@synthesize divisibleBy = _divisibleBy;
-@synthesize minItems = _minItems;
-@synthesize maxItems = _maxItems;
-@synthesize uniqueItems = _uniqueItems;
-@synthesize pattern = _pattern;
-@synthesize minLength = _minLength;
-@synthesize maxLength = _maxLength;
-
 + (NSInteger) version
 {
     return 3;
@@ -95,6 +69,52 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
             nil];
 }
 
++ (NSDictionary*) propertyToAttributeMap
+{
+    static NSDictionary* d = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        d = @{
+              NSStringFromSelector(@selector(types)) : JSONSchemaAttributeType,
+              NSStringFromSelector(@selector(disallowedTypes)) : JSONSchemaAttributeDisallow,
+              NSStringFromSelector(@selector(defaultValue)) : JSONSchemaAttributeDefault,
+              NSStringFromSelector(@selector(possibleValues)) : JSONSchemaAttributeEnum,
+              NSStringFromSelector(@selector(descr)) : JSONSchemaAttributeDescription,
+              };
+    });
+
+    return d;
+}
+
+
+
++ (NSDictionary*) attributeToPropertyMap
+{
+    static NSDictionary* d = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        d = @{
+              JSONSchemaAttributeType : NSStringFromSelector(@selector(types)),
+              JSONSchemaAttributeDisallow : NSStringFromSelector(@selector(disallowedTypes)),
+              JSONSchemaAttributeDefault : NSStringFromSelector(@selector(defaultValue)),
+              JSONSchemaAttributeEnum : NSStringFromSelector(@selector(possibleValues)),
+              JSONSchemaAttributeDescription : NSStringFromSelector(@selector(descr)),
+              };
+    });
+
+    return d;
+}
+
++ (NSString*) attributeNameForPropertyName:(NSString*)propertyName
+{
+    NSString* mapped = [self propertyToAttributeMap][propertyName];
+    if (mapped != nil) {
+        return mapped;
+    }
+    return propertyName;
+
+}
+
 - (BOOL) addPropertiesFromDict:(NSDictionary*)dict toKey:(NSString*)key error:(NSError**)error
 {
     NSArray* allPropertyNames = [dict allKeys];
@@ -102,12 +122,20 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     [self setValue:properties forKey:key];
     
     for (NSString* propertyName in allPropertyNames) {
+
         id value = dict[propertyName];
-        JSONSchemaDocument_v3* propertySchema = [[self class] JSONSchemaWithObject:value error:error];
-        if (propertySchema == nil) {
-            return NO;
+
+        if ([value isKindOfClass:[NSDictionary class]]) {
+
+            JSONSchemaDocument_v3* propertySchema = [[self class] JSONSchemaWithObject:value error:error];
+            if (propertySchema == nil) {
+                return NO;
+            }
+            properties[propertyName] = propertySchema;
+
+        } else {
+            // TODO: WARNING, didn't find an object. Probably found a URL.
         }
-        properties[propertyName] = propertySchema;
     }
     return YES;
 }
@@ -136,26 +164,26 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 {
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 schema];
     
-    if (![schema validateAndSetKey:JSONSchemaAttributeId fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeExtends fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:@"types" fromObject:obj objectKey:JSONSchemaAttributeType error:error]) return nil;
-    if (![schema validateAndSetKey:@"disallowedTypes" fromObject:obj objectKey:JSONSchemaAttributeDisallow error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeDescription fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeTitle fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeFormat fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeRequired fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:@"defaultValue" fromObject:obj objectKey:JSONSchemaAttributeDefault error:error]) return nil;
-    if (![schema validateAndSetKey:@"possibleValues" fromObject:obj objectKey:JSONSchemaAttributeEnum error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMinimum fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMaximum fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeExclusiveMinimum fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeExclusiveMaximum fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeDivisibleBy fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMinItems fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMaxItems fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMinLength fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributeMaxLength fromObject:obj error:error]) return nil;
-    if (![schema validateAndSetKey:JSONSchemaAttributePattern fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeId fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeExtends fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeType fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeDisallow fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeDescription fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeTitle fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeFormat fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeRequired fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeDefault fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeEnum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMinimum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMaximum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeExclusiveMinimum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeExclusiveMaximum fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeDivisibleBy fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMinItems fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMaxItems fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMinLength fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributeMaxLength fromObject:obj error:error]) return nil;
+    if (![schema validateAndSetAttribute:JSONSchemaAttributePattern fromObject:obj error:error]) return nil;
     
     NSDictionary* properties = [obj valueForKey:JSONSchemaAttributeProperties];
     if (properties != nil) {
@@ -170,7 +198,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
             return nil;
         }
     }
-    
+
     id items = [obj valueForKey:JSONSchemaAttributeItems];
     if (items != nil) {
         if(![schema setSchemasFromDictOrArray:items toKey:JSONSchemaAttributeItems error:error]) {
@@ -181,15 +209,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     return schema;
 }
 
-+ (id)JSONSchemaWithData:(NSData *)data error:(NSError**)error
-{
-    id obj = [[JSONSchema sharedSerializationHelper] JSONObjectWithData:data error:error];
-    if (obj == nil) {
-        //JSERR_P(error, JSONSCHEMA_ERROR_PARSE_FAIL);
-        return nil;
-    }
-    return [self JSONSchemaWithObject:obj error:error];
-}
 
 + (NSArray*) allAttributes
 {
@@ -198,6 +217,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     JSONSchemaAttributeExtends,
     JSONSchemaAttributeType,
     JSONSchemaAttributeDisallow,
+    JSONSchemaAttributeDescription,
     JSONSchemaAttributeTitle,
     JSONSchemaAttributeFormat,
     JSONSchemaAttributeProperties,
@@ -218,47 +238,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     JSONSchemaAttributeMaxLength,
     JSONSchemaAttributePattern,
     ];
-}
-
-+ (NSString*) propertyNameForAttributeName:(NSString*)attributeName
-{
-    if ([attributeName isEqualToString:JSONSchemaAttributeType]) {
-        return NSStringFromSelector(@selector(types));
-    }
-    
-    else if ([attributeName isEqualToString:JSONSchemaAttributeDisallow]) {
-        return NSStringFromSelector(@selector(disallowedTypes));
-    }
-    
-    else if ([attributeName isEqualToString:JSONSchemaAttributeDefault]) {
-        return NSStringFromSelector(@selector(defaultValue));
-    }
-    
-    else if ([attributeName isEqualToString:JSONSchemaAttributeEnum]) {
-        return NSStringFromSelector(@selector(possibleValues));
-    }
-    
-    return attributeName;
-}
-
-- (id) valueForAttribute:(NSString*)attribute
-{
-    NSString* key = [[self class] propertyNameForAttributeName:attribute];
-    return [self valueForKey:key];
-}
-
-- (NSDictionary*) dictionaryRepresentation
-{
-    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:20];
-    
-    for (NSString* attribute in [[self class] allAttributes]) {
-        
-        id val = [self valueForAttribute:attribute];
-        if (val != nil) {
-            dict[attribute] = val;
-        }
-    }
-    return dict;
 }
 
 - (void)setNilValueForKey:(NSString *)key
@@ -338,21 +317,11 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     return YES;
 }
 
-- (BOOL) validateSchemaDescription:(id*)value error:(NSError**)error
+- (BOOL) validateDescr:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
         JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'description'");
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL) validateTitle:(id*)value error:(NSError**)error
-{
-    if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
-                       @"expected type (string) for attribute 'title'");
         return NO;
     }
     return YES;
@@ -484,9 +453,5 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     return YES;
 }
 
-- (NSString*) description
-{
-    return [[self dictionaryRepresentation] description];
-}
 
 @end
