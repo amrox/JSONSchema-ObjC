@@ -55,20 +55,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     return 3;
 }
 
-+ (NSSet*) validTypes
-{
-    return [NSSet setWithObjects:
-            JSONSchemaTypeObject,
-            JSONSchemaTypeString,
-            JSONSchemaTypeNumber,
-            JSONSchemaTypeInteger,
-            JSONSchemaTypeBoolean,
-            JSONSchemaTypeArray,
-            JSONSchemaTypeNull,
-            JSONSchemaTypeAny,
-            nil];
-}
-
 + (NSDictionary*) propertyToAttributeMap
 {
     static NSDictionary* d = nil;
@@ -85,8 +71,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 
     return d;
 }
-
-
 
 + (NSDictionary*) attributeToPropertyMap
 {
@@ -221,59 +205,11 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 
 #pragma mark Validation Methods
 
-- (BOOL) validateTypeKey:(NSString*)key value:(id*)value error:(NSError**)error
-{
-    if (*value == nil) {
-        return YES;
-    }
-    
-    if ([*value isKindOfClass:[NSString class]]) {
-        
-        if (![[[self class] validTypes] containsObject:*value]) {
-            JSERR_REASON_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
-                           ([NSString stringWithFormat:@"invalid type: %@", *value]));
-            return NO;
-        }
-        
-        *value = @[*value];;
-        return YES;
 
-    } else if ([*value isKindOfClass:[NSArray class]]) {
-        
-        NSArray* types = (NSArray*)*value;
-        for (id type in types) {
-            if (![[[self class] validTypes] containsObject:type]) {
-                JSERR_REASON_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
-                               ([NSString stringWithFormat:@"invalid type: %@", type]));
-                return NO;
-            }
-        }
-        return YES;
-    }
-    
-    JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
-                   ([NSString stringWithFormat:@"expected type (string,array) for attribute '%@'", key]));
-    return NO;
-}
-
-- (BOOL) validateTypes:(id*)value error:(NSError**)error
-{
-    return [self validateTypeKey:@"types" value:value error:error];
-}
 
 - (BOOL) validateDisallowedTypes:(id*)value error:(NSError**)error
 {
     return [self validateTypeKey:@"disallowedTypes" value:value error:error];
-}
-
-- (BOOL) validateId:(id*)value error:(NSError**)error
-{
-    if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
-                       @"expected type (string) for attribute 'id'");
-        return NO;
-    }
-    return YES;
 }
 
 - (BOOL) validateExtends:(id*)value error:(NSError**)error

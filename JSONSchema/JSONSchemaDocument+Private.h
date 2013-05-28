@@ -29,4 +29,6 @@
 
 + (NSString*) propertyNameForAttributeName:(NSString*)attributeName;
 
+- (BOOL) validateTypeKey:(NSString*)key value:(id*)value error:(NSError**)error;
+
 @end
