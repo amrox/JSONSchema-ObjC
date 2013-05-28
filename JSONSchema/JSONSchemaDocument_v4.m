@@ -52,7 +52,7 @@ NSString* const JSONSchemaAttributeMultipleOf           = @"multipleOf";
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
         JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
-                       @"expected type 'number' for attribute 'maximum'");
+                       @"expected type (number) for attribute 'maximum'");
         return NO;
     }
     return YES;
