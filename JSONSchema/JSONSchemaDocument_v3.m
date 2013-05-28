@@ -90,7 +90,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 
 + (NSDictionary*) attributeToPropertyMap
 {
-    static NSDictionary* d = nil;
+    __strong static NSDictionary* d = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         d = @{
@@ -207,37 +207,6 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
     }
 
     return schema;
-}
-
-
-+ (NSArray*) allAttributes
-{
-    return @[
-    JSONSchemaAttributeId,
-    JSONSchemaAttributeExtends,
-    JSONSchemaAttributeType,
-    JSONSchemaAttributeDisallow,
-    JSONSchemaAttributeDescription,
-    JSONSchemaAttributeTitle,
-    JSONSchemaAttributeFormat,
-    JSONSchemaAttributeProperties,
-    JSONSchemaAttributePatternProperties,
-    JSONSchemaAttributeItems,
-    JSONSchemaAttributeRequired,
-    JSONSchemaAttributeDefault,
-    JSONSchemaAttributeEnum,
-    JSONSchemaAttributeMinimum,
-    JSONSchemaAttributeMaximum,
-    JSONSchemaAttributeExclusiveMinimum,
-    JSONSchemaAttributeExclusiveMaximum,
-    JSONSchemaAttributeDivisibleBy,
-    JSONSchemaAttributeMinItems,
-    JSONSchemaAttributeMaxItems,
-    JSONSchemaAttributeUniqueItems,
-    JSONSchemaAttributeMinLength,
-    JSONSchemaAttributeMaxLength,
-    JSONSchemaAttributePattern,
-    ];
 }
 
 - (void)setNilValueForKey:(NSString *)key

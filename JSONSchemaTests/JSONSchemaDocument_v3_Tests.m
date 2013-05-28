@@ -86,7 +86,6 @@
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:data error:&error];
     STAssertNotNil(schema, @"error: %@", error);
-
 }
 
 - (void) testParseProductFile

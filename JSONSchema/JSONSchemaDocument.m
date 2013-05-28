@@ -10,6 +10,7 @@
 #import "JSONschema.h"
 #import "JSONSchemaInternal.h"
 #import "JSONSchemaValidationResult.h"
+#import <objc/runtime.h>
 
 
 NSString* const JSONSchemaAttributeTitle             = @"title";
@@ -67,8 +68,25 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 + (NSArray*) allAttributes
 {
-    AssertNYI();
-    return nil;
+    NSMutableArray* allAttributes = [NSMutableArray array];
+
+	unsigned int propertyCount = 0;
+
+	objc_property_t* properties = class_copyPropertyList(self, &propertyCount);
+
+    for( int i=0; i<propertyCount; i++ )
+	{
+        objc_property_t property = properties[i];
+		NSString* propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+
+        NSString* attributeName = [self attributeNameForPropertyName:propertyName];
+
+        [allAttributes addObject:attributeName];
+    }
+
+    free( properties );
+
+    return allAttributes;
 }
 
 - (NSDictionary*) dictionaryRepresentation
@@ -118,7 +136,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 + (NSDictionary*) propertyToAttributeMap
 {
-    static NSMutableDictionary* d = nil;
+    __strong static NSMutableDictionary* d = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 

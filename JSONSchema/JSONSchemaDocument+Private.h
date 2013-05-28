@@ -12,8 +12,6 @@
 
 #pragma mark Subclasses Must Override
 
-+ (NSArray*) allAttributes;
-
 // if the property name on the classes differs from the property name in JSON-Schema
 + (NSDictionary*) attributeToPropertyMap;
 
