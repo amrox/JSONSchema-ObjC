@@ -111,27 +111,6 @@ NSString* const JSONSchemaTypeAny                    = @"any";
     return [self jsonSchema_dictionaryRepresentation];
 }
 
-//- (NSDictionary*) dictionaryRepresentation
-//{
-//    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:20];
-//
-//    for (NSString* attribute in [[self class] allAttributes]) {
-//
-//        id val = [self valueForAttribute:attribute];
-//        if (val != nil) {
-//            
-//
-//
-//            if ([val respondsToSelector:@selector(dictionaryRepresentation)]) {
-//                dict[attribute] = [val dictionaryRepresentation];
-//            } else {
-//                dict[attribute] = val;
-//            }
-//        }
-//    }
-//    return dict;
-//}
-
 
 #pragma mark Internal Validation
 
