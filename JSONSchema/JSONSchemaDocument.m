@@ -63,7 +63,11 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 + (id) build:(void (^)(id schema))block
 {
-    return [[[JSONSchema defaultSchemaDocumentClass] schema] tap:block];
+    if ([self class] == [JSONSchemaDocument class]) {
+        return [[[JSONSchema defaultSchemaDocumentClass] schema] tap:block];
+    } else {
+        return [[self schema] tap:block];
+    }
 }
 
 + (NSInteger) version
