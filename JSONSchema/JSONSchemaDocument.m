@@ -95,7 +95,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
             [allAttributes addObject:attributeName];
         }
         
-        free( properties );
+        free(properties);
     });
 
     return allAttributes;
