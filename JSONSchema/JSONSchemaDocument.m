@@ -72,7 +72,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 + (NSInteger) version
 {
-    AssertNYI();
+    AssertMustOverride();
     return -1;
 }
 
@@ -188,7 +188,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 - (JSONSchemaValidationResult*) validate:(id)object context:(id)context
 {
-    NSAssert(NO, @"Subclasses must override this method");
+    AssertMustOverride();
     return nil;
 }
 

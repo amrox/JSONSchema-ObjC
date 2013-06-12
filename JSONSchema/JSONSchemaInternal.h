@@ -11,6 +11,8 @@
 
 #import "JSONSchema.h"
 
-#define AssertNYI() NSAssert(NO, @"Subclasses must override this method");
+#define AssertMustOverride() NSAssert(NO, @"Subclasses must override this method.");
+
+#define AssertNYI() NSAssert(NO, @"Not yet implemented.");
 
 #endif

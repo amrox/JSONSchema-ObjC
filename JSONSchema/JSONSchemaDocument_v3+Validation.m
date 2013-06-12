@@ -12,6 +12,7 @@
 #import "JSONSchemaDocument_v3.h"
 #import "NSNumber+JSONSchema.h"
 #import "JSONSchemaValidationResult+Private.h"
+#import "JSONSchemaInternal.h"
 
 
 @interface JSONSchemaDocument_v3 (Validation)
@@ -277,21 +278,21 @@
 
 
         } else if ([schema.items isKindOfClass:[NSArray class]]) {
-            abort();
+            AssertNYI();
 
         } else {
-            abort();
+            AssertNYI();
         }
 
         if (schema.additionalItems != nil) {
             if ([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
-                abort();
+                AssertNYI();
 
             } else if ([schema.additionalItems isKindOfClass:[NSNumber class]]) {
-                abort();
+                AssertNYI();
 
             } else {
-                abort();
+                AssertNYI();
             }
         }
     }

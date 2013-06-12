@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import "JSONSchemaDocument.h"
 #import "JSONSchemaValidationResult.h"
+#import "JSONSchemaInternal.h"
 
 
 @implementation NSObject (JSONSchema)
@@ -112,7 +113,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
             
             if ([propertySchema.types count] > 1) {
                 
-                abort();
+                AssertNYI();
                 
             } else {
                 
@@ -127,7 +128,7 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
                     NSGetSizeAndAlignment(ivarEncoding, &ivarSize, &ivarAlign);
                     
                     if (!class_addIvar(cls, [ivarName UTF8String], ivarSize, ivarAlign, ivarEncoding)) {
-                        abort();
+                        AssertNYI();
                     }
                     
                     objc_property_attribute_t type = { "T", "@\"NSString\"" };
@@ -162,8 +163,8 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
             
             if ([propertySchema.types count] > 1) {
                 
-                abort();
-                
+                AssertNYI();
+
             } else {
                 
                 NSString* ivarName = instanceVariableNameForPropertyName(cls, propertyName);
