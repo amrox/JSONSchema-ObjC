@@ -141,25 +141,25 @@
 			isa = PBXGroup;
 			children = (
 				B33FDBC01754171A001BAC97 /* JSONSchemaInternal.h */,
-				B3B57B7416A242EF00EC1262 /* JSONSchemaDocument+ObjectCreation.h */,
 				B33FDBBD1754167D001BAC97 /* JSONSchema.m */,
 				B33FDBC117541967001BAC97 /* JSONSchemaDocument+Private.h */,
 				B33FDBB417541316001BAC97 /* JSONSchemaDocument.m */,
-				B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */,
+				B3B57B7416A242EF00EC1262 /* JSONSchemaDocument+ObjectCreation.h */,
 				B3B57B7516A242EF00EC1262 /* JSONSchemaDocument+ObjectCreation.m */,
+				B33FDBC41754244B001BAC97 /* JSONSchemaSerializationHelper.m */,
 				B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */,
 				B3A4E3C214FA1A6A0079CF41 /* JSONSchemaValidationContext.m */,
 				B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */,
 				B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */,
 				B34ADE901528207700C9C585 /* NSNumber+JSONSchema.h */,
 				B34ADE911528207700C9C585 /* NSNumber+JSONSchema.m */,
-				B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */,
-				B34B3DB816585242007F1C18 /* JSONSchemaValidationOperation.m */,
 				B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */,
 				B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */,
 				B33FDBB917541557001BAC97 /* JSONSchemaDocument_v4.m */,
 				B33FDBC8175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.h */,
 				B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */,
+				B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */,
+				B34B3DB816585242007F1C18 /* JSONSchemaValidationOperation.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";

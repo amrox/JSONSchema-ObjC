@@ -9,7 +9,6 @@
 #import "JSONSchemaDocument_v3_ValidationTests.h"
 #import "TestUtility.h"
 #import "JSONSchemaDocument_v3.h"
-#import "JSONSchemaDocument_v3+Validation.h"
 #import "JSONSchemaValidationResult.h"
 
 @interface JSONSchemaDocument_v3_ValidationTests ()
