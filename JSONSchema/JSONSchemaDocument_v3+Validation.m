@@ -6,12 +6,16 @@
 //
 //
 
-#import "JSONSchemaDocument_v3+Validation.h"
+#import "JSONSchemaDocument_v3.h"
 
 #import "JSONSchemaErrors.h"
 #import "JSONSchemaDocument_v3.h"
 #import "NSNumber+JSONSchema.h"
 #import "JSONSchemaValidationResult+Private.h"
+
+
+@interface JSONSchemaDocument_v3 (Validation)
+@end
 
 
 @implementation JSONSchemaDocument_v3 (Validation)
