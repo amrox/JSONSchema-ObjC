@@ -22,29 +22,29 @@
 
 @implementation JSONSchemaDocument_v3 (Validation)
 
-- (JSONSchemaValidationResult*) validateString:(NSString*)string againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateString:(NSString*)string context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
-    if (schema.minLength != nil) {
-        if ([string length] < [schema.minLength integerValue]) {
+    if (self.minLength != nil) {
+        if ([string length] < [self.minLength integerValue]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected minLength (%d)", context, string, [schema.minLength integerValue]]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected minLength (%d)", context, string, [self.minLength integerValue]]))];
         }
     }
 
-    if (schema.maxLength != nil) {
-        if ([string length] > [schema.maxLength integerValue]) {
+    if (self.maxLength != nil) {
+        if ([string length] > [self.maxLength integerValue]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected maxLength (%d)", context, string, [schema.maxLength integerValue]]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected maxLength (%d)", context, string, [self.maxLength integerValue]]))];
         }
     }
 
-    if (schema.pattern != nil) {
+    if (self.pattern != nil) {
         NSError* regexError = nil;
-        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:schema.pattern
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:self.pattern
                                                                                options:0
                                                                                  error:&regexError];
         if (regex == nil) {
@@ -57,17 +57,17 @@
                 [result addError:
 
                  JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                              ([NSString stringWithFormat:@"[%@:%@] does not match regular expression '%@'", context, string, schema.pattern]))];
+                              ([NSString stringWithFormat:@"[%@:%@] does not match regular expression '%@'", context, string, self.pattern]))];
             }
         }
     }
 
-    if (schema.possibleValues != nil) {
+    if (self.possibleValues != nil) {
 
-        if (![schema.possibleValues containsObject:string]) {
+        if (![self.possibleValues containsObject:string]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] possible values (%@)", context, string, schema.possibleValues]))];
+                          ([NSString stringWithFormat:@"[%@:%@] possible values (%@)", context, string, self.possibleValues]))];
 
         }
     }
@@ -75,54 +75,54 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateNumber:(NSNumber*)number againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateNumber:(NSNumber*)number context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
-    if (schema.minimum != nil) {
-        if ([schema.minimum compare:number] == NSOrderedDescending) {
+    if (self.minimum != nil) {
+        if ([self.minimum compare:number] == NSOrderedDescending) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected minimum (%@)", context, number, schema.minimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected minimum (%@)", context, number, self.minimum]))];
         }
     }
 
-    if (schema.exclusiveMinimum != nil) {
-        if ([schema.exclusiveMinimum compare:number] != NSOrderedAscending) {
+    if (self.exclusiveMinimum != nil) {
+        if ([self.exclusiveMinimum compare:number] != NSOrderedAscending) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMinimum (%@)", context, number, schema.exclusiveMinimum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMinimum (%@)", context, number, self.exclusiveMinimum]))];
         }
     }
 
-    if (schema.maximum != nil) {
-        if ([schema.maximum compare:number] == NSOrderedAscending) {
+    if (self.maximum != nil) {
+        if ([self.maximum compare:number] == NSOrderedAscending) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, schema.maximum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected maximum (%@)", context, number, self.maximum]))];
         }
     }
 
-    if (schema.exclusiveMaximum != nil) {
-        if ([schema.exclusiveMaximum compare:number] != NSOrderedDescending) {
+    if (self.exclusiveMaximum != nil) {
+        if ([self.exclusiveMaximum compare:number] != NSOrderedDescending) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMaximum (%@)", context, number, schema.exclusiveMaximum]))];
+                          ([NSString stringWithFormat:@"[%@:%@] expected exclusiveMaximum (%@)", context, number, self.exclusiveMaximum]))];
         }
     }
 
-    if (schema.divisibleBy != nil) {
+    if (self.divisibleBy != nil) {
         // first make sure the number is integral
         if (![number jsonSchema_isIntegral]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
                           ([NSString stringWithFormat:@"[%@:%@] not integer", context, number]))];
         } else {
-            NSInteger remainder = [number integerValue] % [schema.divisibleBy integerValue];
+            NSInteger remainder = [number integerValue] % [self.divisibleBy integerValue];
             if (remainder != 0) {
                 [result addError:
                  JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                              ([NSString stringWithFormat:@"[%@:%@] expected divisibleBy (%@)", context, number, schema.divisibleBy]))];
+                              ([NSString stringWithFormat:@"[%@:%@] expected divisibleBy (%@)", context, number, self.divisibleBy]))];
             }
         }
     }
@@ -213,27 +213,27 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateArray:(NSArray*)array againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateArray:(NSArray*)array context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
-    if (schema.minItems != nil) {
-        if ([array count] < [schema.minItems unsignedIntegerValue]) {
+    if (self.minItems != nil) {
+        if ([array count] < [self.minItems unsignedIntegerValue]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%d] expected minItems (%@)", context, [array count], schema.minItems]))];
+                          ([NSString stringWithFormat:@"[%@:%d] expected minItems (%@)", context, [array count], self.minItems]))];
         }
     }
 
-    if (schema.maxItems != nil) {
-        if ([array count] > [schema.maxItems unsignedIntegerValue]) {
+    if (self.maxItems != nil) {
+        if ([array count] > [self.maxItems unsignedIntegerValue]) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                          ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], schema.maxItems]))];
+                          ([NSString stringWithFormat:@"[%@:%d] expected maxItems (%@)", context, [array count], self.maxItems]))];
         }
     }
 
-    if (schema.uniqueItems) {
+    if (self.uniqueItems) {
         NSUInteger c = [array count];
         for (NSUInteger i = 0; i < c - 1; i++) {
             for (NSUInteger j = i + 1; j < c; j++) {
@@ -256,40 +256,40 @@
         }
     }
 
-    if (schema.possibleValues != nil) {
+    if (self.possibleValues != nil) {
         for (id obj in array) {
-            if (![schema.possibleValues containsObject:obj]) {
+            if (![self.possibleValues containsObject:obj]) {
                 [result addError:
                  JSERR(JSONSCHEMA_ERROR_VALIDATION_BAD_VALUE,
-                              ([NSString stringWithFormat:@"[%@:%@] is not in enum: %@", context, obj, schema.possibleValues]))];
+                              ([NSString stringWithFormat:@"[%@:%@] is not in enum: %@", context, obj, self.possibleValues]))];
             }
         }
     }
 
     // TODO: finish
-    if (schema.items != nil) {
-        if ([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
+    if (self.items != nil) {
+        if ([self.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
 
-            JSONSchemaDocument_v3* itemSchema = (JSONSchemaDocument_v3*)schema.items;
+            JSONSchemaDocument_v3* itemSchema = (JSONSchemaDocument_v3*)self.items;
 
             for (id item in array) {
                 [result addErrorsFromResult:
-                 [self validate:item againstSchema:itemSchema context:context]];
+                 [itemSchema validate:item context:context]];
             }
 
 
-        } else if ([schema.items isKindOfClass:[NSArray class]]) {
+        } else if ([self.items isKindOfClass:[NSArray class]]) {
             AssertNYI();
 
         } else {
             AssertNYI();
         }
 
-        if (schema.additionalItems != nil) {
-            if ([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
+        if (self.additionalItems != nil) {
+            if ([self.items isKindOfClass:[JSONSchemaDocument_v3 class]]) {
                 AssertNYI();
 
-            } else if ([schema.additionalItems isKindOfClass:[NSNumber class]]) {
+            } else if ([self.additionalItems isKindOfClass:[NSNumber class]]) {
                 AssertNYI();
 
             } else {
@@ -301,13 +301,13 @@
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateProperty:(NSString*)property ofDictObject:(NSDictionary*)dict context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
     id val = dict[property];
 
-    if (schema.required) {
+    if (self.required) {
         if (val == nil) {
             [result addError:
              JSERR(JSONSCHEMA_ERROR_VALIDATION_MISSING_VALUE,
@@ -318,22 +318,22 @@
 
     if (val != nil) {
         [result addErrorsFromResult:
-         [self validate:val againstSchema:schema context:context]];
+         [self validate:val context:context]];
     }
 
     return result;
 }
 
-- (JSONSchemaValidationResult*) validateDictObject:(NSDictionary*)dict againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateDictObject:(NSDictionary*)dict context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
-    if (schema.properties != nil) {
-        [schema.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    if (self.properties != nil) {
+        [self.properties enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSString* propertyName = key;
             JSONSchemaDocument_v3* propertySchema = obj;
             [result addErrorsFromResult:
-             [self validateProperty:propertyName ofDictObject:dict againstSchema:propertySchema context:context]];
+             [propertySchema validateProperty:propertyName ofDictObject:dict context:context]];
         }];
     }
 
@@ -400,26 +400,26 @@
     return foundValidType;
 }
 
-- (JSONSchemaValidationResult*) validateObjectByType:(id)object againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validateObjectByType:(id)object context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
     if ([object isKindOfClass:[NSString class]]) {
         [result addErrorsFromResult:
-         [self validateString:(NSString*)object againstSchema:schema context:context]];
+         [self validateString:(NSString*)object context:context]];
     }
 
     else if ([object isKindOfClass:[NSNumber class]]) {
 
         [result addErrorsFromResult:
-         [self validateNumber:(NSNumber*)object againstSchema:schema context:context]];
+         [self validateNumber:(NSNumber*)object context:context]];
 
-        if ([schema.types containsObject:JSONSchemaTypeBoolean]) {
+        if ([self.types containsObject:JSONSchemaTypeBoolean]) {
             [result addErrorsFromResult:
              [self validateTypeBoolean:(NSNumber*)object context:context]];
         }
 
-        if ([schema.types containsObject:JSONSchemaTypeInteger]) {
+        if ([self.types containsObject:JSONSchemaTypeInteger]) {
             [result addErrorsFromResult:
              [self validateTypeInteger:(NSNumber*)object context:context]];
         }
@@ -428,24 +428,24 @@
 
     else if ([object isKindOfClass:[NSArray class]]) {
         [result addErrorsFromResult:
-         [self validateArray:(NSArray*)object againstSchema:schema context:context]];
+         [self validateArray:(NSArray*)object context:context]];
     }
 
     else if ([object isKindOfClass:[NSDictionary class]]) {
         [result addErrorsFromResult:
-         [self validateDictObject:(NSDictionary*)object againstSchema:schema context:context]];
+         [self validateDictObject:(NSDictionary*)object context:context]];
     }
 
     return result;
 }
 
-- (JSONSchemaValidationResult*) validate:(id)object againstSchema:(JSONSchemaDocument_v3*)schema context:(JSONSchemaObjectContext*)context
+- (JSONSchemaValidationResult*) validate:(id)object context:(JSONSchemaObjectContext*)context
 {
     JSONSchemaValidationResult* result = [[JSONSchemaValidationResult alloc] init];
 
-    if (schema.types != nil) {
+    if (self.types != nil) {
 
-        BOOL match = [self validateObject:object matchesTypes:schema.types context:context];
+        BOOL match = [self validateObject:object matchesTypes:self.types context:context];
 
         if (!match) {
 
@@ -453,13 +453,13 @@
              JSERR(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE,
                           ([NSString stringWithFormat:@"[%@:%@] allowed types (%@)",
                             object, context,
-                            [schema.types componentsJoinedByString:@","]]))];
+                            [self.types componentsJoinedByString:@","]]))];
         }
     }
 
-    if (schema.disallowedTypes != nil) {
+    if (self.disallowedTypes != nil) {
 
-        BOOL match = [self validateObject:object matchesTypes:schema.disallowedTypes context:context];
+        BOOL match = [self validateObject:object matchesTypes:self.disallowedTypes context:context];
 
         if (match) {
 
@@ -467,21 +467,16 @@
              JSERR(JSONSCHEMA_ERROR_VALIDATION_WRONG_TYPE,
                           ([NSString stringWithFormat:@"[%@:%@] disallowed types (%@)",
                             object, context,
-                            [schema.types componentsJoinedByString:@","]]))];
+                            [self.types componentsJoinedByString:@","]]))];
         }
     }
 
     [result addErrorsFromResult:
-     [self validateObjectByType:object againstSchema:schema context:context]];
+     [self validateObjectByType:object context:context]];
 
     [context popContext];
 
     return result;
-}
-
-- (JSONSchemaValidationResult*) validate:(id)object context:(JSONSchemaObjectContext*)context
-{
-    return [self validate:object againstSchema:self context:context];
 }
 
 @end
