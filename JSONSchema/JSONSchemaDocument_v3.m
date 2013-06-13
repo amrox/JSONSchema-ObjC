@@ -137,7 +137,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
         // TODO: add support for tuple typing
         
     } else {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        ([NSString stringWithFormat:@"expected type (schema,array) for attribute '%@'", key]));
         return NO;
     }
@@ -215,7 +215,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateExtends:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'extends'");
         return NO;
     }
@@ -225,7 +225,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateDescr:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'description'");
         return NO;
     }
@@ -235,7 +235,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateFormat:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'format'");
         return NO;
     }
@@ -245,7 +245,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMinimum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'minimum'");
         return NO;
     }
@@ -255,7 +255,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMaximum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type 'number' for attribute 'maximum'");
         return NO;
     }
@@ -265,7 +265,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateExclusiveMinimum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'exclusiveMinimum'");
         return NO;
     }
@@ -275,7 +275,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateExclusiveMaximum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'exclusiveMaximum'");
         return NO;
     }
@@ -285,7 +285,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateDivisibleBy:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'divisibleBy'");
         return NO;
     }
@@ -296,7 +296,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMinItems:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'minItems'");
         return NO;
     }
@@ -306,7 +306,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMaxItems:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'maxItems'");
         return NO;
     }
@@ -316,7 +316,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validatePossibleValues:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSArray class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (array) for attribute 'possibleValues'");
         return NO;
     }
@@ -326,7 +326,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMinLength:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'minLength'");
         return NO;
     }
@@ -336,7 +336,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validateMaxLength:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'maxLength'");
         return NO;
     }
@@ -346,7 +346,7 @@ NSString* const JSONSchemaFormatHostname             = @"host-name";
 - (BOOL) validatePattern:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'pattern'");
         return NO;
     }

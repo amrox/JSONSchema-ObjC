@@ -38,6 +38,8 @@
 		B3E38D1914F9ACEB00ECEE91 /* libJSONSchema.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0114F9ACEB00ECEE91 /* libJSONSchema.a */; };
 		B3E38D1F14F9ACEB00ECEE91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3E38D1D14F9ACEB00ECEE91 /* InfoPlist.strings */; };
 		B3E38D2214F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E38D2114F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.m */; };
+		B3E798CD17693F5400E54D51 /* JSONSchemaObjectContext.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E798CB17693F5400E54D51 /* JSONSchemaObjectContext.h */; };
+		B3E798CE17693F5400E54D51 /* JSONSchemaObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E798CC17693F5400E54D51 /* JSONSchemaObjectContext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		B3E38D1E14F9ACEB00ECEE91 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B3E38D2014F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDocument_v3_Tests.h; sourceTree = "<group>"; };
 		B3E38D2114F9ACEB00ECEE91 /* JSONSchemaDocument_v3_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDocument_v3_Tests.m; sourceTree = "<group>"; };
+		B3E798CB17693F5400E54D51 /* JSONSchemaObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaObjectContext.h; sourceTree = "<group>"; };
+		B3E798CC17693F5400E54D51 /* JSONSchemaObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaObjectContext.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,8 @@
 				B33FDBC9175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m */,
 				B34B3DB716585242007F1C18 /* JSONSchemaValidationOperation.h */,
 				B34B3DB816585242007F1C18 /* JSONSchemaValidationOperation.m */,
+				B3E798CB17693F5400E54D51 /* JSONSchemaObjectContext.h */,
+				B3E798CC17693F5400E54D51 /* JSONSchemaObjectContext.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -245,6 +251,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E798CD17693F5400E54D51 /* JSONSchemaObjectContext.h in Headers */,
 				B3A4E3C314FA1A6A0079CF41 /* JSONSchemaValidationContext.h in Headers */,
 				B34ADE921528207700C9C585 /* NSNumber+JSONSchema.h in Headers */,
 				B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */,
@@ -301,7 +308,7 @@
 		B3E38CF814F9ACEB00ECEE91 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = B3E38CFB14F9ACEB00ECEE91 /* Build configuration list for PBXProject "JSONSchema" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -366,6 +373,7 @@
 				B33FDBBF1754167D001BAC97 /* JSONSchema.m in Sources */,
 				B33FDBC61754244B001BAC97 /* JSONSchemaSerializationHelper.m in Sources */,
 				B33FDBCB175443D0001BAC97 /* JSONSchemaDictionaryRepresentation.m in Sources */,
+				B3E798CE17693F5400E54D51 /* JSONSchemaObjectContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

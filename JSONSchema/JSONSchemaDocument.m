@@ -12,6 +12,7 @@
 #import "JSONSchemaValidationResult.h"
 #import <objc/runtime.h>
 #import "JSONSchemaDictionaryRepresentation.h"
+#import "JSONSchemaObjectContext.h"
 
 NSString* const JSONSchemaAttributeId                = @"id";
 NSString* const JSONSchemaAttributeTitle             = @"title";
@@ -194,7 +195,8 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 
 - (JSONSchemaValidationResult*) validate:(id)object
 {
-    return [self validate:object context:nil];
+    JSONSchemaObjectContext* objectContext = [[JSONSchemaObjectContext alloc] init];
+    return [self validate:object context:objectContext];
 }
 
 - (BOOL) validate:(id)object errors:(NSArray**)outErrors
@@ -228,7 +230,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 - (BOOL) validateId:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'id'");
         return NO;
     }
@@ -238,7 +240,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
 - (BOOL) validateTitle:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSString class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (string) for attribute 'title'");
         return NO;
     }
@@ -254,7 +256,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
     if ([*value isKindOfClass:[NSString class]]) {
 
         if (![[[self class] validTypes] containsObject:*value]) {
-            JSERR_REASON_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
+            JSERR_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
                            ([NSString stringWithFormat:@"invalid type: %@", *value]));
             return NO;
         }
@@ -267,7 +269,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
         NSArray* types = (NSArray*)*value;
         for (id type in types) {
             if (![[[self class] validTypes] containsObject:type]) {
-                JSERR_REASON_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
+                JSERR_P(error, JSONSCHEMA_ERROR_INVALID_TYPE,
                                ([NSString stringWithFormat:@"invalid type: %@", type]));
                 return NO;
             }
@@ -275,7 +277,7 @@ NSString* const JSONSchemaTypeAny                    = @"any";
         return YES;
     }
 
-    JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+    JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                    ([NSString stringWithFormat:@"expected type (string,array) for attribute '%@'", key]));
     return NO;
 }

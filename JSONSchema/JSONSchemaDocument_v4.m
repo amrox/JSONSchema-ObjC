@@ -41,7 +41,7 @@ NSString* const JSONSchemaAttributeMultipleOf           = @"multipleOf";
 - (BOOL) validateMinimum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'minimum'");
         return NO;
     }
@@ -51,7 +51,7 @@ NSString* const JSONSchemaAttributeMultipleOf           = @"multipleOf";
 - (BOOL) validateMaximum:(id*)value error:(NSError**)error
 {
     if (*value != nil && ![*value isKindOfClass:[NSNumber class]]) {
-        JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+        JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                        @"expected type (number) for attribute 'maximum'");
         return NO;
     }
@@ -63,13 +63,13 @@ NSString* const JSONSchemaAttributeMultipleOf           = @"multipleOf";
     if (*value != nil) {
 
         if (![*value isKindOfClass:[NSNumber class]]) {
-            JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
+            JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_TYPE,
                            @"expected type (number) for attribute 'multipleOf'");
             return NO;
         }
 
         if ([*value doubleValue] <= 0) {
-            JSERR_REASON_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_VALUE,
+            JSERR_P(error, JSONSCHEMA_ERROR_ATTRIBUTE_INVALID_VALUE,
                            @"expected (value > 0) for attribute 'multipleOf'");
             return NO;
         }

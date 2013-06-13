@@ -11,6 +11,7 @@
 
 #define JSONSCHEMA_ERROR_DOMAIN @"net.mrox.JSONSchema"
 
+#define JSONSchemaErrorLocationKey @"JSONSchemaErrorLocationKey"
 
 enum 
 {
@@ -28,17 +29,11 @@ enum
 };
 
 
-#define JSERR(E) _JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, nil)
-#define JSERR_P(P,E) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, nil))
+#define JSERR(E,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil, nil)
+#define JSERR_P(P,E,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil, nil))
 
-#define JSERR_INFO(E,I) _JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, I)
-#define JSERR_INFO_P(P,E,I) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeError(E, #E, JSONSCHEMA_ERROR_DOMAIN, I))
-
-#define JSERR_REASON(E,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil)
-#define JSERR_REASON_P(P,E,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, nil))
-
-#define JSERR_INFO_REASON(E,I,R) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, I)
-#define JSERR_INFO_REASON_P(P,E,I,R) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, I))
+#define JSERR2(E,R,C) _JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, C, nil)
+#define JSERR_P2(P,E,R,C) _JSONSchemaAssignErrorSafe(P,_JSONSchemaMakeErrorWithReason(E, #E, JSONSCHEMA_ERROR_DOMAIN, R, C, nil))
 
 
 static inline void _JSONSchemaAssignErrorSafe( NSError** outError, NSError* error )
@@ -66,15 +61,24 @@ static inline NSError* _JSONSchemaMakeError( int errorCode, char const *errorNam
     return [NSError errorWithDomain:domain code:errorCode userInfo:dict];
 }
 
-static inline NSError* _JSONSchemaMakeErrorWithReason( int errorCode, char const *errorName, NSString* domain, NSString* reason, NSDictionary* userInfo )
+static inline NSError* _JSONSchemaMakeErrorWithReason( int errorCode, char const *errorName, NSString* domain, NSString* reason, id context, NSDictionary* userInfo )
 {
+    NSMutableDictionary *tmpUserInfo = nil;
+
     if (userInfo == nil) {
-        userInfo = [NSDictionary dictionaryWithObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+        tmpUserInfo = [[NSMutableDictionary alloc] initWithCapacity:2];
     } else {
-        userInfo = [userInfo mutableCopy];
-        [(NSMutableDictionary*)userInfo setObject:reason forKey:NSLocalizedFailureReasonErrorKey];
+        tmpUserInfo = [userInfo mutableCopy];
     }
-    return _JSONSchemaMakeError(errorCode, errorName, domain, userInfo);
+
+    if (reason != nil) {
+        tmpUserInfo[NSLocalizedFailureReasonErrorKey] = reason;
+    }
+    if (context != nil) {
+        tmpUserInfo[JSONSchemaErrorLocationKey] = [context description];
+    }
+
+    return _JSONSchemaMakeError(errorCode, errorName, domain, tmpUserInfo);
 }
 
 

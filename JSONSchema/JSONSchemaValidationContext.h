@@ -13,9 +13,6 @@
 
 @interface JSONSchemaValidationContext : NSObject
 
-/**
- @discussion Initializes with default validation logic
- */
 - (id)init;
 
 #pragma mark -
