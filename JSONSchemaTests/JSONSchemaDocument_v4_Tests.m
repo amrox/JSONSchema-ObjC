@@ -21,7 +21,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"minimum" error:&error];
-    STAssertTrue(valid, @"should succeed");
+    XCTAssertTrue(valid, @"should succeed");
 }
 
 - (void) testInvalidMinimum
@@ -33,7 +33,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"minimum" error:&error];
-    STAssertFalse(valid, @"should fail");
+    XCTAssertFalse(valid, @"should fail");
 }
 
 - (void) testValidMaximum
@@ -45,7 +45,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"maximum" error:&error];
-    STAssertTrue(valid, @"should succeed");
+    XCTAssertTrue(valid, @"should succeed");
 
 }
 
@@ -58,7 +58,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"maximum" error:&error];
-    STAssertFalse(valid, @"should fail");
+    XCTAssertFalse(valid, @"should fail");
 }
 
 - (void) testValidMultipleOf
@@ -70,7 +70,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"multipleOf" error:&error];
-    STAssertTrue(valid, @"should succeed");
+    XCTAssertTrue(valid, @"should succeed");
 }
 
 - (void) testInvalidMultipleOf_WrongType
@@ -82,7 +82,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"multipleOf" error:&error];
-    STAssertFalse(valid, @"should fail");
+    XCTAssertFalse(valid, @"should fail");
 }
 
 - (void) testInvalidMultipleOf_BadValue
@@ -94,7 +94,7 @@
     BOOL valid = NO;
 
     valid = [schema validateValue:&val forKey:@"multipleOf" error:&error];
-    STAssertFalse(valid, @"should fail");
+    XCTAssertFalse(valid, @"should fail");
 }
 
 

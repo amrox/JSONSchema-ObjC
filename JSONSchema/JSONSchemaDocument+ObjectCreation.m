@@ -118,40 +118,50 @@ static NSString* instanceVariableNameForPropertyName(Class cls, NSString* proper
             } else {
                 
                 id type = [propertySchema.types objectAtIndex:0];
-                
+
+                NSString* ivarName = defaultInstanceVariableNameForPropertyName(propertyName);
+
+                char *ivarEncoding = @encode(NSString);
+                NSUInteger ivarSize, ivarAlign;
+                NSGetSizeAndAlignment(ivarEncoding, &ivarSize, &ivarAlign);
+
+                if (!class_addIvar(cls, [ivarName UTF8String], ivarSize, ivarAlign, ivarEncoding)) {
+                    abort(); // TODO: throw an exception or try a different ivar
+                }
+
                 if ([type isEqual:JSONSchemaTypeString]) {
-                    
-                    NSString* ivarName = defaultInstanceVariableNameForPropertyName(propertyName);
-                    
-                    char *ivarEncoding = @encode(NSString);
-                    NSUInteger ivarSize, ivarAlign;
-                    NSGetSizeAndAlignment(ivarEncoding, &ivarSize, &ivarAlign);
-                    
-                    if (!class_addIvar(cls, [ivarName UTF8String], ivarSize, ivarAlign, ivarEncoding)) {
-                        AssertNYI();
-                    }
-                    
+
                     objc_property_attribute_t type = { "T", "@\"NSString\"" };
                     objc_property_attribute_t ownership = { "C", "" }; // C = copy
                     objc_property_attribute_t backingivar  = { "V", [ivarName UTF8String] };
                     
                     objc_property_attribute_t attrs[] = { type, ownership, backingivar };
                     class_addProperty(cls, [propertyName UTF8String], attrs, 3);
-                    
-                    SEL getterSel = [self getterSelectorForPropertyName:propertyName];
-                    SEL setterSel = [self setterSelectorForPropertyName:propertyName];
-                    IMP getterImp = [self getterImpForPropertyName:propertyName instanceVariableName:ivarName];
-                    IMP setterImp = [self setterImpForPropertyName:propertyName instanceVariableName:ivarName];
-                    
-                    class_replaceMethod(cls, getterSel, getterImp, "@@:");
-                    class_replaceMethod(cls, setterSel, setterImp, "v@:@");
-                    
+
+                } else if ([type isEqual:JSONSchemaTypeNumber]) {
+
+                    objc_property_attribute_t type = { "T", "@\"NSNumber\"" };
+                    objc_property_attribute_t ownership = { "R", "" }; 
+                    objc_property_attribute_t backingivar  = { "V", [ivarName UTF8String] };
+
+                    objc_property_attribute_t attrs[] = { type, ownership, backingivar };
+                    class_addProperty(cls, [propertyName UTF8String], attrs, 3);
+
                 } else {
-                    abort();
+                    AssertNYI();
                 }
+
+                SEL getterSel = [self getterSelectorForPropertyName:propertyName];
+                SEL setterSel = [self setterSelectorForPropertyName:propertyName];
+                IMP getterImp = [self getterImpForPropertyName:propertyName instanceVariableName:ivarName];
+                IMP setterImp = [self setterImpForPropertyName:propertyName instanceVariableName:ivarName];
+
+                class_replaceMethod(cls, getterSel, getterImp, "@@:");
+                class_replaceMethod(cls, setterSel, setterImp, "v@:@");
+
             }
         }];
-        
+
         objc_registerClassPair(cls);
     
     } else {

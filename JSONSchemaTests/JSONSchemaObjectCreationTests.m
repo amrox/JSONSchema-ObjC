@@ -36,25 +36,25 @@
             }
         }
     };
-    
+
     NSError* error = nil;
     JSONSchemaDocument* schema = [JSONSchemaDocument JSONSchemaWithObject:schemaDict error:&error];
-    STAssertNil(error, @"error: %@", error);
+    XCTAssertNil(error, @"error: %@", error);
     
     // Create an instance of the object defined by the schema
     
     Class cls = [schema registerClass];
-    STAssertNotNil(cls, @"class is nil");
+    XCTAssertNotNil(cls, @"class is nil");
     id obj = [[cls alloc] init];
     
     // Test set and get valid value
     
     [obj setValue:@"red" forKey:@"color"];
-    STAssertEqualObjects([obj valueForKey:@"color"], @"red", @"should be red");
+    XCTAssertEqualObjects([obj valueForKey:@"color"], @"red", @"should be red");
     
     // Test set invalid value
     
-    STAssertThrows([obj setValue:@"purple" forKey:@"color"], @"should throw for invalid value");
+    XCTAssertThrows([obj setValue:@"purple" forKey:@"color"], @"should throw for invalid value");
 }
 
 - (void) testCreateClassWithPreviousDefinition
@@ -77,12 +77,12 @@
     
     NSError* error = nil;
     JSONSchemaDocument* schema = [JSONSchemaDocument JSONSchemaWithObject:schemaDict error:&error];
-    STAssertNil(error, @"error: %@", error);
+    XCTAssertNil(error, @"error: %@", error);
     
     // Create an instance of the object defined by the schema
     
     Class cls = [schema registerClass];
-    STAssertNotNil(cls, @"class is nil");
+    XCTAssertNotNil(cls, @"class is nil");
 
     Cat* cat = [[Cat alloc] init];
     
@@ -90,11 +90,46 @@
     
     cat.color = @"orange";
     
-    STAssertEqualObjects(cat.color, @"orange", @"should be orange");
+    XCTAssertEqualObjects(cat.color, @"orange", @"should be orange");
     
     // Test set invalid value
     
-    STAssertThrows([cat setColor:@"purple"], @"should throw for invalid value");
+    XCTAssertThrows([cat setColor:@"purple"], @"should throw for invalid value");
+}
+
+- (void) testCreateClassWithNumberProperty
+{
+    // Set up a basic JSON-Schema for a "Hat" object. It has a single property "color",
+    // which is a string and can have the values ("red", "green", "blue").
+
+    NSDictionary* schemaDict = @{
+                                 @"title" : @"Pants",
+                                 @"properties" : @{
+                                         @"size" : @{
+                                                 @"type": @"number",
+                                                 @"maximum": @3
+                                                 }
+                                         }
+                                 };
+
+    NSError* error = nil;
+    JSONSchemaDocument* schema = [JSONSchemaDocument JSONSchemaWithObject:schemaDict error:&error];
+    XCTAssertNil(error, @"error: %@", error);
+
+    // Create an instance of the object defined by the schema
+
+    Class cls = [schema registerClass];
+    XCTAssertNotNil(cls, @"class is nil");
+    id obj = [[cls alloc] init];
+
+    // Test set and get valid value
+
+    [obj setValue:@1 forKey:@"size"];
+    XCTAssertEqualObjects([obj valueForKey:@"size"], @1, @"should be 1");
+
+    // Test set invalid value
+
+    XCTAssertThrows([obj setValue:@10 forKey:@"size"], @"should throw for invalid value");
 }
 
 @end

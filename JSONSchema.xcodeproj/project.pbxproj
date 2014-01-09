@@ -10,6 +10,7 @@
 		B30A37C61749939E009344E6 /* JSONSchemaDocument_v3+Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = B30A37C41749939E009344E6 /* JSONSchemaDocument_v3+Validation.m */; };
 		B31161D51617F6E800AE6353 /* JSONSchemaValidationResult.h in Headers */ = {isa = PBXBuildFile; fileRef = B31161D31617F6E800AE6353 /* JSONSchemaValidationResult.h */; };
 		B31161D61617F6E800AE6353 /* JSONSchemaValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */; };
+		B33FB7A6187E3EA900C9C7C9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B33FB7A5187E3EA900C9C7C9 /* XCTest.framework */; };
 		B33FDBB517541316001BAC97 /* JSONSchemaDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = B33FDBB317541316001BAC97 /* JSONSchemaDocument.h */; };
 		B33FDBB617541316001BAC97 /* JSONSchemaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FDBB417541316001BAC97 /* JSONSchemaDocument.m */; };
 		B33FDBBA17541557001BAC97 /* JSONSchemaDocument_v4.h in Headers */ = {isa = PBXBuildFile; fileRef = B33FDBB817541557001BAC97 /* JSONSchemaDocument_v4.h */; };
@@ -32,7 +33,6 @@
 		B3DA781B16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DA781A16A3AA9C00807823 /* JSONSchemaObjectCreationTests.m */; };
 		B3E38D0514F9ACEB00ECEE91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */; };
 		B3E38D0B14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */; };
-		B3E38D1314F9ACEB00ECEE91 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */; };
 		B3E38D1514F9ACEB00ECEE91 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D1414F9ACEB00ECEE91 /* UIKit.framework */; };
 		B3E38D1614F9ACEB00ECEE91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */; };
 		B3E38D1914F9ACEB00ECEE91 /* libJSONSchema.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E38D0114F9ACEB00ECEE91 /* libJSONSchema.a */; };
@@ -58,6 +58,7 @@
 		B31161D41617F6E800AE6353 /* JSONSchemaValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaValidationResult.m; sourceTree = "<group>"; };
 		B31161D81617F70C00AE6353 /* JSONSchemaValidationResult+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationResult+Private.h"; sourceTree = "<group>"; };
 		B3159325169008C40044E48E /* JSONSchemaValidationContext+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchemaValidationContext+Private.h"; sourceTree = "<group>"; };
+		B33FB7A5187E3EA900C9C7C9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B33FDBB2175412E9001BAC97 /* JSONSchema.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchema.h; sourceTree = "<group>"; };
 		B33FDBB317541316001BAC97 /* JSONSchemaDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDocument.h; sourceTree = "<group>"; };
 		B33FDBB417541316001BAC97 /* JSONSchemaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDocument.m; sourceTree = "<group>"; };
@@ -92,8 +93,7 @@
 		B3E38D0814F9ACEB00ECEE91 /* JSONSchema-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JSONSchema-Prefix.pch"; sourceTree = "<group>"; };
 		B3E38D0914F9ACEB00ECEE91 /* JSONSchemaDocument_v3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONSchemaDocument_v3.h; sourceTree = "<group>"; };
 		B3E38D0A14F9ACEB00ECEE91 /* JSONSchemaDocument_v3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONSchemaDocument_v3.m; sourceTree = "<group>"; };
-		B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONSchemaTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSONSchemaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E38D1414F9ACEB00ECEE91 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		B3E38D1C14F9ACEB00ECEE91 /* JSONSchemaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSONSchemaTests-Info.plist"; sourceTree = "<group>"; };
 		B3E38D1E14F9ACEB00ECEE91 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E38D1314F9ACEB00ECEE91 /* SenTestingKit.framework in Frameworks */,
+				B33FB7A6187E3EA900C9C7C9 /* XCTest.framework in Frameworks */,
 				B3E38D1514F9ACEB00ECEE91 /* UIKit.framework in Frameworks */,
 				B3E38D1614F9ACEB00ECEE91 /* Foundation.framework in Frameworks */,
 				B3E38D1914F9ACEB00ECEE91 /* libJSONSchema.a in Frameworks */,
@@ -184,7 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				B3E38D0114F9ACEB00ECEE91 /* libJSONSchema.a */,
-				B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.octest */,
+				B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,8 +192,8 @@
 		B3E38D0314F9ACEB00ECEE91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B33FB7A5187E3EA900C9C7C9 /* XCTest.framework */,
 				B3E38D0414F9ACEB00ECEE91 /* Foundation.framework */,
-				B3E38D1214F9ACEB00ECEE91 /* SenTestingKit.framework */,
 				B3E38D1414F9ACEB00ECEE91 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -299,8 +299,8 @@
 			);
 			name = JSONSchemaTests;
 			productName = JSONSchemaTests;
-			productReference = B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = B3E38D1114F9ACEB00ECEE91 /* JSONSchemaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -498,14 +498,14 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JSONSchema/JSONSchema-Prefix.pch";
 				INFOPLIST_FILE = "JSONSchemaTests/JSONSchemaTests-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -515,14 +515,14 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JSONSchema/JSONSchema-Prefix.pch";
 				INFOPLIST_FILE = "JSONSchemaTests/JSONSchemaTests-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

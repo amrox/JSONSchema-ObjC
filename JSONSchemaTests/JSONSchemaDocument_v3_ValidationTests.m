@@ -25,7 +25,7 @@
 
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:schemaData error:&error];
-    STAssertNotNil(schema, @"error: %@", error);
+    XCTAssertNotNil(schema, @"error: %@", error);
 }
 
 - (void) testValidateStringOK
@@ -34,7 +34,7 @@
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result = [schema validate:@"fart"];
-    STAssertTrue([result isValid], @"errors: %@", result.errors);
+    XCTAssertTrue([result isValid], @"errors: %@", result.errors);
 }
 
 - (void) testValidateStringGoodType
@@ -43,7 +43,7 @@
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result =  [schema validate:@"fart"];
-    STAssertTrue([result isValid], @"errors: %@", result.errors);
+    XCTAssertTrue([result isValid], @"errors: %@", result.errors);
 }
 
 - (void) testValidateStringBadType
@@ -52,7 +52,7 @@
     schema.types = @[JSONSchemaTypeString];
 
     JSONSchemaValidationResult* result = [schema validate:@1];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringBadMinLength
@@ -62,7 +62,7 @@
     schema.minLength = @10;
 
     JSONSchemaValidationResult* result = [schema validate:@"fart"];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringBadMaxLength
@@ -72,7 +72,7 @@
     schema.maxLength = @2;
 
     JSONSchemaValidationResult* result = [schema validate:@"fart"];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringGoodPattern
@@ -82,7 +82,7 @@
     schema.pattern = @"bo.";
 
     JSONSchemaValidationResult* result = [schema validate:@"boo"];
-    STAssertTrue([result isValid], @"should pass validation");
+    XCTAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateStringBadPattern
@@ -92,7 +92,7 @@
     schema.pattern = @"bo.";
 
     JSONSchemaValidationResult* result =  [schema validate:@"foo"];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateStringGoodEnum
@@ -102,7 +102,7 @@
     schema.possibleValues = @[@"dog", @"cat"];
 
     JSONSchemaValidationResult* result = [schema validate:@"dog"];
-    STAssertTrue([result isValid], @"should pass validation");
+    XCTAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateStringBadEnum
@@ -112,7 +112,7 @@
     schema.possibleValues = @[@"dog", @"cat"];
 
     JSONSchemaValidationResult* result = [schema validate:@"walrus"];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateNumberGoodTypeInteger
@@ -121,7 +121,7 @@
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@5];
-    STAssertTrue([result isValid], @"should pass validation");
+    XCTAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateNumberGoodTypeFloat
@@ -130,7 +130,7 @@
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@5.5f];
-    STAssertTrue([result isValid], @"should pass validation");
+    XCTAssertTrue([result isValid], @"should pass validation");
 }
 
 - (void) testValidateNumberBadType
@@ -139,7 +139,7 @@
     schema.types = @[JSONSchemaTypeNumber];
 
     JSONSchemaValidationResult* result = [schema validate:@"pineapple"];
-    STAssertFalse([result isValid], @"should fail validation");
+    XCTAssertFalse([result isValid], @"should fail validation");
 }
 
 - (void) testValidateIntegerGood
@@ -149,7 +149,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@5 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateIntegerBadFloat
@@ -159,7 +159,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@5.5f errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 
@@ -171,7 +171,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberExactMinimum
@@ -182,7 +182,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberGoodExclusiveMinimum
@@ -193,7 +193,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@5 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadExclusiveMinimum
@@ -204,7 +204,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberBadMinimum
@@ -215,7 +215,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberGoodMaximum
@@ -226,7 +226,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberExactMaximum
@@ -237,7 +237,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@5 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadMaximum
@@ -248,7 +248,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberGoodExclusiveMaximum
@@ -259,7 +259,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberBadExclusiveMaximum
@@ -270,7 +270,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4 errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateBooleanGoodTrue
@@ -280,7 +280,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@YES  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateBooleanGoodFalse
@@ -290,7 +290,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@NO  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateBooleanBadNumber
@@ -300,7 +300,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@5  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateBooleanBadType
@@ -310,7 +310,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@"purple"  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberDivisbleByGood
@@ -321,7 +321,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNumberDivisbleByBadDivide
@@ -332,7 +332,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@3  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNumberDivisbleByBadType
@@ -343,7 +343,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@4.5f  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodType
@@ -353,7 +353,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@[]  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadType
@@ -363,7 +363,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@[]  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodMinItems
@@ -376,7 +376,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadMinItems
@@ -389,7 +389,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodMaxItems
@@ -402,7 +402,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadMaxItems
@@ -415,7 +415,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodUniqueItems
@@ -428,7 +428,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadUniqueItems
@@ -441,7 +441,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateArrayGoodEnum
@@ -454,7 +454,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateArrayBadEnum
@@ -467,7 +467,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateObjectGoodType
@@ -479,7 +479,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:object  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateObjectBadType
@@ -489,7 +489,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@"mouse"  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateNullGoodType
@@ -499,7 +499,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:[NSNull null]  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateNullBadType
@@ -509,7 +509,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@0  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateDisallowPass
@@ -519,7 +519,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@"fart"  errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidateDisallowFail
@@ -529,7 +529,7 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@1  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateRequiredPropertyFail
@@ -542,7 +542,7 @@
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@{@"green": @1}
                                        errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 - (void) testValidateRequiredPropertyPass
@@ -555,7 +555,7 @@
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@{@"purple": @1}
                                        errors:&errors];
-    STAssertTrue(validationSuccess, @"should pass validation");
+    XCTAssertTrue(validationSuccess, @"should pass validation");
 }
 
 - (void) testValidatePropertyTypeFail
@@ -568,7 +568,7 @@
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:@{@"purple": @"hi"}
                                        errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 }
 
 #pragma mark -
@@ -583,9 +583,9 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 
-    STAssertTrue([errors count] == 2, @"should be 2 errors");
+    XCTAssertTrue([errors count] == 2, @"should be 2 errors");
 }
 
 - (void) testMultipleErrorsReturnedForArrayItems
@@ -600,9 +600,9 @@
 
     NSArray* errors = nil;
     BOOL validationSuccess = [schema validate:array  errors:&errors];
-    STAssertFalse(validationSuccess, @"should fail validation");
+    XCTAssertFalse(validationSuccess, @"should fail validation");
 
-    STAssertTrue([errors count] == 2, @"should be 2 errors");
+    XCTAssertTrue([errors count] == 2, @"should be 2 errors");
 }
 
 @end

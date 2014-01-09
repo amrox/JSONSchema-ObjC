@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface JSONSchemaDocument_v3_ValidationTests : SenTestCase
+@interface JSONSchemaDocument_v3_ValidationTests : XCTestCase
 
 @end

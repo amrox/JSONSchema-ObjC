@@ -49,19 +49,19 @@
     
     type = JSONSchemaTypeObject;
     valid = [schema validateValue:&type forKey:@"types" error:&error];
-    STAssertTrue(valid, @"error: %@", error);
+    XCTAssertTrue(valid, @"error: %@", error);
     
     type = @"fart";
     valid = [schema validateValue:&type forKey:@"types" error:&error];
-    STAssertFalse(valid, @"error: %@", error);
+    XCTAssertFalse(valid, @"error: %@", error);
     
     type = @[@"string", @"object"];
     valid = [schema validateValue:&type forKey:@"types" error:&error];
-    STAssertTrue(valid, @"error: %@", error);
+    XCTAssertTrue(valid, @"error: %@", error);
             
     type = @[@"string", @"pickle"];
     valid = [schema validateValue:&type forKey:@"types" error:&error];
-    STAssertFalse(valid, @"error: %@", error);
+    XCTAssertFalse(valid, @"error: %@", error);
 }
 
 - (void) testInvalidDescriptionType
@@ -73,19 +73,19 @@
     BOOL valid = NO;
     
     valid = [schema validateValue:&n forKey:@"descr" error:&error];
-    STAssertFalse(valid, @"should fail");
+    XCTAssertFalse(valid, @"should fail");
     
 }
 
 - (void) _testParsePath:(NSString*)path
 {
-    STAssertNotNil(path, @"path is nil");
+    XCTAssertNotNil(path, @"path is nil");
 
     NSData* data = [NSData dataWithContentsOfFile:path];
 
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:data error:&error];
-    STAssertNotNil(schema, @"error: %@", error);
+    XCTAssertNotNil(schema, @"error: %@", error);
     NSLog(@"%@", [schema dictionaryRepresentation]);
 }
 
@@ -111,8 +111,8 @@
     
     NSError* error = nil;
     JSONSchemaDocument_v3* schema = [JSONSchemaDocument_v3 JSONSchemaWithData:schemaData error:&error];
-    STAssertNotNil(schema, @"error: %@", error);
-    STAssertTrue([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]], @"schema.items should be a schema v3.");
+    XCTAssertNotNil(schema, @"error: %@", error);
+    XCTAssertTrue([schema.items isKindOfClass:[JSONSchemaDocument_v3 class]], @"schema.items should be a schema v3.");
 }
 
 

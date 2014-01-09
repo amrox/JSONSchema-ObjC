@@ -6,8 +6,8 @@
 //
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface JSONSchemaObjectCreationTests : SenTestCase
+@interface JSONSchemaObjectCreationTests : XCTestCase
 
 @end
